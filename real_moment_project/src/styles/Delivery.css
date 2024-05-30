@@ -1,0 +1,131 @@
+/* Delivery */
+.Delivery {
+  margin: 0 auto;
+}
+.Delivery .signup_content {
+  margin: 50px;
+  padding: 0;
+  border: none;
+  box-shadow: none;
+}
+.del_h2 {
+  margin: 0;
+}
+.Delivery_icon ul {
+  padding: 0;
+  margin-top: 30px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.Delivery_icon li {
+  width: 100px;
+  height: 80px;
+  padding-top: 5px;
+  margin: 0 30px;
+
+  list-style-type: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+
+  display: grid;
+  justify-content: center;
+  align-items: center;
+}
+.Delivery_icon .click {
+  background-color: #161616;
+  color: white;
+}
+.Delivery_icon li.click svg {
+  stroke: white;
+}
+
+/* .Delivery_icon li:active {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  } */
+.Delivery_icon .icon {
+  margin-left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.Delivery_icon .icon_location {
+  text-align: center;
+}
+
+.Delivery_icon p {
+  text-align: center;
+}
+.DeliveryForm .signup_content {
+  margin: 0;
+  padding: 0 0 0 40px;
+  border: none;
+  box-shadow: none;
+}
+.DeliveryForm select {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.DeliveryForm .btn_box {
+  width: 100%;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+}
+.DeliveryForm .btn_box > div {
+  margin: 15px;
+}
+.DeliveryForm .btn_box > div > button {
+  font-weight: bold;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+}
+.DeliveryForm .btn_box > div > button.default {
+  font-weight: lighter;
+  min-width: 120px;
+  min-height: 38px;
+  color: #fff;
+  padding: 8px 17px;
+  font-size: 14px;
+  border: 1px solid #ffffff;
+  border-radius: 5px;
+  box-shadow: 0 0 7px rgba(0, 0, 0, 0.12);
+  background-color: rgb(36, 36, 36);
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+}
+
+.Delivery .button_add {
+  text-align: center;
+}
+.Delivery .button_add button {
+  margin-bottom: 30px;
+  padding: 8px 30px;
+
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #161616;
+
+  color: white;
+  font-size: 16px;
+}
+.Delivery .button_add button:active {
+  box-shadow: none;
+}
+.DeliveryTable table tbody td {
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+.DeliveryTable .button_warpper {
+  display: flex;
+}
+.DeliveryTable .button_warpper > div {
+  padding: 0 10px;
+}
+
+.DeliveryTable .address > div {
+  padding: 2px 0;
+}

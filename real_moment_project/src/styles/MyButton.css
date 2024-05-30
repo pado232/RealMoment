@@ -1,0 +1,44 @@
+.MyButton button {
+  margin-top: 30px;
+  height: 50px;
+  background-color: #161616;
+  color: white;
+
+  width: 100%;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
+
+  font-size: 14px;
+  margin-bottom: 10px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.MyButton button:active {
+  box-shadow: none;
+}
+.MyButton span {
+  padding: 0 8px;
+}
+
+.WhiteButton button {
+  min-width: 120px;
+  min-height: 38px;
+
+  padding: 8px 12px;
+
+  border: 1px solid #eee;
+  border-radius: 5px;
+  box-shadow: 0 0 7px rgba(0, 0, 0, 0.12);
+  background-color: white;
+  cursor: pointer;
+}
+.WhiteButton button:active {
+  box-shadow: none;
+}
+.WhiteButton span {
+  font-size: 14px;
+}

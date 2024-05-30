@@ -1,0 +1,298 @@
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+table thead tr {
+  border-bottom: 1px solid black;
+  border-top: 3px solid black;
+  text-align: center;
+}
+table thead th {
+  padding: 15px 0;
+  text-align: center;
+}
+table td {
+  padding: 10px;
+}
+
+.pagination {
+  min-width: 1300px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Mypage {
+}
+/* .mypage_content {
+  position: relative;
+  top: 220px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 1300px;
+  margin-bottom: 300px;
+} */
+.mypage_menu ul {
+  display: flex;
+  margin-bottom: 0;
+  padding: 0;
+}
+.mypage_menu li {
+  width: 17%;
+  height: 40px;
+
+  letter-spacing: 1px;
+
+  list-style-type: none;
+  border: 1px solid #ccc;
+  border-radius: 12px 12px 0 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+
+  background-color: #eee;
+  cursor: pointer;
+}
+
+.mypage_menu li.click {
+  background-color: white;
+  font-weight: bold;
+}
+.mypage_menu a {
+  color: black;
+  text-decoration: none;
+}
+
+/* Review */
+.Review .review_menu ul {
+  margin: 0;
+  padding: 0;
+
+  background-color: #ececec;
+  letter-spacing: 2px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.Review .review_menu ul li {
+  width: 100%;
+  padding: 10px;
+  border-bottom: none;
+  list-style-type: none;
+  border-top: 5px solid #ececec;
+  text-align: center;
+  font-size: 17px;
+  cursor: pointer;
+}
+.Review .review_menu ul li.clicked {
+  border: 1px solid #999999;
+  border-top: 5px solid #999999;
+  background-color: white;
+  border-bottom: none;
+  font-weight: bold;
+}
+
+.ReviewWrite {
+}
+.ReviewWrite h2 {
+  text-align: center;
+  margin: 50px;
+}
+.ReviewWrite .iteminfo {
+  margin-top: 5px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.ReviewWrite ul li {
+  margin: 0;
+  list-style-type: none;
+}
+.ReviewWrite table tbody tr {
+  border-bottom: 1px solid #eee;
+}
+
+.ReviewMine {
+}
+.ReviewMine h2 {
+  text-align: center;
+  margin: 50px;
+}
+.ReviewMine .iteminfo {
+  text-align: initial;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.ReviewMine .iteminfo .price span {
+  text-decoration: line-through;
+}
+.ReviewMine .iteminfo {
+  padding: 0 30px;
+}
+.ReviewMine .iteminfo .img_box {
+  padding-right: 10px;
+  margin: 10px;
+}
+.ReviewMine .iteminfo .img_box img {
+  width: 100px;
+  height: 100px;
+}
+.ReviewMine .iteminfo .detail_box > div {
+  padding: 3px;
+}
+.ReviewMine .iteminfo .detail_box .detail {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.ReviewMine .iteminfo .detail_box .detail > div {
+  padding-right: 10px;
+}
+.ReviewMine .date > div {
+  padding: 3px;
+}
+.ReviewMine table {
+  width: 100%;
+  text-align: center;
+}
+.ReviewMine table tbody tr {
+  border-bottom: 1px solid #eee;
+}
+.ReviewMine .button_warpper {
+  display: flex;
+  justify-content: center;
+}
+
+/* ReviewWrite */
+.ReviewWrite {
+}
+.ReviewWriteBox .item_warpper {
+  padding: 10px 20px;
+  border-top: 3px solid #161616;
+  border-bottom: 1px solid #161616;
+
+  margin-bottom: 20px;
+
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.ReviewWriteBox .item_warpper .item_name {
+  padding-left: 30px;
+}
+.ReviewWriteBox h2 {
+  margin-left: 15px;
+  font-size: 20px;
+}
+
+.ReviewWriteBox .stars_warpper {
+  padding-bottom: 5px;
+  text-align: center;
+  border-bottom: 1px dashed #ccc;
+}
+.ReviewWriteBox .stars_warpper .stars {
+  padding: 10px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.ReviewWriteBox .stars_warpper .stars div {
+  padding: 0 3px;
+}
+.ReviewWriteBox .content_warpper {
+  padding: 20px 0;
+  text-align: center;
+}
+.ReviewWriteBox input {
+  width: 100%;
+  height: 20px;
+  padding: 10px;
+  margin-top: 10px;
+
+  border: 1px solid #dbdbdb;
+  border-radius: 5px;
+  font-size: 15px;
+}
+.ReviewWriteBox input:focus {
+  border: 1px solid #ff8a8a;
+  outline: none;
+}
+.ReviewWriteBox textarea {
+  width: 100%;
+  height: 200px;
+  padding: 10px;
+  margin-top: 10px;
+
+  border: 1px solid #dbdbdb;
+  resize: none; /* 크기 조절*/
+  border-radius: 5px;
+  font-size: 15px;
+}
+.ReviewWriteBox textarea:focus {
+  border: 1px solid #ff8a8a;
+  outline: none;
+}
+.ReviewWriteBox .button_warpper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.ReviewWriteBox button {
+  margin-top: 0;
+  font-size: 14px;
+  width: 120px;
+  height: 38px;
+}
+.ReviewWriteBox button:active {
+  box-shadow: none;
+}
+
+.ReviewLookBox {
+}
+.ReviewLookBox h2 {
+  margin-left: 15px;
+  font-size: 20px;
+}
+.ReviewLookBox .item_warpper {
+  padding: 5px 0;
+  border-top: 3px solid #161616;
+  border-bottom: 1px solid #161616;
+
+  margin-bottom: 20px;
+
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.ReviewLookBox .item_warpper .item_name {
+  padding-left: 30px;
+  height: 60px;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+}
+.ReviewLookBox .stars {
+  margin-top: 30px;
+  margin-right: 10px;
+  text-align: end;
+}
+
+.ReviewLookBox .title {
+  margin-top: 15px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: bold;
+}
+.ReviewLookBox .content_warpper .content {
+  padding-bottom: 50px;
+}
+.ReviewLookBox .content_warpper .content > div {
+  background-color: #fdefef;
+  border-radius: 10px;
+  padding: 30px;
+}

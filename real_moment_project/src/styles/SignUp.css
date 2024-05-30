@@ -1,0 +1,62 @@
+.SignUp {
+  margin-top: 180px;
+}
+.signup_content {
+  max-width: 500px;
+  margin: 50px auto;
+  padding: 20px 50px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.signup_title {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+.input {
+  width: 90%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.input:focus::placeholder {
+  color: transparent;
+}
+.pw_error {
+  color: rgb(255, 25, 25);
+  font-size: 12px;
+  font-weight: bold;
+  margin-left: 5px;
+}
+.signup_content .greenbutton {
+  background-color: rgb(114, 184, 108);
+  color: rgb(253, 255, 233);
+
+  padding: 8px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+.signup_content .greenbutton:active {
+  box-shadow: none;
+}
+.signup_content span {
+  padding: 0 8px;
+}
+.signup_content select {
+  padding: 7px;
+}
+.signup_content label {
+  padding-right: 30px;
+}
+.SignUp .input[readonly] {
+  background-color: #f0f0f0; /* 배경색을 회색으로 변경 */
+  color: #666; /* 텍스트 색상을 회색으로 변경 */
+  /* 기타 필요한 스타일 추가 */
+}

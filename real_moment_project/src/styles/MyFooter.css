@@ -1,0 +1,30 @@
+/* FOOTER */
+.MyFooter {
+  position: relative;
+  height: 0px;
+  width: 100%;
+}
+footer {
+  /* position: absolute;
+    top: auto;
+    left: 0; */
+  margin-top: 50px;
+  width: 100%;
+  min-width: 1270px;
+  padding: 20px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: 1px solid black;
+}
+footer div {
+  width: 20%;
+  padding: 10px;
+}
+footer .foot_3 p {
+  font-size: 14px;
+}
+footer .foot_4 select {
+  width: 70%;
+  cursor: pointer;
+}

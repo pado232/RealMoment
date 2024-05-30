@@ -1,0 +1,87 @@
+/* 회원정보 수정 */
+.EditInfo {
+  margin: 0 auto;
+}
+
+.EditInfo .line {
+  border-bottom: 3px solid black;
+  margin-bottom: 20px;
+}
+.editinfo_content {
+  width: 70%;
+}
+.editinfo_content table th {
+  padding: 20px 50px;
+  text-align: center;
+}
+.editinfo_content table tbody tr {
+  border-bottom: 1px solid #eee;
+}
+.editinfo_content p {
+  font-size: 13px;
+}
+
+/* EditPassword */
+.EditPassword {
+  margin-left: 80px;
+  margin-top: 20px;
+  text-align: start;
+}
+.EditPassword .editPassword_content {
+}
+.EditPassword .signup_title {
+  text-align: start;
+  font-weight: lighter;
+
+  margin: 5px 10px;
+}
+
+.EditPassword button {
+  margin-left: 40px;
+  width: 80px;
+  height: 35px;
+  margin-bottom: 0px;
+  margin-top: 20px;
+}
+
+/* EditeMail */
+.EditeMail {
+  margin-left: 100px;
+  text-align: start;
+}
+.EditeMail .box {
+  width: 400px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+
+  display: flex;
+  justify-content: flex-start; /*start*/
+  align-items: center;
+}
+.EditeMail .box input {
+  padding: 8px;
+  width: 225px;
+  height: 19px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+.EditInfo .button_warpper {
+  display: flex;
+  margin-bottom: 30px;
+}
+.EditeMail button {
+  margin-left: 40px;
+  width: 80px;
+  height: 35px;
+  margin-bottom: 0px;
+  margin-top: 20px;
+}
+.EditeMail .box > div > button {
+  padding: 0px;
+  min-width: 0px;
+  width: 80px;
+}
+.EditeMail .box > div > button > span {
+  letter-spacing: 1px;
+}
