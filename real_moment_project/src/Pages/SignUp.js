@@ -25,6 +25,7 @@ const SignUp = () => {
   const navigate = useNavigate();
   const inputRef = useRef([]);
   const [infoCollect, setInfoCollect] = useState(false);
+  const [certificationEnabled, setCertificationEnabled] = useState(false);
   const [idValid, setIdValid] = useState(false);
   const [doubleCheck, setDoubleCheck] = useState(false);
   const [idCheckMessage, setIdCheckMessage] = useState("");
@@ -33,6 +34,7 @@ const SignUp = () => {
     pw: "",
     pwcheck: "",
     email: "",
+    code: "",
     name: "",
     phone1: "010",
     phone2: "",
@@ -143,11 +145,6 @@ const SignUp = () => {
       return; // 이메일 형식이 유효하지 않으면 전송을 막음
     }
 
-    // if (state.addrnum === "") {
-    //   setModalIsOpen(true);
-    //   return;
-    // }
-
     // 성별 유효성 검사
     if (state.gender === "") {
       inputRef.current[7].focus();
@@ -192,6 +189,7 @@ const SignUp = () => {
           pw: "",
           pwcheck: "",
           email: "",
+          code: "",
           name: "",
           phone1: "010",
           phone2: "",
@@ -209,6 +207,52 @@ const SignUp = () => {
       })
       .catch((error) => {
         console.log("관리자 가입 저장 실패", error);
+      });
+  };
+
+  const handleEmailSubmit = (event) => {
+    event.preventDefault();
+
+    const emailReg = /^[a-z0-9_+.-]+@([a-z0-9-]+\.)+[a-z0-9]{2,4}$/;
+    if (!emailReg.test(state.email)) {
+      inputRef.current[4].focus();
+      return;
+    }
+
+    axios
+      .post(`http://localhost:8080/email/html`, {
+        email: state.email,
+      })
+      .then((res) => {
+        setCertificationEnabled(true);
+        window.alert(
+          "해당 이메일로 인증 코드를 전송했습니다. 인증 코드를 기입해주세요."
+        );
+        console.log("이메일 인증 코드 보내기 성공", res);
+      })
+      .catch((error) => {
+        console.log("이메일 인증 코드 보내기실패", error);
+      });
+  };
+
+  const handleEmailCodeSubmit = (event) => {
+    // 인증 완료했으면 유효성 검사 추가하기
+
+    event.preventDefault();
+
+    axios
+      .post(`http://localhost:8080/email/code/check`, {
+        email: state.email,
+        code: state.code,
+      })
+      .then((res) => {
+        setCertificationEnabled(false);
+        window.alert("인증이 완료되었습니다.");
+
+        console.log("이메일 인증 성공", res);
+      })
+      .catch((error) => {
+        console.log("이메일 인증 실패", error);
       });
   };
 
@@ -303,6 +347,26 @@ const SignUp = () => {
             inputRef={inputRef}
             autoComplete={"email"}
           />
+          <WhiteButton
+            style={{ marginBottom: 20 }}
+            buttonText={"인증"}
+            onClick={handleEmailSubmit}
+          />
+          <div className="box">
+            <input
+              className="input"
+              placeholder="인증번호 입력"
+              name="code"
+              value={state.code}
+              ref={(el) => (inputRef.current[4] = el)}
+              onChange={handleChangeState}
+              disabled={!certificationEnabled}
+            />
+          </div>
+
+          <button className="greenbutton" onClick={handleEmailCodeSubmit}>
+            인증 확인
+          </button>
 
           <div className="signup_title">이름</div>
           <input
@@ -310,7 +374,7 @@ const SignUp = () => {
             name="name"
             value={state.name}
             onChange={handleChangeState}
-            ref={(el) => (inputRef.current[4] = el)}
+            ref={(el) => (inputRef.current[5] = el)}
             autoComplete="username"
           />
 
@@ -318,6 +382,8 @@ const SignUp = () => {
             state={state}
             handleChangeState={handleChangeState}
             inputRef={inputRef}
+            indexOne={6}
+            indexTwo={7}
             autoCompletePhoneOne={"phone-one"}
             autoCompletePhoneTwo={"phone-two"}
           />
@@ -330,7 +396,7 @@ const SignUp = () => {
               name="gender"
               id="male"
               value="남"
-              ref={(el) => (inputRef.current[7] = el)}
+              ref={(el) => (inputRef.current[8] = el)}
               onChange={handleChangeState}
             />
             <span>남자</span>
@@ -342,7 +408,7 @@ const SignUp = () => {
               name="gender"
               id="female"
               value="여"
-              ref={(el) => (inputRef.current[8] = el)}
+              ref={(el) => (inputRef.current[9] = el)}
               onChange={handleChangeState}
             />
             <span>여자</span>

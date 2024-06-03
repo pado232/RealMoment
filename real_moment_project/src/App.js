@@ -11,6 +11,9 @@ import LoginHeader from "./Components/LoginHeader";
 import SignUp from "./Pages/SignUp";
 import MyPage from "./Pages/MyPage";
 import MyFooter from "./Components/MyFooter";
+import { CategoryProvider } from "./Components/Menu/CategoryProvider";
+import Menu from "./Components/Menu/Menu";
+import Item from "./Pages/Item";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -57,6 +60,16 @@ function App() {
     }
   };
 
+  const renderMenu = () => {
+    if (location.pathname === "/login") {
+      return "";
+    } else if (location.pathname === "/signup") {
+      return "";
+    } else {
+      return <Menu />;
+    }
+  };
+
   const renderFooter = () => {
     if (location.pathname === "/login") {
       return "";
@@ -68,21 +81,20 @@ function App() {
   };
 
   return (
-    <div className="App">
-      {renderHeader()}
-      {/* 로그인 상태 및 로그아웃 함수 전달 */}
-      {/* {isLoggedIn && <Menu />} */}
-      {/* 로그인되었을 때만 메뉴 표시 */}
-      <Routes>
-        {/* 각 메뉴 항목에 대한 라우트를 동적으로 생성합니다 */}
-
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login onLogin={handleLogin} />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/mypage" element={<MyPage />} />
-      </Routes>
-      {renderFooter()}
-    </div>
+    <CategoryProvider>
+      <div className="App">
+        {renderHeader()}
+        {renderMenu()}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/item/:categoryId" element={<Item />} />
+          <Route path="/login" element={<Login onLogin={handleLogin} />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/mypage" element={<MyPage />} />
+        </Routes>
+        {renderFooter()}
+      </div>
+    </CategoryProvider>
   );
 }
 

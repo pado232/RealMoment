@@ -1,0 +1,64 @@
+.Menu {
+  position: fixed;
+  top: 126px;
+  left: 0;
+
+  float: inline-start;
+  z-index: 10;
+  /* animation: menu-ani 1.3s ease forwards; */
+  width: 100%;
+}
+.Menu .containor {
+  border-bottom: 1px solid black;
+  background-color: #fff;
+  padding: 10px;
+}
+.Menu ul {
+  margin: 0;
+}
+.Menu ul li {
+  margin: 0 50px;
+  list-style-type: none;
+}
+.Menu ul li a {
+  text-decoration-line: none;
+  color: black;
+}
+
+.Menu li button {
+  font-size: 22px;
+  background-color: rgba(255, 255, 255, 0);
+  border: none;
+  cursor: pointer;
+}
+.Menu li button.click {
+}
+
+.Menu .menu_main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+}
+
+/* MenuList */
+.MenuList {
+  background-color: rgba(255, 255, 255, 0.6);
+}
+.MenuList nav {
+  padding: 20px;
+}
+.MenuList nav ul {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+}
+.MenuList nav ul li.title {
+  font-weight: bold;
+}
+.MenuList nav ul li {
+  margin: 5px 0;
+  list-style-type: none;
+  width: 100px;
+}

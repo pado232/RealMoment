@@ -48,7 +48,7 @@ const DeliveryTable = ({ deliveries, openModalForEdit }) => {
           {/** 배송지 리스트를 table로 작성 */}
           {deliveries.length === 0 ? (
             <tr>
-              <td colSpan={4} style={{ height: 300 }}>
+              <td colSpan={6} style={{ height: 300 }}>
                 <center>
                   <strong>등록된 배송지가 없습니다.</strong>
                 </center>

@@ -18,6 +18,7 @@ const OrderListTable = ({
   isWriteModalOpen,
   setIsWriteModalOpen,
   orderList,
+  triggerRefresh, // 새로고침 트리거 함수
 }) => {
   const customStyles = {
     content: {
@@ -60,14 +61,6 @@ const OrderListTable = ({
   };
 
   const ReviewCreate = (orderId, itemId) => {
-    console.log(
-      "확인하기 ",
-      orderId,
-      itemId,
-      review.title,
-      review.content,
-      review.star
-    );
     axiosInstance
       .post(`/member/${getCookie("Id")}/review`, {
         orderId: orderId,
@@ -78,6 +71,8 @@ const OrderListTable = ({
       })
       .then((res) => {
         console.log("ReviewCreate POST ", res);
+
+        triggerRefresh(); // 리뷰 제출 후 새로고침 트리거
       })
       .catch((error) => {
         console.error("ReviewCreate POST Error:", error);

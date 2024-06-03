@@ -1,7 +1,10 @@
+import Container from "../util/Container";
 const Home = () => {
   return (
     <div className="Home">
-      <h2> 홈 </h2>
+      <Container>
+        <h2> 홈 </h2>
+      </Container>
     </div>
   );
 };

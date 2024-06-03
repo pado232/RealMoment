@@ -8,6 +8,8 @@ const DeliveryForm = ({
   handleChangeState,
   handleAddressChange,
   inputRef,
+  indexOne,
+  indexTwo,
   state,
   handleSubmit,
   iconData,
@@ -67,7 +69,11 @@ const DeliveryForm = ({
         <PhoneInput
           state={state}
           handleChangeState={handleChangeState}
+          indexOne={indexOne}
+          indexTwo={indexTwo}
           inputRef={inputRef}
+          autoCompletePhoneOne={"phone-one"}
+          autoCompletePhoneTwo={"phone-two"}
         />
         {state.default && (
           <div style={{ fontSize: 14, padding: 5 }}>

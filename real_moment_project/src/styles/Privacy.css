@@ -46,12 +46,12 @@
 
 /* EditeMail */
 .EditeMail {
+  margin-top: 20px;
   margin-left: 100px;
   text-align: start;
 }
 .EditeMail .box {
   width: 400px;
-  margin-top: 20px;
   margin-bottom: 10px;
 
   display: flex;
@@ -66,6 +66,10 @@
   border-radius: 4px;
   font-size: 14px;
 }
+.EditeMail .box > div > div {
+  margin-top: 0px;
+}
+
 .EditInfo .button_warpper {
   display: flex;
   margin-bottom: 30px;
@@ -84,4 +88,9 @@
 }
 .EditeMail .box > div > button > span {
   letter-spacing: 1px;
+}
+.EditeMail .error {
+  color: red;
+  font-size: 13px;
+  font-weight: bold;
 }

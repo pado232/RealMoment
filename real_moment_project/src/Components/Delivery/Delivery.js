@@ -217,6 +217,8 @@ const Delivery = () => {
             inputRef={inputRef}
             handleAddressChange={handleAddressChange}
             handleChangeState={handleChangeState}
+            indexOne={5}
+            indexTwo={6}
             handleSubmit={
               editingDelivery
                 ? () => handleEdit(editingDelivery.addressId)

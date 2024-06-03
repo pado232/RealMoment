@@ -8,6 +8,7 @@ const Review = ({
   h2Text,
   WriteComponent,
   MyComponent,
+  MyReviewList,
 }) => {
   const [selectedMenu, setSelectedMenu] = useState("write"); // 기본값은 'write'로 설정
 
@@ -36,7 +37,9 @@ const Review = ({
         </div>
       </div>
       {/* 선택된 메뉴에 따라 해당하는 컴포넌트를 렌더링 */}
-      {selectedMenu === "write" && <WriteComponent />}
+      {selectedMenu === "write" && (
+        <WriteComponent MyReviewList={MyReviewList} />
+      )}
       {selectedMenu === "myReviews" && <MyComponent />}
     </div>
   );

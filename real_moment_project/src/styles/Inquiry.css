@@ -44,8 +44,8 @@
 }
 
 /* .Delivery_icon li:active {
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-  } */
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    } */
 .Delivery_icon .icon {
   margin-left: 0;
   display: flex;

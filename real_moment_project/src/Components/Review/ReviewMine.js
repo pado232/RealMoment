@@ -57,12 +57,6 @@ const ReviewMine = () => {
         console.log("MyReviewList GET ", res);
       })
       .catch((error) => {
-        // if (error.response?.data?.message === "NOT_AUTHORIZATION") {
-        //   navigate("/login");
-        // } else {
-        //   console.error("AdminDetails GET Error:", error);
-        // }
-
         console.error("MyReviewList GET Error:", error);
       });
   }, [nowPage]);
@@ -117,15 +111,6 @@ const ReviewMine = () => {
   };
 
   const inputRef = useRef([]);
-
-  // useEffect(() => {
-  //   if (selectedItem) {
-  //     setReview({
-  //       star: selectedItem.star,
-  //       // content: content,
-  //     });
-  //   }
-  // }, [selectedItem]);
 
   const handleStateChange = (e) => {
     const { name, value } = e.target;
@@ -189,24 +174,24 @@ const ReviewMine = () => {
                       src={review.item.mainImg}
                     />
                   </div>
+                  <div>
+                    <strong>{review.item.name}</strong>
+                  </div>
                   <div className="detail_box">
-                    <div>
-                      <strong>{review.item.name}</strong>
-                    </div>
                     <div className="detail">
-                      <div className="price">
+                      {/* <div className="price">
                         <span>{review.item.price.toLocaleString()}</span>원
                       </div>
                       <div>{review.item.discountRate}%</div>
                       <div>
                         (-{review.item.discountPrice.toLocaleString()}원)
-                      </div>
+                      </div> */}
 
                       {/* <div>
                         {review.item.sell === true ? "판매중" : "판매중지"}
                       </div> */}
                     </div>
-                    <div>{review.item.sellPrice}원</div>
+                    {/* <div>{review.item.sellPrice}원</div> */}
                   </div>
                 </div>
               </td>

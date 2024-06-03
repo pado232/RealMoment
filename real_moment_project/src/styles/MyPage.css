@@ -296,3 +296,33 @@ table td {
   border-radius: 10px;
   padding: 30px;
 }
+
+/* 1:1 문의를 위한 추가 사항*/
+.ReviewMine .comment .waiting {
+  /* font-weight: bold; */
+}
+.ReviewMine .comment .completed {
+  font-weight: bold;
+  color: #ff1515;
+}
+.ReviewMine .button_conta {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.ReviewMine .button_conta > div {
+  padding: 0 10px;
+}
+.ReviewMine .title {
+  font-weight: bold;
+  padding: 7px;
+}
+.ReviewMine .content {
+  padding: 7px;
+}
+.ReviewMine .no-data div {
+  text-align: center;
+  padding: 80px;
+  font-size: 18px;
+  color: #888;
+}

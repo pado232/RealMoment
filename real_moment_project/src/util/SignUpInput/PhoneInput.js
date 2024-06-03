@@ -11,6 +11,8 @@ const PhoneInput = ({
   state,
   handleChangeState,
   inputRef,
+  indexOne,
+  indexTwo,
   autoCompletePhoneOne,
   autoCompletePhoneTwo,
 }) => {
@@ -31,7 +33,7 @@ const PhoneInput = ({
         name="phone2"
         value={state.phone2}
         onChange={handleChangeState}
-        ref={(el) => (inputRef.current[5] = el)}
+        ref={(el) => (inputRef.current[indexOne] = el)}
         autoComplete={autoCompletePhoneOne}
       />
       <span>-</span>
@@ -43,7 +45,7 @@ const PhoneInput = ({
         name="phone3"
         value={state.phone3}
         onChange={handleChangeState}
-        ref={(el) => (inputRef.current[6] = el)}
+        ref={(el) => (inputRef.current[indexTwo] = el)}
         autoComplete={autoCompletePhoneTwo}
       />
     </div>

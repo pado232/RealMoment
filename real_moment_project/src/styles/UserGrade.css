@@ -25,11 +25,13 @@
 .title_content {
   margin-left: 25px;
 }
-.title_content a {
+.title_content .goInfo {
   padding-left: 10px;
   color: gray;
   font-size: 13px;
   text-decoration: none;
+
+  cursor: pointer;
 }
 .title_content strong {
   padding-right: 5px;
@@ -43,7 +45,7 @@
   justify-content: center;
   align-items: center;
 }
-.usergrade_sub a {
+.usergrade_sub .goPoint {
   width: 100%;
   height: 100%;
 
@@ -53,6 +55,9 @@
   display: grid;
   justify-content: center;
   align-items: center;
+
+  cursor: pointer;
+  pointer-events: auto;
 }
 
 .usergrade_sub .icon {

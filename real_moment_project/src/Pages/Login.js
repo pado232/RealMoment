@@ -83,7 +83,7 @@ const Login = ({ onLogin }) => {
         onLogin(AuthorizationToken, RefreshToken);
 
         // 로그인 성공 알림
-        navigate(-1);
+        navigate("/");
 
         console.log("로그인 서버 전송: ", response);
       })

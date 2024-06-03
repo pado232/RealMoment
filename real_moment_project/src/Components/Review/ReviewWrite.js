@@ -9,7 +9,7 @@ import { getCookie } from "../../api/Cookies";
 
 import "../../styles/OrderListTable.css";
 
-const ReviewWrite = () => {
+const ReviewWrite = ({ MyReviewList }) => {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [selectedPeriod, setSelectedPeriod] = useState(null);
@@ -151,6 +151,10 @@ const ReviewWrite = () => {
           orderList={orderList}
           isWriteModalOpen={isWriteModalOpen}
           setIsWriteModalOpen={setIsWriteModalOpen}
+          triggerRefresh={() => {
+            fetchOrderList();
+            MyReviewList();
+          }} // 트리거를 전달
         />
       </div>
       <div className="pagination">

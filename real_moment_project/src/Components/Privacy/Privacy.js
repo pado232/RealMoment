@@ -1,97 +1,58 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
 import EditPassword from "./EditPassword";
 import EditEmail from "./EditEmail";
 import WhiteButton from "../../util/Buttons/WhiteButton";
+import axiosInstance from "../../api/AxiosInstance";
+import { getCookie } from "../../api/Cookies";
 
 import "../../styles/Privacy.css";
 
-const infoDummy = [
-  {
-    info_id: "qwer123",
-    info_pw: "qwer123!!",
-    info_email: "qwer123@naver.com",
-    info_name: "성춘향",
-    info_male: "여자",
-    info_birth: "1999.01.01",
-  },
-];
-
-const hideSensitiveInfo = (info) => {
-  const hiddenInfo = { ...info };
-
-  // 패스워드를 *로 숨김
-  hiddenInfo.info_pw = "*".repeat(hiddenInfo.info_pw.length);
-
-  // 아이디의 가운데 5자리를 *로 숨김
-  const idLength = hiddenInfo.info_id.length;
-  const maskedId =
-    hiddenInfo.info_id.substring(0, idLength / 2 - 1) +
-    "*".repeat(4) +
-    hiddenInfo.info_id.substring(idLength / 2 + 3);
-  hiddenInfo.info_id = maskedId;
-
-  // 이름을 숨김
-  const nameLength = hiddenInfo.info_name.length;
-  if (nameLength === 2) {
-    // 이름의 길이가 2글자인 경우 가운데 1글자만 숨김
-    hiddenInfo.info_name =
-      hiddenInfo.info_name.substring(0, 1) +
-      "*" +
-      hiddenInfo.info_name.substring(2);
-  } else if (nameLength % 2 === 1) {
-    // 이름의 길이가 홀수인 경우 가운데 글자를 숨김
-    const middleIndex = Math.floor(nameLength / 2);
-    hiddenInfo.info_name =
-      hiddenInfo.info_name.substring(0, middleIndex) +
-      "*" +
-      hiddenInfo.info_name.substring(middleIndex + 1);
-  } else {
-    // 이름의 길이가 짝수인 경우 가운데 두 글자를 숨김
-    const middleIndex = nameLength / 2;
-    hiddenInfo.info_name =
-      hiddenInfo.info_name.substring(0, middleIndex - 1) +
-      "**" +
-      hiddenInfo.info_name.substring(middleIndex + 1);
-  }
-  // 이메일 가운데 4글자를 *로 숨기고, 도메인 부분의 문자를 .이 나올 때까지 *로 숨김
-  const atIndex = hiddenInfo.info_email.indexOf("@");
-  const dotIndex = hiddenInfo.info_email.lastIndexOf(".");
-  if (atIndex !== -1 && dotIndex !== -1 && atIndex < dotIndex) {
-    const beforeAt = hiddenInfo.info_email.substring(0, atIndex);
-    const afterAt = hiddenInfo.info_email.substring(atIndex + 1, dotIndex);
-    const afterDot = hiddenInfo.info_email.substring(dotIndex);
-    const maskedEmail =
-      beforeAt.substring(0, Math.max(0, Math.floor(beforeAt.length / 2) - 1)) +
-      "*".repeat(4) +
-      beforeAt.substring(Math.ceil(beforeAt.length / 2) + 2) +
-      "@" +
-      "*".repeat(afterAt.length) +
-      afterDot;
-    hiddenInfo.info_email = maskedEmail;
-  }
-
-  // 생년월일을 숨김
-  const birthParts = hiddenInfo.info_birth.split("."); // 생년월일을 년, 월, 일로 분리
-  if (birthParts.length === 3) {
-    const year = birthParts[0]; // 년도 부분
-    const month = birthParts[1]; // 월 부분
-    const day = birthParts[2]; // 일 부분
-    const hiddenMonth = "*".repeat(month.length); // 월을 '*'로 대체
-    const hiddenDay = "*".repeat(day.length); // 일을 '*'로 대체
-    hiddenInfo.info_birth = `${year}.${hiddenMonth}.${hiddenDay}`; // 숨겨진 월과 일을 조합하여 반환
-  }
-
-  return hiddenInfo;
-};
-
 const Privacy = ({ goToDelivery }) => {
-  const hiddenInfo = hideSensitiveInfo(infoDummy[0]);
   const [editingPassword, setEditingPassword] = useState(false);
   const [editingEmail, setEditingEmail] = useState(false);
 
+  const [hiddenInfo, setHiddenInfo] = useState({});
+  const [address, setAddress] = useState({});
+
+  const fetchProfile = () => {
+    axiosInstance
+      .get(`/member/${getCookie("Id")}/profile`)
+      .then((res) => {
+        const profileData = res.data;
+        setHiddenInfo(hideSensitiveInfo(profileData));
+        console.log("fetchProfile GET ", res);
+      })
+      .catch((error) => {
+        console.error("fetchProfile GET Error:", error);
+      });
+  };
+
+  useEffect(() => {
+    fetchProfile();
+  }, []);
+
+  const fetchAddress = () => {
+    axiosInstance
+      .get(`/member/${getCookie("Id")}/address`)
+      .then((res) => {
+        const addressData = res.data;
+        // setProfile(profileData);
+        setAddress(addressData);
+        console.log("fetchAddress GET ", res);
+      })
+      .catch((error) => {
+        console.error("fetchAddress GET Error:", error);
+      });
+  };
+
+  useEffect(() => {
+    fetchAddress();
+  }, []);
+
   const handleEditPassword = () => {
     setEditingPassword(true);
-    setEditingEmail(false); // 다른 입력 버튼들의 상태를 false로 변경
+    setEditingEmail(false);
   };
 
   const handleCancelEditPassword = () => {
@@ -99,12 +60,13 @@ const Privacy = ({ goToDelivery }) => {
   };
 
   const handleConfirmEditPassword = () => {
+    fetchProfile();
     setEditingPassword(false);
   };
 
   const handleEditEmail = () => {
     setEditingEmail(true);
-    setEditingPassword(false); // 다른 입력 버튼들의 상태를 false로 변경
+    setEditingPassword(false);
   };
 
   const handleCancelEditEmail = () => {
@@ -112,8 +74,90 @@ const Privacy = ({ goToDelivery }) => {
   };
 
   const handleConfirmEditEmail = () => {
+    fetchProfile();
     setEditingEmail(false);
   };
+
+  const hideSensitiveInfo = (profile) => {
+    const hiddenInfo = { ...profile };
+
+    // 아이디의 가운데 5자리를 *로 숨김
+    if (profile.loginId) {
+      const idLength = profile.loginId.length;
+      const maskedId =
+        profile.loginId.substring(0, idLength / 2 - 1) +
+        "*".repeat(4) +
+        profile.loginId.substring(idLength / 2 + 3);
+      hiddenInfo.loginId = maskedId;
+    }
+
+    // 이름을 숨김
+    if (profile.name) {
+      const nameLength = profile.name.length;
+      if (nameLength === 2) {
+        hiddenInfo.name =
+          profile.name.substring(0, 1) + "*" + profile.name.substring(1);
+      } else if (nameLength % 2 === 1) {
+        const middleIndex = Math.floor(nameLength / 2);
+        hiddenInfo.name =
+          profile.name.substring(0, middleIndex) +
+          "*" +
+          profile.name.substring(middleIndex + 1);
+      } else {
+        const middleIndex = nameLength / 2;
+        hiddenInfo.name =
+          profile.name.substring(0, middleIndex - 1) +
+          "**" +
+          profile.name.substring(middleIndex + 1);
+      }
+    }
+
+    // 이메일 절반을 *로 숨김
+    if (profile.email) {
+      const atIndex = profile.email.indexOf("@");
+      if (atIndex !== -1) {
+        const beforeAt = profile.email.substring(0, atIndex);
+        const afterAt = profile.email.substring(atIndex);
+
+        // beforeAt의 절반을 가림
+        const maskLength = Math.ceil(beforeAt.length / 2);
+        const maskedEmail =
+          beforeAt.substring(0, beforeAt.length - maskLength) +
+          "*".repeat(maskLength) +
+          afterAt;
+
+        hiddenInfo.email = maskedEmail;
+      }
+    }
+
+    // 생년월일을 숨김
+    if (profile.birthDate) {
+      const birthParts = profile.birthDate.split("-");
+      if (birthParts.length === 3) {
+        const year = birthParts[0];
+        const month = birthParts[1];
+        const day = birthParts[2];
+        const hiddenMonth = "*".repeat(month.length);
+        const hiddenDay = "*".repeat(day.length);
+        hiddenInfo.birthDate = `${year}년 ${hiddenMonth}월 ${hiddenDay}일`;
+      }
+    }
+
+    // 가입일을 한국어 형식으로 변환
+    if (profile.createdDate) {
+      const createdDateParts = new Date(profile.createdDate)
+        .toISOString()
+        .split("T")[0];
+      const hangulDate = createdDateParts.split("-");
+      const year = hangulDate[0];
+      const month = hangulDate[1];
+      const day = hangulDate[2];
+      hiddenInfo.createdDate = `${year}년 ${month}월 ${day}일`;
+    }
+
+    return hiddenInfo;
+  };
+
   return (
     <div className="EditInfo">
       <h2 className="mypage_all_h2">개인정보 수정</h2>
@@ -126,10 +170,8 @@ const Privacy = ({ goToDelivery }) => {
           <tbody>
             <tr>
               <th>아이디</th>
-              <td>{hiddenInfo.info_id}</td>
-              <td>
-                <p>아이디는 변경이 불가능합니다.</p>
-              </td>
+              <td>{hiddenInfo.loginId}</td>
+              <td></td>
             </tr>
             <tr>
               <th>비밀번호</th>
@@ -140,7 +182,7 @@ const Privacy = ({ goToDelivery }) => {
                     onConfirm={handleConfirmEditPassword}
                   />
                 ) : (
-                  <div>{hiddenInfo.info_pw}</div>
+                  <div>*******</div>
                 )}
               </td>
               <td>
@@ -161,7 +203,7 @@ const Privacy = ({ goToDelivery }) => {
                     onConfirm={handleConfirmEditEmail}
                   />
                 ) : (
-                  <div>{hiddenInfo.info_email}</div>
+                  <div>{hiddenInfo.email}</div>
                 )}
               </td>
               <td>
@@ -175,28 +217,42 @@ const Privacy = ({ goToDelivery }) => {
             </tr>
             <tr>
               <th>이름</th>
-              <td>{hiddenInfo.info_name}</td>
-              <td>
-                <p>이름은 변경이 불가능합니다.</p>
-              </td>
+              <td>{hiddenInfo.name}</td>
+              <td></td>
             </tr>
             <tr>
               <th>성별</th>
-              <td>{hiddenInfo.info_male}</td>
-              <td>
-                <p>성별은 변경이 불가능합니다.</p>
-              </td>
+              <td>{hiddenInfo.gender}자</td>
+              <td></td>
             </tr>
             <tr>
               <th>생년월일</th>
-              <td>{hiddenInfo.info_birth}</td>
-              <td>
-                <p>생년월일은 변경이 불가능합니다.</p>
-              </td>
+              <td>{hiddenInfo.birthDate}</td>
+              <td></td>
+            </tr>
+            <tr>
+              <th>전화번호</th>
+              <td>{hiddenInfo.tel}</td>
+              <td></td>
+            </tr>
+            <tr>
+              <th>가입일</th>
+              <td>{hiddenInfo.createdDate}</td>
+              <td></td>
             </tr>
             <tr>
               <th>배송지</th>
-              <td>{}</td>
+              <td>
+                {address.mainAddress ? (
+                  <div>
+                    {`[${address.zipCode}] ${address.mainAddress}, ${address.detAddress}`}
+                  </div>
+                ) : (
+                  <div style={{ color: "#999", fontSize: 13 }}>
+                    기본 배송지를 설정해주세요.
+                  </div>
+                )}
+              </td>
               <td>
                 <WhiteButton
                   buttonText={"배송지 변경"}

@@ -11,7 +11,6 @@ const PasswordInput = ({
   autoComplete,
 }) => {
   const [pwValid, setPwValid] = useState(false);
-  //   const isPasswordValid = validatePassword(value);
 
   const handleChange = (e) => {
     onChange(e); // 부모 컴포넌트로부터 전달된 onChange 함수 호출
@@ -22,6 +21,9 @@ const PasswordInput = ({
     const { name, value } = e.target;
     // 비밀번호 유효성 검사
     if (name === "pw") {
+      setPwValid(validatePassword(value));
+    }
+    if (name === "new_pw") {
       setPwValid(validatePassword(value));
     }
   };

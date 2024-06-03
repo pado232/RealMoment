@@ -1,53 +1,89 @@
+import { useEffect, useState } from "react";
+
+import axiosInstance from "../api/AxiosInstance";
+import { getCookie } from "../api/Cookies";
+
 import { LuPencilLine } from "react-icons/lu";
 import { LuParkingCircle } from "react-icons/lu";
 import { HiOutlineTrophy } from "react-icons/hi2";
 
 import "../styles/UserGrade.css";
 
-const UserGrade = () => {
+const UserGrade = ({ goToPrivacy, goToPoint, goToReview, totalReview }) => {
   const memberIconSize = 10 * 3;
-  const name = "홍길동";
-  const joinDate = "2020.02.03";
+
+  const [profile, setProfile] = useState({
+    name: "",
+    createdDate: "",
+    grade: { gradeName: "" },
+    point: 0,
+  });
+
+  const fetchProfile = () => {
+    axiosInstance
+      .get(`/member/${getCookie("Id")}/profile`)
+      .then((res) => {
+        const profileData = res.data;
+        setProfile(profileData);
+
+        console.log("fetchProfile GET ", res);
+      })
+      .catch((error) => {
+        console.error("fetchProfile GET Error:", error);
+      });
+  };
+
+  useEffect(() => {
+    fetchProfile();
+  }, []);
+
   return (
     <div className="UserGrade">
       <div className="usergrade_content">
         <div className="usergrade_title">
-          <img src={process.env.PUBLIC_URL + `/image/user_img.png`} />
+          <img
+            src={process.env.PUBLIC_URL + `/image/user_img.png`}
+            alt="User"
+          />
 
           <div className="title_content">
             <p>
-              <strong>{name}</strong>님<a href={"/"}>회원정보수정</a>
+              <strong>{profile.name}</strong>님
+              <span className="goInfo" onClick={goToPrivacy}>
+                회원정보수정
+              </span>
             </p>
-            <p>가입일 : {joinDate}</p>
+            <p>가입일 : {profile.createdDate.split("T")[0]}</p>
+            {/* .split("T")[0] */}
           </div>
         </div>
 
         <div className="usergrade_sub">
-          <a href={"/"}>
+          <div className="goPoint" onClick={goToPoint}>
             <div className="icon">
               <HiOutlineTrophy size={memberIconSize} />
             </div>
             <div className="contnet">멤버십</div>
             <div className="numbers" style={{ fontSize: 21 }}>
-              웰컴
+              {profile.grade.gradeName}
             </div>
-          </a>
+          </div>
 
-          <a href={"/"}>
+          <div className="goPoint" onClick={goToPoint}>
             <div className="icon">
               <LuParkingCircle size={memberIconSize} />
             </div>
             <div className="contnet">적립금</div>
-            <div className="numbers">2340</div>
-          </a>
+            <div className="numbers">{profile.point}</div>
+          </div>
 
-          <a href={"/"}>
+          <div className="goPoint" onClick={goToReview}>
             <div className="icon">
               <LuPencilLine size={memberIconSize} />
             </div>
             <div className="contnet">후기 작성</div>
-            <div className="numbers">0</div>
-          </a>
+            <div className="numbers">{totalReview}</div>
+          </div>
         </div>
       </div>
     </div>
