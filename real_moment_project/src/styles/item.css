@@ -1,0 +1,92 @@
+/* ITEM */
+.Item {
+}
+
+/* ITEMLIST */
+.ItemList {
+}
+.ItemList .item_dummy {
+  display: grid;
+  grid-template-columns: repeat(4, 380px);
+  justify-items: center;
+}
+
+/* ItemItem */
+.ItemItem {
+  width: 280px;
+  margin: 30px 0;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+  cursor: pointer;
+  transition: transform 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
+}
+.ItemItem:hover {
+  transform: translate(5px, -5px); /* 여기에서 변환을 적용합니다 */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+.ItemItem a {
+  color: black;
+  text-decoration: none;
+}
+.ItemItem img {
+  width: 300px;
+  height: 350px;
+}
+.ItemItem .box_content {
+  /* width: 250px; */
+  padding-left: 20px;
+  padding-right: 30px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+.ItemItem .name {
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+.ItemItem .price {
+  width: 100%; /* 수정한 내용 */
+  margin-bottom: 10px;
+}
+.ItemItem .price {
+  font-size: 19px;
+}
+.ItemItem .price span {
+  margin-right: 15px;
+}
+.ItemItem .price .sale_price {
+  font-weight: bold;
+}
+.ItemItem .price .sale {
+  font-size: 20px;
+  color: red;
+}
+.ItemItem .price .regular_price {
+  font-size: 16px;
+  color: rgb(160, 160, 160);
+  text-decoration: line-through;
+}
+.ItemItem .payment {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.ItemItem .payment div {
+  width: 100%;
+  padding: 15px 0;
+  text-align: center;
+}
+
+/* ControlMenu */
+.ControlMenu {
+  display: flex;
+  justify-content: flex-end;
+}
+.ControlMenu select {
+  font-size: 15px;
+  padding: 7px 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.ControlMenu option {
+  font-size: 14px;
+}

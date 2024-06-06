@@ -1,8 +1,9 @@
 /* FOOTER */
 .MyFooter {
   position: relative;
+  margin: auto;
   height: 0px;
-  width: 100%;
+  width: 1550px;
 }
 footer {
   /* position: absolute;

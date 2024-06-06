@@ -5,14 +5,41 @@ import { TbLogin2 } from "react-icons/tb";
 import { TbLogout2 } from "react-icons/tb";
 
 import "../styles/MyHeader.css";
+import { useState } from "react";
+import { useSearch } from "./Item/SearchProvider";
+import { useNavigate } from "react-router-dom";
 
 const MyHeader = ({ isLoggedIn, onLogout }) => {
   const iconSize = 14 * 2;
   const menuIconSize = 14 * 2;
+  const navigate = useNavigate();
+
+  const { setSearchTerm } = useSearch();
+
+  const [searchValue, setSearchValue] = useState("");
+
+  const searchValueChange = (e) => {
+    setSearchValue(e.target.value);
+  };
 
   const handleToggle = () => {
     onLogout();
   };
+
+  const handleSearch = (e) => {
+    if (e.key === "Enter") {
+      if (searchValue.trim() !== "") {
+        setSearchTerm(searchValue);
+        e.target.blur();
+      } else {
+        setSearchTerm("");
+        e.target.blur(); // 검색어가 빈 값이면 검색을 초기화합니다.
+      }
+      navigate("/item/all");
+    }
+  };
+
+  // useEffect = (() => {}, [selectedCategory, selectedCategoryName]);
 
   return (
     <header className="MyHeader">
@@ -21,7 +48,7 @@ const MyHeader = ({ isLoggedIn, onLogout }) => {
           <a href={"/"}>
             <img
               alt="logo"
-              src={process.env.PUBLIC_URL + `/image/RealMoment.PNG`}
+              src={process.env.PUBLIC_URL + `/image/RealMonentLogo.png`}
             />
           </a>
         </h1>
@@ -31,7 +58,15 @@ const MyHeader = ({ isLoggedIn, onLogout }) => {
           <button>
             <IoSearch size={iconSize} />
           </button>
-          <input type="text" placeholder="검색어를 입력해주세요" />
+          <input
+            type="text"
+            name="search"
+            value={searchValue}
+            onChange={searchValueChange}
+            // onBlur={handleBlur}
+            placeholder="찾으시는 상품을 입력해주세요"
+            onKeyDown={handleSearch}
+          />
         </div>
       </div>
       <div className="head_menu">

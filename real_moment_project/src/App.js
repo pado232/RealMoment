@@ -14,8 +14,11 @@ import MyFooter from "./Components/MyFooter";
 import { CategoryProvider } from "./Components/Menu/CategoryProvider";
 import Menu from "./Components/Menu/Menu";
 import Item from "./Pages/Item";
+import { SearchProvider } from "./Components/Item/SearchProvider";
+import Detail from "./Pages/Detail";
 
 function App() {
+  const [showButton, setShowButton] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const location = useLocation();
 
@@ -80,20 +83,50 @@ function App() {
     }
   };
 
+  // 상단으로 스크롤하는 함수
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  // 스크롤 이벤트 핸들러
+  const handleScroll = () => {
+    if (window.pageYOffset > 100) {
+      // 예시로 300 픽셀 이상 스크롤되면 버튼을 보여줍니다.
+      setShowButton(true);
+    } else {
+      setShowButton(false);
+    }
+  };
+
+  // 페이지 로드 시 스크롤 이벤트 리스너 추가
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
   return (
     <CategoryProvider>
-      <div className="App">
-        {renderHeader()}
-        {renderMenu()}
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/item/:categoryId" element={<Item />} />
-          <Route path="/login" element={<Login onLogin={handleLogin} />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/mypage" element={<MyPage />} />
-        </Routes>
-        {renderFooter()}
-      </div>
+      <SearchProvider>
+        <div className="App">
+          {renderHeader()}
+          {renderMenu()}
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/item/:categoryId" element={<Item />} />
+            <Route path="/detail/:itemId" element={<Detail />} />
+            <Route path="/login" element={<Login onLogin={handleLogin} />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/mypage" element={<MyPage />} />
+          </Routes>
+          {showButton && (
+            <button className="button-top" onClick={scrollToTop}>
+              TOP
+            </button>
+          )}
+          {renderFooter()}
+        </div>
+      </SearchProvider>
     </CategoryProvider>
   );
 }

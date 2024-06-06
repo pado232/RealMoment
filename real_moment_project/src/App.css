@@ -58,3 +58,19 @@ span {
 a {
   letter-spacing: 0.5px;
 }
+
+.button-top {
+  position: fixed;
+  bottom: 50px; /* 화면 하단에서의 여백 */
+  right: 50px; /* 화면 오른쪽에서의 여백 */
+  z-index: 999; /* 다른 요소 위에 보이도록 */
+
+  color: black;
+
+  font-weight: bold;
+  border: 1px solid #ddd;
+  border-radius: 35px;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.09);
+  padding: 18px 14px;
+}

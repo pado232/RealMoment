@@ -6,17 +6,26 @@ import "../../styles/Menu.css";
 
 const Menu = () => {
   const iconSize = 9 * 2;
-  const [menuClick, setMenuClick] = useState(false);
-  const menuToggle = () => {
-    setMenuClick(!menuClick);
+  const [menuHover, setMenuHover] = useState(false);
+
+  const handleMouseEnter = () => {
+    setMenuHover(true);
   };
+
+  const handleMouseLeave = () => {
+    setMenuHover(false);
+  };
+
   return (
     <div className="Menu">
-      <div className="containor">
+      <div className="container">
         <ul>
           <div className="menu_main">
             <li>
-              <button className={menuClick ? "click" : ""} onClick={menuToggle}>
+              <button
+                className={menuHover ? "hover" : ""}
+                onMouseEnter={handleMouseEnter}
+              >
                 Category
               </button>
             </li>
@@ -29,14 +38,17 @@ const Menu = () => {
             <li>
               <a href={"https://www.instagram.com/"}>
                 <FaInstagram size={iconSize} />
-                <span>RealMoment</span>
+                <span style={{ fontSize: 22, marginLeft: 2 }}>RealMoment</span>
               </a>
             </li>
           </div>
         </ul>
       </div>
-      {/* {menuClick ? <MenuList /> : ""} */}
-      <MenuList />
+      {menuHover && (
+        <div className="menu-list-container" onMouseLeave={handleMouseLeave}>
+          <MenuList />
+        </div>
+      )}
     </div>
   );
 };

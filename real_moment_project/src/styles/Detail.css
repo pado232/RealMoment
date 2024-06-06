@@ -1,0 +1,156 @@
+.Detail {
+}
+.Detail h2 {
+  margin-right: 10px;
+  margin-left: 10px;
+  margin-bottom: 0;
+  font-size: 28px;
+}
+.Detail .item_detail {
+  height: 520px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.Detail .item_detail .img {
+}
+.Detail .item_detail .img img {
+  width: 500px;
+  height: 500px;
+  margin-right: 50px;
+}
+.Detail .detail {
+  margin-top: 100px;
+  width: 500px;
+}
+.Detail .price_content {
+  padding: 10px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+.Detail .price_content > div {
+  padding-right: 15px;
+}
+.Detail .price {
+  font-size: 18px;
+  text-decoration: line-through;
+}
+.Detail .discountRate {
+  font-size: 18px;
+  color: red;
+}
+.Detail .sellPrice {
+  font-size: 22px;
+  font-weight: bold;
+}
+.Detail .detail > div {
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid black;
+}
+.Detail .info > div {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+.Detail .info .title {
+  font-weight: bold;
+  padding: 15px 20px;
+}
+.Detail .info .point {
+  padding-left: 7px;
+  cursor: pointer;
+}
+.Detail .count {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Detail .count .counter {
+  border: 1px solid #e2e2e2;
+}
+.Detail .count button {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  border: none;
+  background-color: white;
+}
+.Detail .count input {
+  font-size: 17px;
+  font-weight: bold;
+  width: 80px;
+  height: 35px;
+  text-align: center;
+  border: none;
+  outline: none;
+}
+
+.Detail .total {
+  border-bottom: none !important;
+
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+.Detail .total .totalTitle {
+  padding-right: 20px;
+}
+.Detail .total .totalPrice {
+  font-size: 20px;
+  font-weight: bold;
+}
+.Detail .payment {
+  width: 100%;
+  border-bottom: none !important;
+  /* padding: 0 !important; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.Detail .payment > div {
+  height: 55px;
+  color: white;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.Detail .payment .heart {
+  width: 12%;
+  background-color: #000000;
+}
+.Detail .payment .cart {
+  width: 44%;
+  background-color: #302e2e;
+}
+.Detail .payment .cart > div {
+  padding: 0 10px;
+  text-align: center;
+  font-size: 17px;
+}
+.Detail .payment .pay {
+  width: 44%;
+  background-color: #ffb4b4;
+}
+.Detail .payment .pay > div {
+  padding: 0 10px;
+  text-align: center;
+  font-size: 17px;
+}
+
+.DetailImg .imgs > div {
+  display: flex;
+  justify-content: center;
+}
+.DetailImg img {
+  width: 800px;
+}
+
+.DetailReview .review_star {
+  display: flex;
+}

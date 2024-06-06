@@ -1,19 +1,15 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useState } from "react";
 
 const CategoryContext = createContext();
 
 export const CategoryProvider = ({ children }) => {
   const [selectedCategory, setSelectedCategory] = useState("");
-  const [selectedCategoryName, setSelectedCategoryName] = useState("");
+  const [selectedCategoryName, setSelectedCategoryName] = useState("전체");
 
   const handleCategoryChange = (categoryId, categoryName) => {
     setSelectedCategory(categoryId);
     setSelectedCategoryName(categoryName);
   };
-
-  //   useEffect(() => {
-  //     handleCategoryChange();
-  //   }, [selectedCategory, selectedCategoryName]);
 
   return (
     <CategoryContext.Provider

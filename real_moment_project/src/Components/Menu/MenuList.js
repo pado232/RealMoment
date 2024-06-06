@@ -1,10 +1,13 @@
 import { useCategory } from "./CategoryProvider";
+import { useSearch } from "../Item/SearchProvider";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom"; // Link 컴포넌트 추가
 
 import "../../styles/Menu.css";
 
 const MenuList = () => {
+  const { setSearchTerm } = useSearch();
   const { handleCategoryChange } = useCategory();
   const [category, setCategory] = useState([]);
 
@@ -12,7 +15,10 @@ const MenuList = () => {
     axios
       .get(`http://localhost:8080/category`)
       .then((res) => {
-        const categorydata = res.data;
+        const data = res.data;
+        const categorydata = [...data].sort((a, b) => {
+          return a.categoryId - b.categoryId;
+        });
         setCategory(categorydata);
         console.log("Category GET ", res);
       })
@@ -25,39 +31,40 @@ const MenuList = () => {
     fetchCategory();
   }, []);
 
-  const handleLinkClick = (event, categoryId, categoryName) => {
-    event.preventDefault(); // 링크 클릭 시 페이지 리로드 방지
+  const handleLinkClick = (categoryId, categoryName) => {
+    setSearchTerm("");
     handleCategoryChange(categoryId, categoryName); // 상태 업데이트
   };
 
   return (
     <div className="MenuList">
       <nav className="category">
-        <ul className="skincare">
+        <ul className="category_box">
+          <li className="title">
+            <Link to={`/item/all`} onClick={() => handleLinkClick("", "전체")}>
+              전체
+            </Link>
+          </li>
           {category.map((item, index) => (
             <li key={index} className="title">
-              <a
-                href={`/item/${item.categoryId}`}
-                onClick={(e) => handleLinkClick(e, item.categoryId, item.name)}
+              <Link
+                to={`/item/${item.categoryId}`}
+                onClick={() => handleLinkClick(item.categoryId, item.name)}
               >
                 {item.name}
-              </a>
+              </Link>
               {item.child && item.child.length > 0 && (
-                <ul>
+                <ul className="subcategory">
                   {item.child.map((childItem, index) => (
                     <li key={index}>
-                      <a
-                        href={`/item/${childItem.categoryId}`}
-                        onClick={(e) =>
-                          handleLinkClick(
-                            e,
-                            childItem.categoryId,
-                            childItem.name
-                          )
+                      <Link
+                        to={`/item/${childItem.categoryId}`}
+                        onClick={() =>
+                          handleLinkClick(childItem.categoryId, childItem.name)
                         }
                       >
                         {childItem.name}
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>
