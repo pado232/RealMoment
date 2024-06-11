@@ -16,13 +16,14 @@ import { getCookie } from "../api/Cookies";
 import "../styles/MyPage.css";
 import InquiryWrite from "../Components/Inquiry/InquiryWrite";
 import MyInpuiry from "../Components/Inquiry/MyInquiry";
-
+import QandA from "../Components/QandA/QandA";
 const myPageMenu = [
   { bar_name: "주문내역", bar_value: "OrderHistory" },
   { bar_name: "배송지 관리", bar_value: "delivery" },
   { bar_name: "리뷰", bar_value: "review" },
   { bar_name: "적립금", bar_value: "point" },
   { bar_name: "1:1 문의", bar_value: "inquiry" },
+  { bar_name: "Q&A", bar_value: "QandA" },
   { bar_name: "개인정보수정", bar_value: "editInfo" },
 ];
 
@@ -159,6 +160,8 @@ const MyPage = () => {
               WriteComponent={InquiryWrite}
               MyComponent={MyInpuiry}
             />
+          ) : listState === "QandA" ? (
+            <QandA />
           ) : listState === "editInfo" ? (
             <Privacy goToDelivery={goToDelivery} />
           ) : (

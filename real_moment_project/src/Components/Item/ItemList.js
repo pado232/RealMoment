@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import Pagination from "../../util/Pagination";
 import { useSearch } from "./SearchProvider";
 import { useCategory } from "../Menu/CategoryProvider";
+
 const sortOptionList = [
   { id: 1, value: "new", name: "최신순" },
   { id: 2, value: "sell", name: "판매량순" },
@@ -11,6 +12,7 @@ const sortOptionList = [
   { id: 4, value: "low", name: "낮은 가격순" },
   { id: 5, value: "high", name: "높은 가격순" },
 ];
+
 const ItemList = () => {
   const { selectedCategory, selectedCategoryName, handleCategoryChange } =
     useCategory();

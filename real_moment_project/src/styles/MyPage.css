@@ -289,7 +289,7 @@ table td {
   font-weight: bold;
 }
 .ReviewLookBox .content_warpper .content {
-  padding-bottom: 50px;
+  padding-bottom: 20px;
 }
 .ReviewLookBox .content_warpper .content > div {
   background-color: #fdefef;
@@ -325,4 +325,80 @@ table td {
   padding: 80px;
   font-size: 18px;
   color: #888;
+}
+
+.QandA .none_review_list {
+  border: 1px solid #ddd;
+  padding: 50px;
+  margin: 10px 0;
+  text-align: center;
+  font-size: 17px;
+}
+
+.QandA h3 {
+  border-bottom: 3px solid #0e0e0e;
+  padding-bottom: 30px;
+  margin: 0;
+}
+.QandA .review_list {
+  width: 100%;
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+.QandA .review_list .btn_box {
+  width: 20%;
+  text-align: center;
+}
+.QandA .review_list .btn_box > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.QandA .review_list .btn_box > div > div {
+  margin: 10px;
+}
+.QandA .review_list .img {
+  width: 15%;
+  text-align: center;
+}
+.QandA .review_list .info_content {
+  width: 65%;
+  padding-right: 50px;
+}
+.QandA .review_star_total .text {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  margin: 10px 0;
+}
+.QandA .review_list .info {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.QandA .review_list .info > div {
+  margin-top: 10px;
+  padding: 0 20px;
+  border-right: 1px solid #b4b4b4;
+}
+.QandA .review_list .info span {
+  padding-right: 5px;
+}
+.QandA .review_list .review {
+  padding: 0 20px;
+  margin-top: 20px;
+}
+.QandA .review_list .review > div {
+  margin-bottom: 12px;
+}
+.QandA .qacomment_box {
+  background-color: #f0f0f0;
+  margin-left: 20px;
+  width: 93%;
+  border-radius: 10px;
+  padding: 20px;
 }

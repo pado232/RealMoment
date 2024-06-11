@@ -83,7 +83,7 @@ const MyHeader = ({ isLoggedIn, onLogout }) => {
           </li>
           <li>
             {isLoggedIn ? (
-              <a href={"/item"}>
+              <a href={"/cart"}>
                 <TiShoppingCart size={menuIconSize} />
                 Cart
               </a>

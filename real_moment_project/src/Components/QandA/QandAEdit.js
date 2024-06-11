@@ -2,11 +2,11 @@ import WhiteButton from "../../util/Buttons/WhiteButton";
 
 import "../../styles/MyPage.css";
 
-const InquiryWriteBox = ({
+const QandAEdit = ({
   onClick,
   setIsModalOpen,
   h2Text,
-  inputValue,
+  selectValue,
   inputRef,
   onChange,
   textareaValue,
@@ -17,26 +17,16 @@ const InquiryWriteBox = ({
         <h2>{h2Text}</h2>
 
         <div className="content_warpper">
-          <div style={{ marginTop: 50 }}>
-            <strong>불편 사항이 있으시다면 편하게 문의해주세요!!🖤</strong>
-          </div>
-          <div>
-            <input
-              type="text"
-              name="title"
-              value={inputValue}
-              onChange={onChange}
-              ref={(el) => (inputRef.current[0] = el)}
-              placeholder="제목을 입력해주세요."
-            />
+          <div style={{ margin: "0 10px ", textAlign: "start" }}>
+            Q&A 카테고리 : <strong>{selectValue}</strong>
           </div>
           <div>
             <textarea
               name="content"
               value={textareaValue}
               onChange={onChange}
-              ref={(el) => (inputRef.current[1] = el)}
-              placeholder="불편 사항이 있으신가요? 혹은 궁금한 점이 있으신가요? &#13;문의할 내용을 입력해주세요.&#13;RealMoment가 여러분의 소중한 한마디 한마디에 귀를 기울이겠습니다!&#13;&#13;- 전화 문의를 원하신다면&#13;   ☎ 02) 1234-1234"
+              ref={(el) => (inputRef.current[0] = el)}
+              placeholder="해당 상품에 대해 자유롭게 Q&A를 작성해주세요!! _🖍&#13;&#13;Q&A는 보고 계신 현재 상품에 대한 문의입니다. &#13;해당 상품에 대한 문의가 아닌 포괄적인 문의가 있으시다면 마이페이지 > 1:1 문의를 이용해주세요.&#13;"
             />
           </div>
         </div>
@@ -56,4 +46,4 @@ const InquiryWriteBox = ({
   );
 };
 
-export default InquiryWriteBox;
+export default QandAEdit;

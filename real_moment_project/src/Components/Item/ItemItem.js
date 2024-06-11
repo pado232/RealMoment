@@ -1,11 +1,13 @@
+import { useNavigate } from "react-router-dom";
 import { FaRegHeart } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
 import { useState } from "react";
 import { TiShoppingCart } from "react-icons/ti";
 import { MdPayment } from "react-icons/md";
+import axiosInstance from "../../api/AxiosInstance";
+import { getCookie } from "../../api/Cookies";
 
 import "../../styles/item.css";
-import { useNavigate } from "react-router-dom";
 
 const ItemItem = ({
   itemId,
@@ -28,6 +30,42 @@ const ItemItem = ({
   const changeHeart = () => {
     setHeart(!heart);
   };
+
+  const AddCart = () => {
+    if (getCookie("Id")) {
+      axiosInstance
+        .post(`/member/${getCookie("Id")}/cart`, {
+          itemId: itemId,
+          count: 1,
+        })
+        .then((res) => {
+          if (
+            window.confirm(
+              "Cart에 상품이 담겼습니다. Cart를 확인하고 싶으시다면 '확인'을 눌러주세요."
+            )
+          ) {
+            navigate("/cart");
+          } else {
+          }
+
+          console.log("AddCart GET ", res);
+        })
+        .catch((error) => {
+          console.error("AddCart GET Error:", error);
+          // 장바구니에 이미 존재하는 아이템에 대한 구현 필요
+        });
+    } else {
+      if (
+        window.confirm(
+          "장바구니에 담으시려면 로그인 해주세요. 로그인하시려면 '확인'을 눌러주세요."
+        )
+      ) {
+        navigate("/login");
+      } else {
+      }
+    }
+  };
+
   return (
     <div className="ItemItem">
       <div className="goDetail" onClick={() => navigate(`/detail/${itemId}`)}>
@@ -51,16 +89,18 @@ const ItemItem = ({
       </div>
 
       <div className="payment">
-        <div onClick={changeHeart}>{haertIcon}</div>
         <div>
-          <a href="/">
-            <TiShoppingCart size={iconCartSize} />
-          </a>
+          <button onClick={changeHeart}>{haertIcon}</button>
         </div>
         <div>
-          <a href="/">
+          <button onClick={AddCart}>
+            <TiShoppingCart size={iconCartSize} />
+          </button>
+        </div>
+        <div>
+          <button>
             <MdPayment size={iconCartSize} />
-          </a>
+          </button>
         </div>
       </div>
     </div>

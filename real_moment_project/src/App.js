@@ -16,6 +16,8 @@ import Menu from "./Components/Menu/Menu";
 import Item from "./Pages/Item";
 import { SearchProvider } from "./Components/Item/SearchProvider";
 import Detail from "./Pages/Detail";
+import Cart from "./Pages/Cart";
+import OrderCheck from "./Pages/OrderCheck";
 
 function App() {
   const [showButton, setShowButton] = useState(false);
@@ -113,6 +115,8 @@ function App() {
           {renderMenu()}
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/orderckeck" element={<OrderCheck />} />
             <Route path="/item/:categoryId" element={<Item />} />
             <Route path="/detail/:itemId" element={<Detail />} />
             <Route path="/login" element={<Login onLogin={handleLogin} />} />

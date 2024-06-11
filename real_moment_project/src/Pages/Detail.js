@@ -1,7 +1,5 @@
-import axios from "axios";
-import Container from "../util/Container";
-import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
 import { FaRegHeart } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
 import { TiShoppingCart } from "react-icons/ti";
@@ -9,24 +7,27 @@ import { MdPayment } from "react-icons/md";
 import { FaMinus } from "react-icons/fa6";
 import { FaPlus } from "react-icons/fa6";
 import { FaQuestionCircle } from "react-icons/fa";
+
+import axios from "axios";
+import Container from "../util/Container";
 import ImgSlide from "../util/ImgSlide";
+import DetailImg from "../Components/Detail/DetailImg";
+import DetailReview from "../Components/Detail/DetailReview";
+import DetailQandA from "../Components/Detail/DetailQandA";
 
 import "../styles/Detail.css";
-import DetailImg from "../Components/Detail/DetailImg";
-import BarMenu from "../util/BarMenu";
-import DetailReview from "../Components/Detail/DetailReview";
-import QandA from "../Components/QandA,js/QandA";
-
-const menuItems = [
-  { key: "detialInfo", text: "상세 정보", component: DetailImg },
-  { key: "detialReview", text: "리뷰", component: DetailReview },
-  { key: "QandA", text: "Q&A", component: QandA }, // props: { MyReviewList: someReviewList }
-];
+import axiosInstance from "../api/AxiosInstance";
+import { getCookie } from "../api/Cookies";
 
 const Detail = () => {
-  const { itemId } = useParams(); // itemId를 객체에서 추출
+  const { itemId } = useParams();
+  const navigate = useNavigate();
+
+  const detailRef = useRef([]);
+  const [activeIndex, setActiveIndex] = useState(0);
   const [heart, setHeart] = useState(false);
-  const [selectedMenu, setSelectedMenu] = useState(menuItems[0].key);
+  const [warningMessage, setWarningMessage] = useState("");
+
   const [itemCount, setItemCount] = useState(1);
   const [itemDetails, setItemDetails] = useState(null); // 초기값을 null로 설정
 
@@ -51,12 +52,64 @@ const Detail = () => {
   const changeHeart = () => {
     setHeart(!heart);
   };
+
   const minusClick = () => {
-    setItemCount(itemCount - 1);
+    if (itemCount > 1) {
+      setItemCount(itemCount - 1);
+      setWarningMessage("");
+    }
   };
 
   const plusClick = () => {
-    setItemCount(itemCount + 1);
+    if (itemCount < 10) {
+      setItemCount(itemCount + 1);
+    } else {
+      setWarningMessage("10개 이상의 상품을 구매하실 수 없습니다.");
+    }
+  };
+
+  const scrollToSection = (index) => {
+    if (detailRef.current[index]) {
+      window.scrollTo({
+        top: detailRef.current[index].offsetTop - 248,
+        behavior: "smooth",
+      });
+      setActiveIndex(index);
+    }
+  };
+
+  const AddCart = () => {
+    if (getCookie("Id")) {
+      axiosInstance
+        .post(`/member/${getCookie("Id")}/cart`, {
+          itemId: itemId,
+          count: itemCount,
+        })
+        .then((res) => {
+          if (
+            window.confirm(
+              "Cart에 상품이 담겼습니다. Cart를 확인하고 싶으시다면 '확인'을 눌러주세요."
+            )
+          ) {
+            navigate("/cart");
+          } else {
+          }
+
+          console.log("AddCart GET ", res);
+        })
+        .catch((error) => {
+          console.error("AddCart GET Error:", error);
+        });
+    } else {
+      if (
+        window.confirm(
+          "장바구니에 담으시려면 로그인 해주세요. 로그인하시려면 '확인'을 눌러주세요."
+        )
+      ) {
+        navigate("/login");
+      } else {
+      }
+    }
   };
 
   return (
@@ -120,6 +173,19 @@ const Detail = () => {
                   </div>
                   <div>{itemDetails.sellPrice.toLocaleString()}</div>
                 </div>
+                {warningMessage && (
+                  <div
+                    style={{
+                      border: "none",
+                      color: "rgb(220, 0, 0)",
+                      fontSize: 13,
+                      fontWeight: "bold",
+                    }}
+                    className="warning-message"
+                  >
+                    {warningMessage}
+                  </div>
+                )}
 
                 <div className="total">
                   <div className="totalTitle">합계</div>
@@ -129,36 +195,66 @@ const Detail = () => {
                 </div>
 
                 <div className="payment">
-                  <div className="heart" onClick={changeHeart}>
+                  <button className="heart" onClick={changeHeart}>
                     {haertIcon}
-                  </div>
-                  <div className="cart">
+                  </button>
+                  <button onClick={AddCart} className="cart">
                     <div>
                       <TiShoppingCart size={30} />
                     </div>
                     <div>장바구니</div>
-                  </div>
-                  <div className="pay">
+                  </button>
+                  <button className="pay">
                     <div>
                       <MdPayment size={30} />
                     </div>
                     <div>구매하기</div>
-                  </div>
+                  </button>
                 </div>
               </div>
             </div>
 
-            <div style={{ marginTop: 200 }}>
-              <div>{/* <BarMenu menuItems={menuItems} /> */}</div>
+            <div className="itemContent">
+              <div className="detail_bar">
+                <ul>
+                  <li>
+                    <button
+                      className={activeIndex === 0 ? "active" : ""}
+                      onClick={() => scrollToSection(0)}
+                    >
+                      상세 정보
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      className={activeIndex === 1 ? "active" : ""}
+                      onClick={() => scrollToSection(1)}
+                    >
+                      리뷰
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      className={activeIndex === 2 ? "active" : ""}
+                      onClick={() => scrollToSection(2)}
+                    >
+                      Q&A
+                    </button>
+                  </li>
+                </ul>
+              </div>
 
-              <div>
+              <div ref={(el) => (detailRef.current[0] = el)}>
                 <DetailImg
                   content={itemDetails.content}
                   subImgDataList={itemDetails.subImgDataList}
                 />
               </div>
-              <div>
+              <div ref={(el) => (detailRef.current[1] = el)}>
                 <DetailReview starsPoint={itemDetails.averageStar} />
+              </div>
+              <div ref={(el) => (detailRef.current[2] = el)}>
+                <DetailQandA />
               </div>
             </div>
           </div>

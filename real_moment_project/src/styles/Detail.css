@@ -112,13 +112,15 @@
   justify-content: center;
   align-items: center;
 }
-.Detail .payment > div {
+.Detail .payment > button {
   height: 55px;
   color: white;
 
   display: flex;
   justify-content: center;
   align-items: center;
+  border: none;
+  cursor: pointer;
 }
 .Detail .payment .heart {
   width: 12%;
@@ -142,7 +144,11 @@
   text-align: center;
   font-size: 17px;
 }
-
+.itemContent {
+  margin-top: 200px;
+}
+.DetailImg {
+}
 .DetailImg .imgs > div {
   display: flex;
   justify-content: center;
@@ -150,7 +156,184 @@
 .DetailImg img {
   width: 800px;
 }
-
-.DetailReview .review_star {
+.DetailImg .content {
+  text-align: center;
+  margin: 50px 0;
+}
+.DetailImg .content > div {
+  margin: 5px 0;
+  font-size: 16px;
+}
+.DetailReview .review_star_count {
   display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.DetailReview .review_star_count > div {
+  margin: 5px 20px;
+}
+.DetailReview .review_star {
+  margin: 100px 0 50px 0;
+  padding: 30px 80px;
+  border-top: 3px solid #000000;
+  border-bottom: 1px solid #000000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.Detail .none_review_list {
+  border: 1px solid #ddd;
+  padding: 50px;
+  margin: 10px 0;
+  text-align: center;
+  font-size: 17px;
+}
+.Detail .review_list {
+  border: 1px solid #ddd;
+  padding: 20px 50px;
+  margin: 10px 0;
+}
+
+.Detail .review_star_total .text {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  margin: 10px 0;
+}
+.Detail .review_list .info {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.Detail .review_list .info > div {
+  margin-top: 10px;
+  padding: 0 20px;
+  border-right: 1px solid #b4b4b4;
+}
+.Detail .review_list .info span {
+  padding-right: 5px;
+}
+.Detail .review_list .review {
+  padding: 0 20px;
+  margin-top: 20px;
+}
+
+.Detail .review_list .review > div {
+  margin-bottom: 12px;
+}
+.Detail .review_list .review .title {
+  font-weight: bold;
+}
+.Detail .select_star {
+  text-align: end;
+  margin: 20px 10px;
+}
+
+.Detail select {
+  font-size: 15px;
+  padding: 7px 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.DetailQandA .DetailQandA {
+  margin-top: 30px;
+}
+.QAbox {
+  background-color: #fff8ee;
+  width: 100%;
+  margin-bottom: 30px;
+  border: 1px solid #ccc;
+}
+.QAbox .btn_wrapper {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+.DetailQandA .QAbox .select_title {
+  width: 100%;
+  text-align: center;
+}
+.DetailQandA .QAbox .select_title select {
+  margin-top: 25px;
+  margin-bottom: 10px;
+  font-size: 15px;
+  padding: 7px 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.DetailQandA .QAbox .content_box {
+  width: 100%;
+  text-align: center;
+}
+.DetailQandA .QAbox .content_box textarea {
+  width: 90%;
+  height: 170px;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #dbdbdb;
+  resize: none; /* 크기 조절*/
+  border-radius: 5px;
+  font-size: 15px;
+}
+.DetailQandA .caution_box {
+  border-top: 3px solid #000000;
+  border-bottom: 1px solid #000000;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+}
+.DetailQandA .caution {
+  margin: 40px;
+  width: 70%;
+  text-align: center;
+}
+.DetailQandA .caution > div {
+  margin-bottom: 5px;
+}
+.DetailQandA .btn_box {
+  width: 30%;
+}
+.DetailQandA .btn {
+  width: 150px;
+  text-align: center;
+}
+.DetailQandA .qacomment_box {
+  background-color: #f0f0f0;
+  margin-left: 20px;
+  width: 93%;
+  border-radius: 10px;
+  padding: 20px;
+}
+.Detail .detail_bar {
+  position: sticky;
+  top: 162px;
+  z-index: 10;
+}
+
+.Detail .detail_bar ul {
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+.Detail .detail_bar ul li {
+  width: 100%;
+  list-style-type: none;
+  justify-content: center;
+  align-items: center;
+}
+.Detail .detail_bar ul li button {
+  font-size: 16px;
+  background-color: white;
+  border-top: none;
+  border-bottom: 1px solid #ddd;
+  border-right: none;
+  border-left: none;
+  width: 100%;
+  height: 50px;
+}
+.Detail .detail_bar ul li button.active {
+  border-bottom: 3px solid #141414;
+  font-weight: bold;
 }

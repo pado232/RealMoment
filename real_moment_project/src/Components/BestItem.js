@@ -40,7 +40,7 @@ const BestItem = () => {
       .get(`http://localhost:8080/itemList?${queryParams.toString()}`)
       .then((res) => {
         // 가장 앞의 3개 아이템만 추출
-        const itemListdata = res.data.itemList.slice(0, 3);
+        const itemListdata = res.data.itemList.slice(0, 4);
 
         setItemList(itemListdata);
         console.log("fetchItem GET ", res);
@@ -89,7 +89,11 @@ const BestItem = () => {
         {itemList.length === 0 ? (
           <div>No items found ...</div>
         ) : (
-          itemList.map((item, index) => <ItemItem key={index} {...item} />)
+          itemList.map((item, index) => (
+            <div>
+              <ItemItem key={index} {...item} />
+            </div>
+          ))
         )}
       </div>
     </div>

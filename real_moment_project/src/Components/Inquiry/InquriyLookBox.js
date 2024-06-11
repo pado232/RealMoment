@@ -20,10 +20,7 @@ const InquiryLookBox = ({ itemTitle, itemContent, itemCommnetContent }) => {
 
   return (
     <div className="ReviewLookBox">
-      <div
-        className="review_write_box"
-        style={{ margin: 50, width: 500, height: 500 }}
-      >
+      <div className="review_write_box" style={{ margin: 50, width: 500 }}>
         <h2>나의 문의</h2>
 
         <div className="content_warpper">

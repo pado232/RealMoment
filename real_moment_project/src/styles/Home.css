@@ -22,3 +22,12 @@
   font-weight: bold;
   border: 2px solid black;
 }
+.BestItem .item_dummy {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(4, 375px);
+  justify-items: center;
+}
+.BestItem .item_dummy > div {
+  justify-content: center;
+}

@@ -1,0 +1,158 @@
+.Cart .none_cart_list {
+  border: 1px solid #ddd;
+  padding: 50px;
+  margin: 10px 0;
+  text-align: center;
+  font-size: 17px;
+}
+.Cart .cart_list {
+  width: 100%;
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+.Cart .cart_list .title {
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+.Cart .cart_list .info_content .info > div {
+  margin-right: 15px;
+  font-size: 17px;
+}
+.Cart .cart_list .info_content .info .price {
+  text-decoration: line-through;
+}
+.Cart .cart_list .info_content .info .discountRate {
+  color: rgb(220, 0, 0);
+}
+.Cart .info_price > div {
+  font-size: 17px;
+}
+.Cart .cart_list .img {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  width: 28%;
+}
+.Cart .cart_list .img .checkbox_conta {
+  margin: 0 30px;
+}
+.Cart input[type="checkbox"] {
+  width: 25px; /* 너비 조정 */
+  height: 25px; /* 높이 조정 */
+  border: none;
+  accent-color: rgb(255, 112, 30);
+  border-radius: 5px; /* 모서리를 둥글게 */
+  cursor: pointer;
+}
+.Cart .cart_list .info_content {
+  width: 37%;
+  padding-right: 50px;
+}
+.Cart .count_box {
+  width: 35%;
+  text-align: center;
+}
+.Cart .cart_list .info {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.Cart .count {
+  margin-right: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.Cart .count .counter {
+  border: 1px solid #e2e2e2;
+}
+.Cart .count button {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  border: none;
+  background-color: white;
+}
+.Cart .count input {
+  font-size: 17px;
+  font-weight: bold;
+  width: 50px;
+  height: 35px;
+  text-align: center;
+  border: none;
+  outline: none;
+}
+.Cart .totalPrice {
+  font-size: 17px;
+  font-weight: bold;
+}
+.Cart .CartContainer {
+  display: flex;
+}
+.Cart .CartContainer .Bill {
+  width: 25%;
+}
+.Cart .CartContainer .CartList {
+  width: 75%;
+}
+.Cart .check_bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.Cart .check_bar button {
+  width: 130px;
+  border: 1px solid #161616;
+  padding: 7px 0;
+  background-color: white;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* Bill */
+.Bill {
+  min-width: 350px;
+  margin-left: 50px;
+  border: 1px solid #ddd;
+}
+.Bill h3 {
+  font-size: 22px;
+}
+.Bill .BillContent {
+  margin: 0 40px;
+}
+.Bill .between {
+  margin: 15px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.Bill .between > div {
+}
+.Bill .between .content {
+  font-size: 16px;
+  font-weight: bold;
+}
+.Bill .total {
+  border-top: 1px solid #ddd;
+  padding: 10px 0;
+}
+.Bill .total .totalPrice {
+  font-weight: bold;
+  font-size: 24px;
+  color: rgb(220, 0, 0);
+}
+.Bill .btn_warpper > button {
+  width: 100%;
+  height: 55px;
+  font-size: 19px;
+  color: white;
+  background-color: rgb(236, 129, 129);
+  border: none;
+  cursor: pointer;
+}
