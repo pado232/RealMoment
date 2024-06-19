@@ -22,10 +22,10 @@ const EditEmail = ({ onCancel, onConfirm }) => {
   const handleChangeState = (e) => {
     const { name, value } = e.target;
 
-    setState({
-      ...state,
-      [name]: value,
-    });
+    setState((prevState) => ({
+      ...prevState,
+      [name]: value.replace(/\s/g, ""),
+    }));
   };
 
   const handleEmailSubmit = () => {

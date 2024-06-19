@@ -16,10 +16,46 @@
   width: 280px;
   margin: 30px 0;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-
   cursor: pointer;
   transition: transform 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
 }
+.ItemItem .box_img {
+  position: relative;
+  overflow: hidden;
+}
+.ItemItem .box_img.stock-overlay {
+  position: relative; /* 부모 요소 위치 설정 */
+}
+
+.ItemItem .box_img.stock-overlay::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* 반투명한 검은 배경 */
+  z-index: 1; /* 다른 요소 위에 표시되도록 설정 */
+}
+
+.ItemItem .box_img .stock-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 35px;
+  text-align: center;
+  padding: 20px;
+
+  z-index: 2; /* 다른 요소 위에 표시되도록 설정 */
+}
+.ItemItem img {
+  width: 100%;
+  height: 300px;
+  display: block;
+}
+
 .ItemItem:hover {
   transform: translate(5px, -5px); /* 여기에서 변환을 적용합니다 */
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
@@ -28,10 +64,7 @@
   color: black;
   text-decoration: none;
 }
-.ItemItem img {
-  width: 100%;
-  height: 100%;
-}
+
 .ItemItem .box_content {
   /* width: 250px; */
   padding-left: 20px;
@@ -39,11 +72,12 @@
 }
 .ItemItem .name {
   margin-top: 10px;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
+  font-size: 16px;
 }
 .ItemItem .price {
   width: 100%; /* 수정한 내용 */
-  margin-bottom: 10px;
+  padding-bottom: 5px;
 }
 .ItemItem .price {
   font-size: 19px;
@@ -83,6 +117,44 @@
 }
 .ItemItem .payment button:hover {
   color: rgb(255, 0, 85);
+}
+.ItemItem .heartClick {
+  animation: heart-pulse 0.5s forwards;
+}
+.ItemItem .star_box {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  padding-bottom: 5px;
+}
+.ItemItem .star_box .icon {
+  color: #ffdc19;
+  padding-right: 10px;
+}
+.ItemItem .stock {
+  color: orangered;
+  font-weight: bold;
+}
+
+@keyframes heart-pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.delete {
+  text-align: center;
+}
+.delete button {
+  background-color: #ffffff00;
+  border: none;
+  padding: 0;
+  margin: 0;
 }
 /* ControlMenu */
 .ControlMenu {

@@ -18,6 +18,8 @@ import { SearchProvider } from "./Components/Item/SearchProvider";
 import Detail from "./Pages/Detail";
 import Cart from "./Pages/Cart";
 import OrderCheck from "./Pages/OrderCheck";
+import Heart from "./Pages/Heart";
+import OrderCheckInfo from "./Pages/OrderCheckInfo";
 
 function App() {
   const [showButton, setShowButton] = useState(false);
@@ -26,14 +28,14 @@ function App() {
 
   useEffect(() => {
     // 쿠키에서 로그인 상태 확인
-    const token = getCookie("Authorization");
+    const token = getCookie("Authorization1");
     setIsLoggedIn(!!token); // 토큰이 있으면 로그인 상태로 설정
   }, []);
 
   // 로그인 함수
   const handleLogin = (AuthorizationToken, RefreshToken) => {
-    setCookie("Authorization", AuthorizationToken);
-    setCookie("Refresh_Token", RefreshToken);
+    setCookie("Authorization1", AuthorizationToken);
+    setCookie("Refresh_Token1", RefreshToken);
     setIsLoggedIn(true); // 로그인 상태로 설정
   };
 
@@ -49,8 +51,8 @@ function App() {
       });
 
     // 로그아웃 상태로 설정
-    removeCookie("Authorization"); // 쿠키에서 accessToken 제거
-    removeCookie("Refresh_Token");
+    removeCookie("Authorization1"); // 쿠키에서 accessToken 제거
+    removeCookie("Refresh_Token1");
     removeCookie("Id");
     setIsLoggedIn(false);
   };
@@ -116,7 +118,9 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/cart" element={<Cart />} />
-            <Route path="/orderckeck" element={<OrderCheck />} />
+            <Route path="/ordercheck" element={<OrderCheck />} />
+            <Route path="/ordercheckinfo" element={<OrderCheckInfo />} />
+            <Route path="/heart" element={<Heart />} />
             <Route path="/item/:categoryId" element={<Item />} />
             <Route path="/detail/:itemId" element={<Detail />} />
             <Route path="/login" element={<Login onLogin={handleLogin} />} />

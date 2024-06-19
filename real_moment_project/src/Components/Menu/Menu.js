@@ -45,7 +45,7 @@ const Menu = () => {
         </ul>
       </div>
       {menuHover && (
-        <div className="menu-list-container" onMouseLeave={handleMouseLeave}>
+        <div className="menu_list_container" onMouseLeave={handleMouseLeave}>
           <MenuList />
         </div>
       )}

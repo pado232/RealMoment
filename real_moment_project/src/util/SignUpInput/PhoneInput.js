@@ -1,4 +1,4 @@
-export const sortOptionList = [
+const sortOptionList = [
   { value: "010" },
   { value: "011" },
   { value: "016" },
@@ -21,7 +21,9 @@ const PhoneInput = ({
       <div className="signup_title">휴대전화</div>
       <select name="phone1" value={state.phone1} onChange={handleChangeState}>
         {sortOptionList.map((it) => (
-          <option key={it.value}>{it.value}</option>
+          <option key={it.value} value={it.value}>
+            {it.value}
+          </option>
         ))}
       </select>
       <span>-</span>

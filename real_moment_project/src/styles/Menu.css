@@ -45,7 +45,10 @@
 /* MenuList */
 .MenuList {
   font-size: 17px;
-  background-color: rgba(245, 238, 227, 0.342);
+  background-color: rgba(245, 238, 227, 0.527);
+  position: sticky; /* 추가 */
+  top: 0; /* 추가: 화면의 맨 위에 고정 */
+  z-index: 1000;
 }
 .MenuList .category_box {
   display: flex;

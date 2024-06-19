@@ -138,9 +138,45 @@ table td {
   padding-right: 10px;
   margin: 10px;
 }
+
+.ReviewMine .iteminfo .img_box {
+  position: relative;
+  overflow: hidden;
+  margin-right: 20px;
+  width: 100px;
+  height: 100px;
+}
+.ReviewMine .iteminfo .img_box.stock-overlay {
+  position: relative; /* 부모 요소 위치 설정 */
+}
+
+.ReviewMine .iteminfo .img_box.stock-overlay::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100px;
+  height: 100px;
+  background-color: rgba(0, 0, 0, 0.5); /* 반투명한 검은 배경 */
+  z-index: 1; /* 다른 요소 위에 표시되도록 설정 */
+}
+
+.ReviewMine .iteminfo .img_box .stock-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 20px;
+  text-align: center;
+  padding: 20px;
+
+  z-index: 2; /* 다른 요소 위에 표시되도록 설정 */
+}
 .ReviewMine .iteminfo .img_box img {
   width: 100px;
   height: 100px;
+  display: block;
 }
 .ReviewMine .iteminfo .detail_box > div {
   padding: 3px;
@@ -326,7 +362,10 @@ table td {
   font-size: 18px;
   color: #888;
 }
-
+.ReviewMine a {
+  text-decoration: none;
+  color: black;
+}
 .QandA .none_review_list {
   border: 1px solid #ddd;
   padding: 50px;
@@ -361,10 +400,7 @@ table td {
 .QandA .review_list .btn_box > div > div {
   margin: 10px;
 }
-.QandA .review_list .img {
-  width: 15%;
-  text-align: center;
-}
+/*  */
 .QandA .review_list .info_content {
   width: 65%;
   padding-right: 50px;
@@ -401,4 +437,43 @@ table td {
   width: 93%;
   border-radius: 10px;
   padding: 20px;
+}
+.QandA .img {
+  margin: 0 40px;
+}
+.QandA .img.stock-overlay {
+  position: relative; /* 부모 요소 위치 설정 */
+}
+
+.QandA .img.stock-overlay::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 120px;
+  height: 130px;
+  background-color: rgba(0, 0, 0, 0.5); /* 반투명한 검은 배경 */
+  z-index: 1; /* 다른 요소 위에 표시되도록 설정 */
+}
+
+.QandA .img .stock-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 20px;
+  text-align: center;
+  padding: 20px;
+
+  z-index: 2; /* 다른 요소 위에 표시되도록 설정 */
+}
+.QandA img {
+  width: 120px;
+  height: 130px;
+  display: block;
+}
+.QandA a {
+  color: black;
+  text-decoration: none;
 }

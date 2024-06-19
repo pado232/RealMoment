@@ -42,7 +42,7 @@ const UserGrade = ({ goToPrivacy, goToPoint, goToReview, totalReview }) => {
       <div className="usergrade_content">
         <div className="usergrade_title">
           <img
-            src={process.env.PUBLIC_URL + `/image/user_img.png`}
+            src={process.env.PUBLIC_URL + `/imageDummy/user_img.png`}
             alt="User"
           />
 
@@ -54,7 +54,6 @@ const UserGrade = ({ goToPrivacy, goToPoint, goToReview, totalReview }) => {
               </span>
             </p>
             <p>가입일 : {profile.createdDate.split("T")[0]}</p>
-            {/* .split("T")[0] */}
           </div>
         </div>
 

@@ -8,10 +8,32 @@ const Bill = ({ orderList }) => {
     console.log("orderList updated:", orderList);
   }, [orderList]);
 
-  const orderAmount = orderList.reduce(
+  // Filter out items with no stock before calculating the order amount
+  const filteredOrderList = orderList.filter((item) => item.stock > 0);
+
+  filteredOrderList.forEach((item) => {
+    console.log(`Item ID: ${item.itemId}, Stock: ${item.stock}`);
+  });
+
+  const orderAmount = filteredOrderList.reduce(
     (total, item) => total + item.sellPrice * item.count,
     0
   );
+
+  const modifiedOrderList = filteredOrderList.map(({ itemId, count }) => ({
+    itemId,
+    count,
+  }));
+
+  console.log("modifiedOrderList", modifiedOrderList);
+
+  const OrderSubmit = () => {
+    if (modifiedOrderList.length > 0) {
+      navigate("/ordercheck", { state: { orders: modifiedOrderList } });
+    } else {
+      window.alert("상품을 선택해주세요.");
+    }
+  };
 
   return (
     <div className="Bill">
@@ -29,9 +51,10 @@ const Bill = ({ orderList }) => {
               <div>배송비</div>
               <div className="content">무료</div>
             </div>
-            <div className="between">
-              <div>적립예정 포인트</div>
-              <div className="content">0 P</div>
+            <div
+              style={{ fontSize: 12, margin: "20px 0", textAlign: "center" }}
+            >
+              자세한 사항은 주문하기에서 확인 가능합니다.
             </div>
           </div>
           <div className="total">
@@ -47,7 +70,7 @@ const Bill = ({ orderList }) => {
         </div>
       </div>
       <div className="btn_warpper">
-        <button onClick={() => navigate("/ordercheck")}>주문하기</button>
+        <button onClick={OrderSubmit}>주문하기</button>
       </div>
     </div>
   );

@@ -151,8 +151,8 @@ const ReviewWrite = ({ MyReviewList }) => {
           orderList={orderList}
           isWriteModalOpen={isWriteModalOpen}
           setIsWriteModalOpen={setIsWriteModalOpen}
+          fetchOrderList={fetchOrderList}
           triggerRefresh={() => {
-            fetchOrderList();
             MyReviewList();
           }} // 트리거를 전달
         />

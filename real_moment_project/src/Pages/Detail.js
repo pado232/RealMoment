@@ -62,7 +62,11 @@ const Detail = () => {
 
   const plusClick = () => {
     if (itemCount < 10) {
-      setItemCount(itemCount + 1);
+      if (itemDetails.stock > itemCount) {
+        setItemCount(itemCount + 1);
+      } else {
+        setWarningMessage("남은 재고의 최대 수량입니다.");
+      }
     } else {
       setWarningMessage("10개 이상의 상품을 구매하실 수 없습니다.");
     }
@@ -99,6 +103,18 @@ const Detail = () => {
         })
         .catch((error) => {
           console.error("AddCart GET Error:", error);
+          if (error.response.data === "이미 장바구니에 존재한 상품입니다.") {
+            // 서버에서 반환된 응답이 있는 경우
+
+            if (
+              window.confirm(
+                "이미 장바구니에 존재하는 상품입니다. 장바구니로 이동하시겠습니까?"
+              )
+            ) {
+              navigate("/cart");
+            } else {
+            }
+          }
         });
     } else {
       if (
@@ -112,6 +128,17 @@ const Detail = () => {
     }
   };
 
+  const OrderSubmit = () => {
+    const modifiedOrderList = [
+      {
+        itemId: itemId,
+        count: itemCount,
+      },
+    ];
+    console.log("modifiedOrderList", modifiedOrderList);
+    navigate("/ordercheck", { state: { orders: modifiedOrderList } });
+  };
+
   return (
     <div className="Detail">
       <Container>
@@ -119,14 +146,14 @@ const Detail = () => {
           <div>
             <div className="item_detail">
               <ImgSlide mainImgDataList={itemDetails.mainImgDataList} />
-              {/* <div className="img">
-               
-                <img
-                  alt="메인이미지1"
-                  src={process.env.PUBLIC_URL + `/image/shadow.jpg`}
-                />
-              </div> */}
               <div className="detail">
+                {itemDetails.stock !== 0 && itemDetails.stock < 10 ? (
+                  <div className="stock">
+                    🔥 <span>품절 임박</span> 🔥
+                  </div>
+                ) : (
+                  ""
+                )}
                 <h2>{itemDetails.name}</h2>
 
                 <div className="price_content">
@@ -155,62 +182,96 @@ const Detail = () => {
                     <div className="content">무료 배송</div>
                   </div>
                 </div>
+                {itemDetails.stock !== 0 ? (
+                  <>
+                    <div className="count">
+                      <div>
+                        <div className="counter">
+                          <button onClick={minusClick}>
+                            <FaMinus size={11} />
+                          </button>
+                          <input
+                            type="text"
+                            name="itemCount"
+                            value={itemCount}
+                            readOnly
+                          />
+                          <button onClick={plusClick}>
+                            <FaPlus size={12} />
+                          </button>
+                        </div>
+                        {itemDetails.stock < 10 ? (
+                          <div className="stock">
+                            (남은 수량: <strong>{itemDetails.stock}</strong>)
+                          </div>
+                        ) : (
+                          ""
+                        )}
+                      </div>
 
-                <div className="count">
-                  <div className="counter">
-                    <button onClick={minusClick}>
-                      <FaMinus size={11} />
+                      <div>{itemDetails.sellPrice.toLocaleString()}</div>
+                    </div>
+                    {warningMessage && (
+                      <div
+                        style={{
+                          border: "none",
+                          color: "rgb(220, 0, 0)",
+                          fontSize: 13,
+                          fontWeight: "bold",
+                        }}
+                        className="warning-message"
+                      >
+                        {warningMessage}
+                      </div>
+                    )}
+
+                    <div className="total">
+                      <div className="totalTitle">합계</div>
+                      <div className="totalPrice">
+                        {(itemDetails.sellPrice * itemCount).toLocaleString()}
+                      </div>
+                    </div>
+
+                    <div className="payment">
+                      <button className="heart" onClick={changeHeart}>
+                        {haertIcon}
+                      </button>
+                      <button onClick={AddCart} className="cart">
+                        <div>
+                          <TiShoppingCart size={30} />
+                        </div>
+                        <div>장바구니</div>
+                      </button>
+                      <button onClick={OrderSubmit} className="pay">
+                        <div>
+                          <MdPayment size={30} />
+                        </div>
+                        <div>구매하기</div>
+                      </button>
+                    </div>
+                  </>
+                ) : (
+                  <div className="payment">
+                    <button className="heart" onClick={changeHeart}>
+                      {haertIcon}
                     </button>
-                    <input
-                      type="text"
-                      name="itemCount"
-                      value={itemCount}
-                      readOnly
-                    />
-                    <button onClick={plusClick}>
-                      <FaPlus size={12} />
+                    <button onClick={AddCart} className="cart">
+                      <div>
+                        <TiShoppingCart size={30} />
+                      </div>
+                      <div>장바구니</div>
                     </button>
-                  </div>
-                  <div>{itemDetails.sellPrice.toLocaleString()}</div>
-                </div>
-                {warningMessage && (
-                  <div
-                    style={{
-                      border: "none",
-                      color: "rgb(220, 0, 0)",
-                      fontSize: 13,
-                      fontWeight: "bold",
-                    }}
-                    className="warning-message"
-                  >
-                    {warningMessage}
+                    <button
+                      style={{ backgroundColor: "#aaa", cursor: "default" }}
+                      className="pay"
+                    >
+                      <div>
+                        <MdPayment size={30} />
+                      </div>
+                      <div>구매 불가</div>
+                    </button>
                   </div>
                 )}
-
-                <div className="total">
-                  <div className="totalTitle">합계</div>
-                  <div className="totalPrice">
-                    {(itemDetails.sellPrice * itemCount).toLocaleString()}
-                  </div>
-                </div>
-
-                <div className="payment">
-                  <button className="heart" onClick={changeHeart}>
-                    {haertIcon}
-                  </button>
-                  <button onClick={AddCart} className="cart">
-                    <div>
-                      <TiShoppingCart size={30} />
-                    </div>
-                    <div>장바구니</div>
-                  </button>
-                  <button className="pay">
-                    <div>
-                      <MdPayment size={30} />
-                    </div>
-                    <div>구매하기</div>
-                  </button>
-                </div>
               </div>
             </div>
 

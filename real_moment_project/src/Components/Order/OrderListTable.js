@@ -13,12 +13,14 @@ import ReviewWriteBox from "../Review/ReviewWriteBox";
 
 import axiosInstance from "../../api/AxiosInstance";
 import { getCookie } from "../../api/Cookies";
+import DateFormat from "../../util/DateFormat";
 
 const OrderListTable = ({
   isWriteModalOpen,
   setIsWriteModalOpen,
   orderList,
   triggerRefresh, // 새로고침 트리거 함수
+  fetchOrderList,
 }) => {
   const customStyles = {
     content: {
@@ -40,6 +42,9 @@ const OrderListTable = ({
     star: 5,
   });
 
+  const [cancelReason, setCancelReason] = useState("");
+  const [refundReason, setRefundReason] = useState("");
+
   const handleStateChange = (e) => {
     const { name, value } = e.target;
 
@@ -47,6 +52,15 @@ const OrderListTable = ({
       ...review,
       [name]: value,
     });
+  };
+
+  const handleReasonChange = (e) => {
+    const { name, value } = e.target;
+    if (name === "cancelReason") {
+      setCancelReason(value);
+    } else if (name === "refundReason") {
+      setRefundReason(value);
+    }
   };
 
   const handleSubmit = (orderId, itemId) => {
@@ -71,7 +85,7 @@ const OrderListTable = ({
       })
       .then((res) => {
         console.log("ReviewCreate POST ", res);
-
+        fetchOrderList(); // 제출 후 새로고침 트리거
         triggerRefresh(); // 리뷰 제출 후 새로고침 트리거
       })
       .catch((error) => {
@@ -104,6 +118,68 @@ const OrderListTable = ({
     }
   };
 
+  const OrderCancel = (orderId) => {
+    if (cancelReason === "") {
+      alert("취소 사유를 선택해 주세요.");
+      document.getElementsByName("cancelReason")[0].focus();
+      return;
+    }
+
+    if (window.confirm("결제를 취소하시겠습니까?")) {
+      axiosInstance
+        .post(`/member/${getCookie("Id")}/order/cancel`, {
+          orderId: orderId,
+          reasonText: cancelReason,
+        })
+        .then((res) => {
+          fetchOrderList(); // 제출 후 새로고침 트리거
+          console.log("OrderCancel POST ", res);
+        })
+        .catch((error) => {
+          console.error("OrderCancel POST Error:", error);
+        });
+    }
+  };
+
+  const OrderRefund = (orderId) => {
+    if (refundReason === "") {
+      alert("환불 사유를 선택해 주세요.");
+      document.getElementsByName("refundReason")[0].focus();
+      return;
+    }
+
+    if (window.confirm("환불 신청을 진행하시겠습니까?")) {
+      axiosInstance
+        .patch(`/member/${getCookie("Id")}/order/refund`, {
+          orderId: orderId,
+          reasonText: refundReason,
+        })
+        .then((res) => {
+          fetchOrderList(); // 제출 후 새로고침 트리거
+          console.log("OrderRefund PATCH ", res);
+        })
+        .catch((error) => {
+          console.error("OrderRefund PATCH Error:", error);
+        });
+    }
+  };
+
+  const OrderDone = (orderId) => {
+    if (window.confirm("구매를 확정하시겠습니까?")) {
+      axiosInstance
+        .patch(`/member/${getCookie("Id")}/order/done`, {
+          orderId: orderId,
+        })
+        .then((res) => {
+          fetchOrderList(); // 제출 후 새로고침 트리거
+          console.log("OrderDone PATCH ", res);
+        })
+        .catch((error) => {
+          console.error("OrderDone PATCH Error:", error);
+        });
+    }
+  };
+
   return (
     <div className="ListTable">
       <table>
@@ -133,12 +209,38 @@ const OrderListTable = ({
                 <td>
                   {order.orderDetails.map((detail, index) => (
                     <div key={index}>
-                      <div className="iteminfo">
+                      <div
+                        className={
+                          detail.item.sell === true
+                            ? "iteminfo"
+                            : "iteminfo none"
+                        }
+                      >
                         {/** 나중에 a태그로 img 클릭하면 상세 페이지로 갑니다 */}
-                        <div className="img">
-                          <img alt="상품정보이미지" src={detail.item.mainImg} />
-                        </div>
-
+                        <a
+                          href={
+                            detail.item.sell === true
+                              ? `/detail/${detail.item.itemId}`
+                              : ""
+                          }
+                        >
+                          <div
+                            className={`img ${
+                              detail.item.stock === 0 ||
+                              detail.item.sell === false
+                                ? "stock-overlay"
+                                : ""
+                            }`}
+                          >
+                            {detail.item.stock === 0 && (
+                              <div className="stock-text">SOLD OUT</div>
+                            )}
+                            <img
+                              alt="상품정보이미지"
+                              src={detail.item.mainImg}
+                            />
+                          </div>
+                        </a>
                         <div className="content">
                           {/* <div>{detail.orderDetailId}</div> */}
                           <div>
@@ -153,7 +255,8 @@ const OrderListTable = ({
                               {detail.item.discountRate}%
                             </div>
                             <div>
-                              (-{detail.item.discountPrice.toLocaleString()}원)
+                              (-{detail.item.discountPrice.toLocaleString()}
+                              원)
                             </div>
                           </div>
                           <div>
@@ -168,11 +271,6 @@ const OrderListTable = ({
                               {detail.totalPrice.toLocaleString()}원
                             </div>
                           </div>
-                          {/* <div>
-                          {detail.item.sell === true ? "판매중" : "판매 중지"}
-                        </div> */}
-
-                          <div>{detail.item.mainImg}</div>
                         </div>
                       </div>
                       <div>
@@ -258,13 +356,64 @@ const OrderListTable = ({
                   </div>
                 </td>
                 <td>
-                  <div>{order.orderedDate.toString().split("T")[0]}</div>
+                  <DateFormat dateString={order.orderedDate} />
                 </td>
                 <td>
                   <div>{order.buyPrice.toLocaleString()} 원</div>
                 </td>
                 <td>
                   <div>{order.status}</div>
+                  <div>
+                    <div className="btn_warpper">
+                      {order.status === "배송완료" ? (
+                        <>
+                          <div>
+                            <button onClick={() => OrderDone(order.orderId)}>
+                              구매확정
+                            </button>
+                          </div>
+
+                          <div>
+                            <button onClick={() => OrderRefund(order.orderId)}>
+                              환불신청
+                            </button>
+                            <div>
+                              <select
+                                name="refundReason"
+                                value={refundReason}
+                                onChange={handleReasonChange}
+                              >
+                                <option value="">환불 사유 선택</option>
+                                <option value="변심">변심</option>
+                                <option value="불량">불량</option>
+                                <option value="기타">기타</option>
+                              </select>
+                            </div>
+                          </div>
+                        </>
+                      ) : order.status === "결제완료" ? (
+                        <div>
+                          <div>
+                            <select
+                              name="cancelReason"
+                              value={cancelReason}
+                              onChange={handleReasonChange}
+                            >
+                              <option value="">취소 사유 선택</option>
+                              <option value="변심">변심</option>
+                              <option value="배송 지연">배송 지연</option>
+                              <option value="기타">기타</option>
+                            </select>
+                          </div>
+                          <button onClick={() => OrderCancel(order.orderId)}>
+                            결제취소
+                          </button>
+                        </div>
+                      ) : (
+                        ""
+                      )}
+                    </div>
+                  </div>
                 </td>
               </tr>
             ))

@@ -90,7 +90,7 @@ const BestItem = () => {
           <div>No items found ...</div>
         ) : (
           itemList.map((item, index) => (
-            <div>
+            <div key={index}>
               <ItemItem key={index} {...item} />
             </div>
           ))

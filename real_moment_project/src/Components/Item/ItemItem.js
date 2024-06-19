@@ -6,30 +6,25 @@ import { TiShoppingCart } from "react-icons/ti";
 import { MdPayment } from "react-icons/md";
 import axiosInstance from "../../api/AxiosInstance";
 import { getCookie } from "../../api/Cookies";
+import { FaStar } from "react-icons/fa";
 
 import "../../styles/item.css";
 
 const ItemItem = ({
+  wishId,
   itemId,
   mainImg,
   name,
   price,
   sellPrice,
   discountRate,
+  haertPage,
+  fetchHeartItem,
+  averageStar,
+  stock,
 }) => {
   const navigate = useNavigate();
-  const [heart, setHeart] = useState(false);
-  const iconSize = 10 * 2;
-  const iconCartSize = 12 * 2;
-
-  const haertIcon = heart ? (
-    <FaHeart size={iconSize} />
-  ) : (
-    <FaRegHeart size={iconSize} />
-  );
-  const changeHeart = () => {
-    setHeart(!heart);
-  };
+  const [heartAnimating, setHeartAnimating] = useState(false);
 
   const AddCart = () => {
     if (getCookie("Id")) {
@@ -51,8 +46,20 @@ const ItemItem = ({
           console.log("AddCart GET ", res);
         })
         .catch((error) => {
-          console.error("AddCart GET Error:", error);
-          // 장바구니에 이미 존재하는 아이템에 대한 구현 필요
+          if (error.response.data === "이미 장바구니에 존재한 상품입니다.") {
+            // 서버에서 반환된 응답이 있는 경우
+
+            if (
+              window.confirm(
+                "이미 장바구니에 존재하는 상품입니다. 장바구니로 이동하시겠습니까?"
+              )
+            ) {
+              navigate("/cart");
+            } else {
+            }
+          } else {
+            console.error("AddCart GET Error:", error);
+          }
         });
     } else {
       if (
@@ -66,14 +73,97 @@ const ItemItem = ({
     }
   };
 
+  const AddHeart = () => {
+    setHeartAnimating(true);
+    setTimeout(() => {
+      setHeartAnimating(false);
+    }, 500); // 0.5초 후에 애니메이션 클래스 제거
+
+    if (getCookie("Id")) {
+      axiosInstance
+        .post(`/member/${getCookie("Id")}/wish`, {
+          itemId: itemId,
+        })
+        .then((res) => {
+          console.log("AddHeart GET ", res);
+        })
+        .catch((error) => {
+          if (error.response.data === "이미 찜에 등록되어 있습니다.") {
+            // 서버에서 반환된 응답이 있는 경우
+
+            if (
+              window.confirm(
+                "이미 하트함에 존재하는 상품입니다. 하트함로 이동하시겠습니까?"
+              )
+            ) {
+              navigate("/heart");
+            } else {
+            }
+          } else {
+            console.error("AddHeart GET Error:", error);
+          }
+        });
+    } else {
+      if (
+        window.confirm(
+          "하트함에 담으시려면 로그인 해주세요. 로그인하시려면 '확인'을 눌러주세요."
+        )
+      ) {
+        navigate("/login");
+      } else {
+      }
+    }
+  };
+
+  const OrderSubmit = () => {
+    const modifiedOrderList = [
+      {
+        itemId: itemId,
+        count: 1,
+      },
+    ];
+    console.log("modifiedOrderList", modifiedOrderList);
+    if (window.confirm(`${name}(을)를 주문하시겠습니까?`)) {
+      navigate("/ordercheck", { state: { orders: modifiedOrderList } });
+    } else {
+    }
+  };
+
+  const DeleteHeart = (wishId) => {
+    axiosInstance
+      .delete(`/member/${getCookie("Id")}/wish?wishId=${wishId}`)
+      .then((res) => {
+        fetchHeartItem();
+        console.log("DeleteHeart GET ", res);
+      })
+      .catch((error) => {
+        console.error("DeleteHeart GET Error:", error);
+      });
+  };
+
   return (
     <div className="ItemItem">
       <div className="goDetail" onClick={() => navigate(`/detail/${itemId}`)}>
-        <div className="box_img">
+        <div className={`box_img ${stock === 0 ? "stock-overlay" : ""}`}>
+          {stock === 0 && <div className="stock-text">SOLD OUT</div>}
           <img alt={`${name} 이미지`} src={mainImg} />
         </div>
+
         <div className="box_content">
-          <div className="name">{name}</div>
+          <div className="name">
+            {stock !== 0 && stock < 10 ? (
+              <span className="stock">🔥품절 임박🔥 </span>
+            ) : (
+              ""
+            )}
+            {name}
+          </div>
+          <div className="star_box">
+            <div className="icon">
+              <FaStar size={15} />
+            </div>
+            <div>{averageStar.toFixed(1)}</div>
+          </div>
           {discountRate === 0 ? (
             <div className="price">
               <span className="sale_price">{price.toLocaleString()}원</span>
@@ -89,17 +179,35 @@ const ItemItem = ({
       </div>
 
       <div className="payment">
-        <div>
-          <button onClick={changeHeart}>{haertIcon}</button>
-        </div>
+        {haertPage === "하트함" ? (
+          <div>
+            <button onClick={() => DeleteHeart(wishId)}>
+              <FaHeart size={20} color="rgb(255, 0, 85)" />
+            </button>
+          </div>
+        ) : (
+          <div>
+            <button
+              onClick={AddHeart}
+              className={heartAnimating ? "heart-animating" : ""}
+            >
+              {heartAnimating ? (
+                <FaHeart size={20} className="heartClick" />
+              ) : (
+                <FaRegHeart size={20} />
+              )}
+            </button>
+          </div>
+        )}
+
         <div>
           <button onClick={AddCart}>
-            <TiShoppingCart size={iconCartSize} />
+            <TiShoppingCart size={24} />
           </button>
         </div>
         <div>
-          <button>
-            <MdPayment size={iconCartSize} />
+          <button onClick={OrderSubmit}>
+            <MdPayment size={24} />
           </button>
         </div>
       </div>

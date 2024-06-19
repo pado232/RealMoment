@@ -76,8 +76,8 @@ const Login = ({ onLogin }) => {
 
         // 토큰을 쿠키에 저장
         setCookie("Id", memberId);
-        setCookie("Authorization", AuthorizationToken);
-        setCookie("Refresh_Token", RefreshToken);
+        setCookie("Authorization1", AuthorizationToken);
+        setCookie("Refresh_Token1", RefreshToken);
 
         // 로그인 성공 시 부모 컴포넌트로 토큰 전달
         onLogin(AuthorizationToken, RefreshToken);

@@ -167,17 +167,39 @@ const ReviewMine = () => {
             <tr key={index}>
               <td>
                 <div className="iteminfo">
-                  <div className="img_box">
-                    <img
-                      alt="상품정보이미지"
-                      style={{ width: 100, height: 120 }}
-                      src={review.item.mainImg}
-                    />
-                  </div>
-                  <div>
-                    <strong>{review.item.name}</strong>
-                  </div>
-                  <div className="detail_box">
+                  <a
+                    href={
+                      review.item.sell === true
+                        ? `/detail/${review.item.itemId}`
+                        : ""
+                    }
+                  >
+                    <div
+                      className={`img_box ${
+                        review.item.stock === 0 || review.item.sell === false
+                          ? "stock-overlay"
+                          : ""
+                      }`}
+                    >
+                      {review.item.stock === 0 && (
+                        <div className="stock-text">SOLD OUT</div>
+                      )}
+                      <img alt="상품정보이미지" src={review.item.mainImg} />
+                    </div>
+                  </a>
+                  <div className="detail_box" style={{ marginLeft: 20 }}>
+                    <div>
+                      <a
+                        href={
+                          review.item.sell === true
+                            ? `/detail/${review.item.itemId}`
+                            : ""
+                        }
+                      >
+                        <strong>{review.item.name}</strong>
+                      </a>
+                    </div>
+
                     <div className="detail">
                       {/* <div className="price">
                         <span>{review.item.price.toLocaleString()}</span>원

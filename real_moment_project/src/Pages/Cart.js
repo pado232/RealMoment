@@ -7,7 +7,6 @@ import { useState } from "react";
 
 const Cart = () => {
   const [orderList, setOrderList] = useState([]);
-  const [totalPrice, setToTalPrice] = useState("");
 
   return (
     <div className="Cart">

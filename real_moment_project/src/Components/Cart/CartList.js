@@ -73,6 +73,7 @@ const CartList = ({ setOrderList }) => {
         itemId: item.item.itemId,
         count: item.itemCount,
         sellPrice: item.item.sellPrice,
+        stock: item.item.stock,
       };
     });
 
@@ -89,8 +90,12 @@ const CartList = ({ setOrderList }) => {
 
   const plusClick = (index, cartId) => {
     const currentItem = cartList[index];
+
     if (currentItem.itemCount < 10) {
-      updateItemCount(index, currentItem.itemCount + 1, cartId);
+      console.log("수량", currentItem.item.stock);
+      if (currentItem.item.stock > currentItem.itemCount) {
+        updateItemCount(index, currentItem.itemCount + 1, cartId);
+      }
     }
   };
 
@@ -107,6 +112,7 @@ const CartList = ({ setOrderList }) => {
         itemId: item.item.itemId,
         count: item.itemCount,
         sellPrice: item.item.sellPrice,
+        stock: item.item.stock,
       };
     });
 
@@ -148,6 +154,7 @@ const CartList = ({ setOrderList }) => {
                       itemId: cart.item.itemId,
                       count: cart.itemCount,
                       sellPrice: cart.item.sellPrice,
+                      stock: cart.item.stock,
                     }))
                   );
                 } else {
@@ -178,28 +185,60 @@ const CartList = ({ setOrderList }) => {
                   onChange={() => handleCheckboxChange(index, cart.cartId)}
                 />
               </div>
-              <img
-                style={{ width: 90, height: 90, margin: 10 }}
-                alt={`${cart.item.name} 이미지`}
-                src={cart.item.mainImg}
-              />
+              <a
+                href={
+                  cart.item.sell === true ? `/detail/${cart.item.itemId}` : ""
+                }
+              >
+                <div
+                  className={`img ${
+                    cart.item.stock === 0 || cart.item.sell === false
+                      ? "stock-overlay"
+                      : ""
+                  }`}
+                >
+                  {cart.item.stock === 0 && (
+                    <div className="stock-text">SOLD OUT</div>
+                  )}
+                  <img
+                    alt={`${cart.item.name} 이미지`}
+                    src={cart.item.mainImg}
+                  />
+                </div>
+              </a>
             </div>
             <div className="info_content">
               <div className="title">
                 <div>{cart.item.name}</div>
               </div>
-              <div className="info">
-                <div className="price">{cart.item.price.toLocaleString()}</div>
-                <div className="discountRate">{cart.item.discountRate}%</div>
-                <div className="discountPrice">
-                  -{cart.item.discountPrice.toLocaleString()}
+              {cart.item.discountRate !== 0 ? (
+                <div className="info">
+                  <div className="price">
+                    {cart.item.price.toLocaleString()}원
+                  </div>
+                  <div className="discountRate">{cart.item.discountRate}%</div>
+                  <div className="discountPrice">
+                    -{cart.item.discountPrice.toLocaleString()}원
+                  </div>
                 </div>
-              </div>
+              ) : (
+                ""
+              )}
+
               <div className="info_price">
-                <div>{cart.item.sellPrice.toLocaleString()}</div>
+                <div>{cart.item.sellPrice.toLocaleString()} 원</div>
               </div>
             </div>
             <div className="count_box">
+              {cart.item.stock < 10 && cart.item.stock > 0 ? (
+                <div className="stock">
+                  <span>🔥 품절 임박</span>(남은 수량:{" "}
+                  <strong>{cart.item.stock}</strong>) 🔥
+                </div>
+              ) : (
+                ""
+              )}
+
               <div className="count">
                 <div className="counter">
                   <button onClick={() => minusClick(index, cart.cartId)}>
@@ -231,6 +270,20 @@ const CartList = ({ setOrderList }) => {
                   className="warning-message"
                 >
                   10개 이상의 상품을 구매하실 수 없습니다.
+                </div>
+              )}
+              {cart.item.stock === cart.itemCount && (
+                <div
+                  style={{
+                    marginTop: 10,
+                    border: "none",
+                    color: "rgb(220, 0, 0)",
+                    fontSize: 13,
+                    fontWeight: "bold",
+                  }}
+                  className="warning-message"
+                >
+                  남은 재고의 최대 수량입니다.
                 </div>
               )}
             </div>

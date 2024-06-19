@@ -1,0 +1,98 @@
+.HomeMainImg {
+  position: relative;
+  margin: auto;
+  width: 1700px;
+  height: 600px; /* 필요에 따라 높이 조정 */
+  overflow: hidden;
+}
+.HomeMainImg .no-image-warning {
+  margin-top: 250px;
+  text-align: center;
+}
+.HomeMainImg .no-image-warning > div {
+  margin-bottom: 2px;
+}
+.HomeMainImg .no-image-warning .title {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.HomeMainImg .imgSlider {
+  position: relative;
+  height: 600px;
+}
+
+.HomeMainImg .slides-container {
+  display: flex;
+  transition: transform 1s ease;
+}
+
+.HomeMainImg .slide {
+  min-width: 100%;
+  height: 600px;
+}
+
+.HomeMainImg .homeimage {
+  width: 100%;
+  height: 600px;
+  /* object-fit: cover; */
+}
+
+.HomeMainImg .imgSlider-arrow {
+  z-index: 2;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-70%);
+  background-color: rgba(0, 0, 0, 0.4);
+  color: rgba(255, 255, 255, 0.671);
+  cursor: pointer;
+  border-radius: 60%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
+
+.HomeMainImg .imgSlider-arrow:hover {
+  color: rgb(255, 255, 255);
+  /* background-color: rgba(0, 0, 0, 0.7); */
+}
+
+.HomeMainImg .imgSlider-arrow.left {
+  padding-right: 3px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  left: 30px;
+}
+
+.HomeMainImg .imgSlider-arrow.right {
+  padding-left: 3px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  right: 30px;
+}
+
+.HomeMainImg .indicators {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.HomeMainImg .indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.6);
+  margin: 0 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.HomeMainImg .indicator.active {
+  background-color: rgb(0, 0, 0);
+}

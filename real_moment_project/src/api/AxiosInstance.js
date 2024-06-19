@@ -8,7 +8,7 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = getCookie("Authorization");
+    const token = getCookie("Authorization1");
     if (token) {
       config.headers.Authorization = `${token}`;
     }
@@ -33,7 +33,7 @@ axiosInstance.interceptors.response.use(
       try {
         // 재발급 요청을 보내기 전에 이전 토큰과 리프레시 토큰을 가져옴
         // const oldAuthorization = getCookie("Authorization");
-        const oldRefreshToken = getCookie("Refresh_Token");
+        const oldRefreshToken = getCookie("Refresh_Token1");
 
         const res = await axiosInstance.post(
           "/reissue/accessToken",
@@ -54,8 +54,8 @@ axiosInstance.interceptors.response.use(
         const AuthorizationToken = res.headers.get("Authorization");
         const RefreshToken = res.headers.get("Refresh_Token");
 
-        setCookie("Authorization", AuthorizationToken);
-        setCookie("Refresh_Token", RefreshToken);
+        setCookie("Authorization1", AuthorizationToken);
+        setCookie("Refresh_Token1", RefreshToken);
 
         error.config.headers.Authorization = `${AuthorizationToken}`;
         return axiosInstance(error.config);

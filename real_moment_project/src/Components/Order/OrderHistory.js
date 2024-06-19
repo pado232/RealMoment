@@ -169,6 +169,7 @@ const OrderHistory = () => {
           orderList={orderList}
           isWriteModalOpen={isWriteModalOpen}
           setIsWriteModalOpen={setIsWriteModalOpen}
+          fetchOrderList={fetchOrderList}
         />
       </div>
       <div className="pagination">

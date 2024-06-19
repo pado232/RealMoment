@@ -147,13 +147,22 @@ const QandA = () => {
         ) : (
           itemQAList.map((QA, index) => (
             <div className="review_list" key={index}>
-              <div className="img">
-                <img
-                  style={{ width: 80, height: 80, margin: 10 }}
-                  alt={`${QA.item.name} 이미지`}
-                  src={QA.item.mainImg}
-                />
-              </div>
+              <a
+                href={QA.item.sell === true ? `/detail/${QA.item.itemId}` : ""}
+              >
+                <div
+                  className={`img ${
+                    QA.item.stock === 0 || QA.item.sell === false
+                      ? "stock-overlay"
+                      : ""
+                  }`}
+                >
+                  {QA.item.stock === 0 && (
+                    <div className="stock-text">SOLD OUT</div>
+                  )}
+                  <img alt={`${QA.item.name} 이미지`} src={QA.item.mainImg} />
+                </div>
+              </a>
               <div className="info_content">
                 <div className="info">
                   <div>

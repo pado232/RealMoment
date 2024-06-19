@@ -119,21 +119,62 @@ table td {
   align-items: center;
 
   border: 1px solid rgba(255, 229, 229, 0.867);
-  padding: 10px 40px;
+  padding: 10px 30px;
   min-width: 250px;
 }
-.ListTable .iteminfo .img {
-  margin-right: 20px;
-  width: 80px;
-  height: 80px;
+.ListTable .iteminfo.none {
+  pointer-events: none; /* 포인터 이벤트 비활성화: 마우스 클릭 등 이벤트를 막습니다. */
+  background-color: rgba(177, 177, 177, 0.5); /* 배경색 회색으로 설정 */
+  color: #808080; /* 글자색 회색으로 설정 */
+  border: 1px solid rgba(175, 175, 175, 0.867);
 }
-.ListTable .iteminfo .img img {
-  width: 80px;
-  height: 80;
+
+.ListTable .iteminfo .img {
+  position: relative;
+  overflow: hidden;
+  margin-right: 20px;
+  width: 90px;
+  height: 90px;
+}
+.ListTable .iteminfo .img.stock-overlay {
+  position: relative; /* 부모 요소 위치 설정 */
+}
+
+.ListTable .iteminfo .img.stock-overlay::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* 반투명한 검은 배경 */
+  z-index: 1; /* 다른 요소 위에 표시되도록 설정 */
+}
+
+.ListTable .iteminfo .img .stock-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 20px;
+  text-align: center;
+  padding: 20px;
+
+  z-index: 2; /* 다른 요소 위에 표시되도록 설정 */
+}
+.ListTable .iteminfo img {
+  width: 100%;
+  height: 90px;
+  display: block;
+}
+.ListTable a {
+  color: black;
+  text-decoration: none;
 }
 .ListTable .iteminfo .content {
   text-align: initial;
-  width: 100%;
+  width: 65%;
 }
 .ListTable .iteminfo .content > div {
   padding: 1px 0;
@@ -184,8 +225,30 @@ table td {
 .ListTable table tbody tr {
   border-bottom: 1px solid #eee;
 }
-
 .ListTable .btn_box {
   margin: 15px;
   padding-bottom: 10px;
+}
+.ListTable .btn_warpper {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+.ListTable .btn_warpper > div {
+  margin: 10px;
+}
+.ListTable .btn_warpper button {
+  margin-top: 10px;
+  min-width: 85px;
+  border: 2px solid hsl(0, 85%, 82%);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  cursor: pointer;
+  padding: 7px 10px;
+
+  font-weight: bold;
+  font-size: 13px;
+}
+.ListTable .btn_warpper button:active {
+  box-shadow: none;
 }
