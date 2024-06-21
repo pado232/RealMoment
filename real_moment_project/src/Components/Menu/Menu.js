@@ -33,7 +33,7 @@ const Menu = () => {
               <a href={"/new"}>New</a>
             </li>
             <li>
-              <a href={"/item"}>Sale</a>
+              <a href={"/sale"}>Sale</a>
             </li>
             <li>
               <a href={"https://www.instagram.com/"}>

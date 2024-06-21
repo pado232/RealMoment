@@ -1,7 +1,8 @@
-import axios from "axios";
 import ItemItem from "./Item/ItemItem";
 import { useEffect, useState } from "react";
 import "../styles/Home.css";
+
+import axiosInstanceWithoutAuth from "../api/AxioxInstanceWithoutAuth";
 
 const BestItem = () => {
   const [itemList, setItemList] = useState([]);
@@ -9,8 +10,8 @@ const BestItem = () => {
   const [selectedCategoryId, setSelectedCategoryId] = useState("");
 
   const fetchCategory = () => {
-    axios
-      .get(`http://localhost:8080/category`)
+    axiosInstanceWithoutAuth
+      .get(`/category`)
       .then((res) => {
         const data = res.data;
         const categorydata = [...data].sort((a, b) => {
@@ -36,8 +37,8 @@ const BestItem = () => {
       categoryId: categoryId,
     });
     console.log("파라미터", queryParams.toString());
-    axios
-      .get(`http://localhost:8080/itemList?${queryParams.toString()}`)
+    axiosInstanceWithoutAuth
+      .get(`/itemList?${queryParams.toString()}`)
       .then((res) => {
         // 가장 앞의 3개 아이템만 추출
         const itemListdata = res.data.itemList.slice(0, 4);

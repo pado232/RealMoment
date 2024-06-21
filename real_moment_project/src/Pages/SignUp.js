@@ -1,6 +1,5 @@
 import { useRef, useState } from "react";
 import { FaCheck } from "react-icons/fa6";
-import axios from "axios";
 
 import MyButton from "../util/Buttons/MyButton";
 import PhoneInput from "../util/SignUpInput/PhoneInput";
@@ -11,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 import "../styles/SignUp.css";
 import WhiteButton from "../util/Buttons/WhiteButton";
+import axiosInstanceWithoutAuth from "../api/AxioxInstanceWithoutAuth";
 
 export const sortOptionList = [
   { value: "010" },
@@ -73,8 +73,8 @@ const SignUp = () => {
 
   const idDoubleCheck = (event) => {
     event.preventDefault();
-    axios
-      .post(`http://localhost:8080/memberIdCheck`, {
+    axiosInstanceWithoutAuth
+      .post(`/memberIdCheck`, {
         loginId: state.id,
       })
       .then((res) => {
@@ -172,8 +172,8 @@ const SignUp = () => {
     console.log(state);
 
     // 통신
-    axios
-      .post(`http://localhost:8080/join`, {
+    axiosInstanceWithoutAuth
+      .post(`/join`, {
         loginId: state.id,
         loginPassword: state.pw,
         email: state.email,
@@ -219,8 +219,8 @@ const SignUp = () => {
       return;
     }
 
-    axios
-      .post(`http://localhost:8080/email/html`, {
+    axiosInstanceWithoutAuth
+      .post(`/email/html`, {
         email: state.email,
       })
       .then((res) => {
@@ -240,8 +240,8 @@ const SignUp = () => {
 
     event.preventDefault();
 
-    axios
-      .post(`http://localhost:8080/email/code/check`, {
+    axiosInstanceWithoutAuth
+      .post(`/email/code/check`, {
         email: state.email,
         code: state.code,
       })

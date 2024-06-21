@@ -1,8 +1,8 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { FaStar, FaRegStar } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import Pagination from "../../util/Pagination";
+import axiosInstanceWithoutAuth from "../../api/AxioxInstanceWithoutAuth";
 
 const DetailReview = ({ starsPoint }) => {
   const { itemId } = useParams();
@@ -24,8 +24,8 @@ const DetailReview = ({ starsPoint }) => {
       nowPage: nowPage,
     });
     console.log("파라미터", queryParams.toString());
-    axios
-      .get(`http://localhost:8080/reviewList?${queryParams.toString()}`)
+    axiosInstanceWithoutAuth
+      .get(`/reviewList?${queryParams.toString()}`)
       .then((res) => {
         const reviewListData = res.data.reviewList;
         const nowPageData = res.data.nowPage;

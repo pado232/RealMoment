@@ -5,7 +5,6 @@ import axiosInstance from "../api/AxiosInstance";
 import { getCookie } from "../api/Cookies";
 import Pagination from "../util/Pagination";
 import Container from "../util/Container";
-import { RxCross2 } from "react-icons/rx";
 
 const Heart = () => {
   const [wishList, setWishList] = useState([]);

@@ -8,7 +8,7 @@ import "../styles/MyHeader.css";
 import { useEffect, useState } from "react";
 import { useSearch } from "./Item/SearchProvider";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axiosInstanceWithoutAuth from "../api/AxioxInstanceWithoutAuth";
 
 const MyHeader = ({ isLoggedIn, onLogout }) => {
   const [homeLogos, setHomeLogos] = useState([]);
@@ -41,11 +41,13 @@ const MyHeader = ({ isLoggedIn, onLogout }) => {
 
   const fetchHomeLogo = () => {
     const param = "로고";
-    axios
-      .get(`http://localhost:8080/image?imageLocation=${param}`)
+    axiosInstanceWithoutAuth
+      .get(`/image?imageLocation=${param}`)
       .then((res) => {
         const imgData = res.data.imageListResponse;
-        setHomeLogos(imgData);
+        const filteredImgs = imgData.filter((img) => img.show);
+        setHomeLogos(filteredImgs);
+        console.log("로고 이미지 배열", filteredImgs);
         console.log("fetchHomeLogo GET", res);
       })
       .catch((error) => {
@@ -57,23 +59,19 @@ const MyHeader = ({ isLoggedIn, onLogout }) => {
     fetchHomeLogo();
   }, []);
 
-  // useEffect = (() => {}, [selectedCategory, selectedCategoryName]);
-
   return (
     <header className="MyHeader">
       <div className="head_title">
         <h1>
-          <a href={"/"}>
-            {homeLogos.map((img, index) => (
-              <div key={index}>
-                <img src={img.imgUrl} alt={`logo ${index + 1}`} />
-              </div>
-            ))}
-            {/* <img
-              alt="logo"
-              src={process.env.PUBLIC_URL + `/image/RealMonentLogo.png`}
-            /> */}
-          </a>
+          {homeLogos.length > 0 ? (
+            <div>
+              <a href={homeLogos[0].linkUrl || ""}>
+                <img src={homeLogos[0].imgUrl} alt={`logo`} />
+              </a>
+            </div>
+          ) : (
+            <div>No Logo</div>
+          )}
         </h1>
       </div>
       <div className="head_search">

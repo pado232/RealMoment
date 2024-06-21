@@ -8,7 +8,6 @@ import { FaMinus } from "react-icons/fa6";
 import { FaPlus } from "react-icons/fa6";
 import { FaQuestionCircle } from "react-icons/fa";
 
-import axios from "axios";
 import Container from "../util/Container";
 import ImgSlide from "../util/ImgSlide";
 import DetailImg from "../Components/Detail/DetailImg";
@@ -18,6 +17,7 @@ import DetailQandA from "../Components/Detail/DetailQandA";
 import "../styles/Detail.css";
 import axiosInstance from "../api/AxiosInstance";
 import { getCookie } from "../api/Cookies";
+import axiosInstanceWithoutAuth from "../api/AxioxInstanceWithoutAuth";
 
 const Detail = () => {
   const { itemId } = useParams();
@@ -32,8 +32,8 @@ const Detail = () => {
   const [itemDetails, setItemDetails] = useState(null); // 초기값을 null로 설정
 
   const fetchItemDetail = () => {
-    axios
-      .get(`http://localhost:8080/item?itemId=${itemId}`)
+    axiosInstanceWithoutAuth
+      .get(`/item?itemId=${itemId}`)
       .then((res) => {
         const itemDetailsData = res.data;
         setItemDetails(itemDetailsData);

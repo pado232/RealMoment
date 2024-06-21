@@ -20,6 +20,8 @@ import Cart from "./Pages/Cart";
 import OrderCheck from "./Pages/OrderCheck";
 import Heart from "./Pages/Heart";
 import OrderCheckInfo from "./Pages/OrderCheckInfo";
+import New from "./Pages/New";
+import Sale from "./Pages/Sale";
 
 function App() {
   const [showButton, setShowButton] = useState(false);
@@ -123,6 +125,8 @@ function App() {
             <Route path="/heart" element={<Heart />} />
             <Route path="/item/:categoryId" element={<Item />} />
             <Route path="/detail/:itemId" element={<Detail />} />
+            <Route path="/new" element={<New />} />
+            <Route path="/sale" element={<Sale />} />
             <Route path="/login" element={<Login onLogin={handleLogin} />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/mypage" element={<MyPage />} />

@@ -105,7 +105,15 @@ table td {
   font-size: 18px;
   color: #888;
 }
+.ListTable table.Point div {
+  padding: 20px 0;
+}
 
+.Point .total_point {
+  margin: 10px;
+  text-align: end;
+  font-size: 20px;
+}
 .ListTable table {
   margin-top: 10px;
 }

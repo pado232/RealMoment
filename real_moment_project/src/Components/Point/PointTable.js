@@ -1,35 +1,42 @@
 import "../../styles/OrderListTable.css";
+import DateFormat from "../../util/DateFormat";
 
-const PointTable = ({ orderList }) => {
+const PointTable = ({ pointHistory }) => {
   return (
     <div className="ListTable">
-      <table>
+      <table className="Point">
         <colgroup style={{ width: 700 }} />
-        <colgroup style={{ width: 200 }} />
-
+        <colgroup style={{ width: 400 }} />
+        <colgroup style={{ width: 400 }} />
         <thead>
           <tr>
-            <th>적립금 내역</th>
+            <th>적립 사항</th>
+            <th>적립금</th>
             <th>날짜</th>
           </tr>
         </thead>
         <tbody>
-          {orderList.length === 0 ? (
+          {pointHistory.length === 0 ? (
             <tr>
               <td colSpan="3" className="no-data">
                 <div> 해당 데이터가 없습니다.</div>
               </td>
             </tr>
           ) : (
-            orderList.map((order, index) => (
+            pointHistory.map((history, index) => (
               <tr key={index}>
                 <td>
-                  {order.orderDetails.map((detail, index) => (
-                    <div key={index}></div>
-                  ))}
+                  <strong>
+                    <div>{history.pointStatus}</div>
+                  </strong>
                 </td>
                 <td>
-                  <div>{order.orderedDate.toString().split("T")[0]}</div>
+                  <div>{history.pointHistory} P</div>
+                </td>
+                <td>
+                  <div>
+                    <DateFormat dateString={history.time} />
+                  </div>
                 </td>
               </tr>
             ))

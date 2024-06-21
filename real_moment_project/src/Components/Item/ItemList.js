@@ -1,9 +1,9 @@
-import axios from "axios";
 import ItemItem from "./ItemItem";
 import { useCallback, useEffect, useState } from "react";
 import Pagination from "../../util/Pagination";
 import { useSearch } from "./SearchProvider";
 import { useCategory } from "../Menu/CategoryProvider";
+import axiosInstanceWithoutAuth from "../../api/AxioxInstanceWithoutAuth";
 
 const sortOptionList = [
   { id: 1, value: "new", name: "최신순" },
@@ -31,8 +31,8 @@ const ItemList = () => {
       categoryId: selectedCategory,
     });
     console.log("파라미터", queryParams.toString());
-    axios
-      .get(`http://localhost:8080/itemList?${queryParams.toString()}`)
+    axiosInstanceWithoutAuth
+      .get(`/itemList?${queryParams.toString()}`)
       .then((res) => {
         const itemListdata = res.data.itemList;
         const totalPagedata = res.data.totalPage;

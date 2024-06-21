@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import axios from "axios";
 import Pagination from "../../util/Pagination";
 import MyButton from "../../util/Buttons/MyButton";
 import axiosInstance from "../../api/AxiosInstance";
 import { getCookie } from "../../api/Cookies";
 import WhiteButton from "../../util/Buttons/WhiteButton";
+import axiosInstanceWithoutAuth from "../../api/AxioxInstanceWithoutAuth";
 
 const DetailQandA = () => {
   const { itemId } = useParams();
@@ -23,8 +23,8 @@ const DetailQandA = () => {
   });
 
   const fetchItemQandA = () => {
-    axios
-      .get(`http://localhost:8080/QAList?itemId=${itemId}&nowPage=${nowPage}`)
+    axiosInstanceWithoutAuth
+      .get(`/QAList?itemId=${itemId}&nowPage=${nowPage}`)
       .then((res) => {
         const itemQAListData = res.data.itemQAList;
         const nowPageData = res.data.nowPage;

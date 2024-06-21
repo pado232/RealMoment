@@ -11,14 +11,12 @@ const HomeMainImg = ({ homeImgs }) => {
     if (isTransitioning) return; // 트랜지션 중에는 실행하지 않음
     setIsTransitioning(true);
     setCurrent((prevCurrent) => prevCurrent + 1);
-    console.log("current", current);
   };
 
   const prevSlide = () => {
     if (isTransitioning) return; // 트랜지션 중에는 실행하지 않음
     setIsTransitioning(true);
     setCurrent((prevCurrent) => prevCurrent - 1);
-    console.log("current", current);
   };
 
   useEffect(() => {
@@ -76,27 +74,33 @@ const HomeMainImg = ({ homeImgs }) => {
           >
             {/* 슬라이드를 렌더링하는 부분, 클론 슬라이드 추가 */}
             <div className="slide">
-              <img
-                src={homeImgs[length - 1].imgUrl} // 마지막 슬라이드 클론 추가
-                alt={`이미지 ${length}`}
-                className="homeimage"
-              />
+              <a href={homeImgs[length - 1].linkUrl}>
+                <img
+                  src={homeImgs[length - 1].imgUrl} // 마지막 슬라이드 클론 추가
+                  alt={`이미지 ${length}`}
+                  className="homeimage"
+                />
+              </a>
             </div>
             {homeImgs.map((img, index) => (
               <div key={index} className="slide">
-                <img
-                  src={img.imgUrl}
-                  alt={`이미지 ${index + 1}`}
-                  className="homeimage"
-                />
+                <a href={img.linkUrl}>
+                  <img
+                    src={img.imgUrl}
+                    alt={`이미지 ${index + 1}`}
+                    className="homeimage"
+                  />
+                </a>
               </div>
             ))}
             <div className="slide">
-              <img
-                src={homeImgs[0].imgUrl} // 첫 번째 슬라이드 클론 추가
-                alt={`이미지 1`}
-                className="homeimage"
-              />
+              <a href={homeImgs[0].linkUrl}>
+                <img
+                  src={homeImgs[0].imgUrl} // 첫 번째 슬라이드 클론 추가
+                  alt={`이미지 1`}
+                  className="homeimage"
+                />
+              </a>
             </div>
           </div>
           <div className="indicators">

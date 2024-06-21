@@ -45,7 +45,7 @@
 /* MenuList */
 .MenuList {
   font-size: 17px;
-  background-color: rgba(245, 238, 227, 0.527);
+  background-color: rgba(255, 255, 255, 0.562);
   position: sticky; /* 추가 */
   top: 0; /* 추가: 화면의 맨 위에 고정 */
   z-index: 1000;

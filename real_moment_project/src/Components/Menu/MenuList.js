@@ -1,10 +1,10 @@
 import { useCategory } from "./CategoryProvider";
 import { useSearch } from "../Item/SearchProvider";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { Link } from "react-router-dom"; // Link 컴포넌트 추가
 
 import "../../styles/Menu.css";
+import axiosInstanceWithoutAuth from "../../api/AxioxInstanceWithoutAuth";
 
 const MenuList = () => {
   const { setSearchTerm } = useSearch();
@@ -12,8 +12,8 @@ const MenuList = () => {
   const [category, setCategory] = useState([]);
 
   const fetchCategory = () => {
-    axios
-      .get(`http://localhost:8080/category`)
+    axiosInstanceWithoutAuth
+      .get(`/category`)
       .then((res) => {
         const data = res.data;
         const categorydata = [...data].sort((a, b) => {

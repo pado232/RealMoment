@@ -1,0 +1,58 @@
+.New .img_list {
+  position: relative;
+}
+
+.item_with_text {
+  position: relative;
+}
+
+.ImageComponent .image_item {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+  position: relative;
+}
+
+.ImageComponent .image_item.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.ImageComponent .image_item.hide {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.ImageComponent .image_img {
+  width: 100%;
+  display: block;
+}
+
+.TextComponent .text_item {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease-out 0.3s, transform 0.5s ease-out 0.3s; /* 이미지보다 늦게 나타나도록 지연 시간 추가 */
+  position: absolute;
+  bottom: 50px;
+  right: 80px;
+  transform: translateX(-50%);
+}
+
+.TextComponent .text_item.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.TextComponent .text_item.hide {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.TextComponent .text_content {
+  background-color: rgba(0, 0, 0, 0.3);
+  color: white;
+  padding: 10px;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+}

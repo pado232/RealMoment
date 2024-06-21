@@ -1,8 +1,9 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "react-modal";
 import axiosInstance from "../../api/AxiosInstance";
 import Pagination from "../../util/Pagination";
 import { getCookie } from "../../api/Cookies";
+import PointTable from "./PointTable";
 
 Modal.setAppElement("#root");
 
@@ -39,34 +40,17 @@ const Point = () => {
   }, [nowPage]);
 
   return (
-    <div className="QandA">
+    <div className="Point">
       <h2>적립금 내역</h2>
       <h3>
         <center>나의 적립금 내역</center>
       </h3>
-      <div className="QandABox">
-        {pointHistory.length === 0 ? (
-          <div className="none_review_list"> 적립금이 없습니다.</div>
-        ) : (
-          pointHistory.map((history, index) => (
-            <div className="review_list" key={index}>
-              <div className="info_content">
-                <div className="info">
-                  <div>
-                    <strong>{history.pointHistory}</strong>
-                  </div>
-                  <div>
-                    <strong>{history.pointStatus}</strong>
-                  </div>
-                  <div>
-                    <strong>{totalPoint}</strong>
-                  </div>
-                  <div>작성일자 : {history.time.toString().split("T")[0]}</div>
-                </div>
-              </div>
-            </div>
-          ))
-        )}
+      <div className="total_point">
+        MY POINT : <strong>{totalPoint} P</strong>{" "}
+      </div>
+
+      <div>
+        <PointTable pointHistory={pointHistory} />
       </div>
       <div className="pagination">
         <Pagination
