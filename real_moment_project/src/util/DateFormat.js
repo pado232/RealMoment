@@ -11,10 +11,19 @@ function DateFormat({ dateString }) {
     const seconds = date.getSeconds().toString().padStart(2, "0"); // 한 자리일 경우 앞에 0을 붙임
     const ampm = hours >= 12 ? "오후" : "오전";
     const formattedHours = hours % 12 === 0 ? 12 : hours % 12;
-    return `${year}-${month}-${day} ${ampm} ${formattedHours}:${minutes}:${seconds}`;
+    const justDate = `${year}.${month}.${day}`;
+    const justTime = `${ampm} ${formattedHours}:${minutes}:${seconds}`;
+    return { justDate, justTime };
   };
 
-  return <span>{formatDate(dateString)}</span>;
+  const { justDate, justTime } = formatDate(dateString);
+
+  return (
+    <div>
+      <div>{justDate}</div>
+      <div>{justTime}</div>
+    </div>
+  );
 }
 
 export default DateFormat;

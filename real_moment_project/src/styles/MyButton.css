@@ -2,7 +2,6 @@
   margin-top: 30px;
   height: 50px;
   background-color: #161616;
-  color: white;
 
   width: 100%;
   border: none;
@@ -16,6 +15,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.MyButton button span {
+  color: white;
 }
 .MyButton button:active {
   box-shadow: none;

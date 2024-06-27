@@ -57,7 +57,9 @@ axiosInstance.interceptors.response.use(
         setCookie("Authorization1", AuthorizationToken);
         setCookie("Refresh_Token1", RefreshToken);
 
+        // 원래 요청에 새로운 토큰을 추가하여 재시도
         error.config.headers.Authorization = `${AuthorizationToken}`;
+
         return axiosInstance(error.config);
       } catch (error) {
         console.error("재발급 실패", error);

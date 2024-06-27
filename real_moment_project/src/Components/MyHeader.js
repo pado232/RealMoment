@@ -13,16 +13,14 @@ import axiosInstanceWithoutAuth from "../api/AxioxInstanceWithoutAuth";
 const MyHeader = ({ isLoggedIn, onLogout }) => {
   const [homeLogos, setHomeLogos] = useState([]);
   const navigate = useNavigate();
-
   const { setSearchTerm } = useSearch();
-
   const [searchValue, setSearchValue] = useState("");
 
   const searchValueChange = (e) => {
     setSearchValue(e.target.value);
   };
 
-  const handleToggle = () => {
+  const handleLogout = () => {
     onLogout();
   };
 
@@ -70,7 +68,7 @@ const MyHeader = ({ isLoggedIn, onLogout }) => {
               </a>
             </div>
           ) : (
-            <div>No Logo</div>
+            <a href="/">No Logo</a>
           )}
         </h1>
       </div>
@@ -84,7 +82,6 @@ const MyHeader = ({ isLoggedIn, onLogout }) => {
             name="search"
             value={searchValue}
             onChange={searchValueChange}
-            // onBlur={handleBlur}
             placeholder="찾으시는 상품을 입력해주세요"
             onKeyDown={handleSearch}
           />
@@ -125,14 +122,14 @@ const MyHeader = ({ isLoggedIn, onLogout }) => {
           <li>
             {isLoggedIn ? (
               <div className="login">
-                <a href={"/"} onClick={handleToggle}>
+                <a href="#" onClick={handleLogout}>
                   <TbLogout2 size={28} />
                   Logout
                 </a>
               </div>
             ) : (
               <div className="logout">
-                <a href={"/login"} onClick={handleToggle}>
+                <a href={"/login"}>
                   <TbLogin2 size={28} />
                   Login
                 </a>

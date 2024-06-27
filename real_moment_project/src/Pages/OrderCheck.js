@@ -3,17 +3,19 @@ import OrderList from "../Components/OrderPay/OrderList";
 import { useLocation, useNavigate } from "react-router-dom";
 import axiosInstance from "../api/AxiosInstance";
 import { getCookie } from "../api/Cookies";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import "../styles/Cart.css";
 import OrderBill from "../Components/OrderPay/OrderBill";
 import PhoneInput from "../util/SignUpInput/PhoneInput";
 import AddressInput from "../util/SignUpInput/AddressInput";
 import WhiteButton from "../util/Buttons/WhiteButton";
+import usePageTitle from "../hooks/usePageTitle";
 
 const OrderCheck = () => {
+  usePageTitle(`주문하기`);
   const inputRef = useRef([]);
   const location = useLocation();
-  const orders = location.state?.orders || [];
+  const orders = useMemo(() => location.state?.orders || [], [location.state]);
   const navigate = useNavigate();
 
   const [orderList, setOrderList] = useState([]);
@@ -33,7 +35,7 @@ const OrderCheck = () => {
     buyPrice: 0,
   });
 
-  const fetchOrderList = () => {
+  const fetchOrderList = useCallback(() => {
     axiosInstance
       .post(`/member/${getCookie("Id")}/order/page`, orders)
       .then((res) => {
@@ -47,11 +49,11 @@ const OrderCheck = () => {
       .catch((error) => {
         console.error("OrderSubmit GET Error:", error);
       });
-  };
+  }, [orders]);
 
   useEffect(() => {
     fetchOrderList();
-  }, []);
+  }, [fetchOrderList]);
 
   const handleChangeState = (e) => {
     const { name, value } = e.target;

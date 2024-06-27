@@ -1,17 +1,19 @@
 import ItemItem from "../Components/Item/ItemItem";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import "../styles/Home.css";
 import axiosInstance from "../api/AxiosInstance";
 import { getCookie } from "../api/Cookies";
 import Pagination from "../util/Pagination";
 import Container from "../util/Container";
+import usePageTitle from "../hooks/usePageTitle";
 
 const Heart = () => {
+  usePageTitle(`HEART`);
   const [wishList, setWishList] = useState([]);
   const [nowPage, setNowPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
 
-  const fetchHeartItem = () => {
+  const fetchHeartItem = useCallback(() => {
     axiosInstance
       .get(`/member/${getCookie("Id")}/wishList?nowPage=${nowPage}`)
       .then((res) => {
@@ -28,11 +30,11 @@ const Heart = () => {
       .catch((error) => {
         console.error("fetchHeartItem GET Error:", error);
       });
-  };
+  }, [nowPage]);
 
   useEffect(() => {
     fetchHeartItem();
-  }, [nowPage]);
+  }, [fetchHeartItem]);
 
   return (
     <div className="ItemList">

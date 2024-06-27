@@ -1,9 +1,11 @@
-import ItemItem from "./ItemItem";
-import { useCallback, useEffect, useState } from "react";
-import Pagination from "../../util/Pagination";
-import { useSearch } from "./SearchProvider";
+import React, { useCallback, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { useCategory } from "../Menu/CategoryProvider";
+import { useSearch } from "./SearchProvider";
 import axiosInstanceWithoutAuth from "../../api/AxioxInstanceWithoutAuth";
+import ItemItem from "./ItemItem";
+import Pagination from "../../util/Pagination";
+import usePageTitle from "../../hooks/usePageTitle";
 
 const sortOptionList = [
   { id: 1, value: "new", name: "최신순" },
@@ -14,9 +16,15 @@ const sortOptionList = [
 ];
 
 const ItemList = () => {
-  const { selectedCategory, selectedCategoryName, handleCategoryChange } =
-    useCategory();
+  const {
+    selectedCategory,
+    selectedCategoryName,
+    handleCategoryChange,
+    categories,
+  } = useCategory();
   const { searchTerm } = useSearch();
+  const { categoryId } = useParams();
+  usePageTitle(`${selectedCategoryName} 전체 제품`);
 
   const [itemList, setItemList] = useState([]);
   const [totalPage, setTotalPage] = useState(0);
@@ -30,7 +38,7 @@ const ItemList = () => {
       itemSort: sortOption,
       categoryId: selectedCategory,
     });
-    console.log("파라미터", queryParams.toString());
+
     axiosInstanceWithoutAuth
       .get(`/itemList?${queryParams.toString()}`)
       .then((res) => {
@@ -41,7 +49,6 @@ const ItemList = () => {
         setItemList(itemListdata);
         setTotalPage(totalPagedata);
         setNowPage(nowPagedata);
-        console.log("fetchItem GET ", res);
       })
       .catch((error) => {
         console.error("fetchItem GET Error:", error);
@@ -49,38 +56,82 @@ const ItemList = () => {
   }, [nowPage, selectedCategory, sortOption, searchTerm]);
 
   useEffect(() => {
-    handleCategoryChange("", "전체");
-  }, [searchTerm]);
+    if (searchTerm) {
+      handleCategoryChange("", "검색");
+    }
+    fetchItem();
+  }, [fetchItem, searchTerm, handleCategoryChange]);
 
   useEffect(() => {
     setNowPage(1);
   }, [selectedCategory]);
 
   useEffect(() => {
-    fetchItem();
-  }, [fetchItem]);
+    const findCategory = (categories, id) => {
+      for (let category of categories) {
+        if (category.categoryId === parseInt(id)) {
+          return category;
+        }
+        if (category.child) {
+          const found = findCategory(category.child, id);
+          if (found) {
+            return found;
+          }
+        }
+      }
+      return null;
+    };
+
+    if (categoryId && categories.length > 0) {
+      if (categoryId === "all") {
+        // handleCategoryChange("", "전체");
+      } else {
+        const selectedCategory = findCategory(categories, categoryId);
+        if (selectedCategory) {
+          handleCategoryChange(
+            selectedCategory.categoryId,
+            selectedCategory.name
+          );
+        } else {
+          console.error("CategoryId 없음:", categoryId);
+        }
+      }
+    }
+  }, [categoryId, categories, handleCategoryChange]);
 
   const handleSortChange = (event) => {
     setSortOption(event.target.value);
   };
 
-  const ControlMenu = () => {
-    return (
-      <div className="ControlMenu">
-        <select value={sortOption} onChange={handleSortChange}>
-          {sortOptionList.map((it) => (
-            <option key={it.id} value={it.value}>
-              {it.name}
-            </option>
-          ))}
-        </select>
-      </div>
-    );
-  };
+  const ControlMenu = () => (
+    <div className="ControlMenu">
+      <select value={sortOption} onChange={handleSortChange}>
+        {sortOptionList.map((it) => (
+          <option key={it.id} value={it.value}>
+            {it.name}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
 
   return (
     <div className="ItemList">
-      <h2>{selectedCategoryName}</h2>
+      {selectedCategoryName === "" ? (
+        <h2>전체</h2>
+      ) : selectedCategoryName === "검색" ? (
+        <h2></h2>
+      ) : (
+        <h2>{selectedCategoryName}</h2>
+      )}
+      {searchTerm && (
+        <div style={{ fontSize: 20, padding: 40 }}>
+          <center>
+            <strong>'{searchTerm}'</strong>에 대한 검색결과 입니다.
+          </center>
+        </div>
+      )}
+
       <ControlMenu />
       <div className="item_dummy">
         {itemList.length === 0 ? (
@@ -99,10 +150,5 @@ const ItemList = () => {
     </div>
   );
 };
-
-// // ItemList의 기본값을 빈 배열로 설정
-// ItemList.defaultProps = {
-//   itemList: [],
-// };
 
 export default ItemList;

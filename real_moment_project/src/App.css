@@ -1,59 +1,71 @@
-@import url("https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap"); */
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200..900&display=swap"); */
 .App {
-  font-family: "Gowun Dodum", sans-serif;
-  font-size: 15px;
+  /* font-family: "Gowun Dodum", sans-serif; */
+  /* font-family: "Noto Serif KR", serif; */
+  font-family: "Noto Sans KR", sans-serif;
+  /* font-size: 15px; */
   letter-spacing: 0.5px;
+  color: #161616;
 }
 button {
-  font-family: "Gowun Dodum", sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-size: 15px;
   letter-spacing: 0.5px;
+  color: #1b1b1b;
 }
 input {
-  font-family: "Gowun Dodum", sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-size: 15px;
   letter-spacing: 0.5px;
+  color: #1b1b1b;
 }
 select {
-  font-family: "Gowun Dodum", sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-size: 15px;
   letter-spacing: 0.5px;
+  color: #1b1b1b;
 }
 div {
-  font-family: "Gowun Dodum", sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-size: 15px;
   letter-spacing: 0.5px;
+  color: #1b1b1b;
 }
 textarea {
-  font-family: "Gowun Dodum", sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-size: 15px;
   letter-spacing: 0.5px;
+  color: #1b1b1b;
 }
 h2 {
   margin-left: 20px;
   margin-top: 40px;
   font-size: 24px;
   letter-spacing: 0.5px;
+  color: #1b1b1b;
 }
 span {
   font-size: 15px;
   letter-spacing: 0.5px;
+  color: #1b1b1b;
 }
 label {
-  font-family: "Gowun Dodum", sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-size: 16px;
   letter-spacing: 0.5px;
+  color: #1b1b1b;
 }
 table {
-  font-family: "Gowun Dodum", sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-size: 15px;
   letter-spacing: 0.5px;
+  color: #1b1b1b;
 }
 p {
   letter-spacing: 0.5px;
-}
-span {
-  letter-spacing: 0.5px;
+  color: #1b1b1b;
 }
 a {
   letter-spacing: 0.5px;

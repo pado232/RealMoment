@@ -183,15 +183,16 @@ const OrderListTable = ({
   return (
     <div className="ListTable">
       <table>
-        <colgroup style={{ width: 420 }} />
-        <colgroup style={{ width: 300 }} />
-        <colgroup span={"3"} style={{ width: 200 }} />
+        <colgroup style={{ width: 500 }} />
+        <colgroup style={{ width: 500 }} />
+        <colgroup style={{ width: 250 }} />
+        <colgroup span={"2"} style={{ width: 200 }} />
 
         <thead>
           <tr>
             <th>상품정보</th>
             <th>배송정보</th>
-            <th>주문일자</th>
+            <th>주문번호 / 주문일자</th>
             <th>결제금액</th>
             <th>주문상태</th>
           </tr>
@@ -243,74 +244,80 @@ const OrderListTable = ({
                         </a>
                         <div className="content">
                           {/* <div>{detail.orderDetailId}</div> */}
-                          <div>
-                            <strong>{detail.item.name}</strong>
+                          <div className="item_title">
+                            <div>
+                              <strong>{detail.item.name}</strong>
+                            </div>
                           </div>
                           <div className="content_box">
                             <div>
-                              <span>{detail.item.price.toLocaleString()}</span>
-                              원
+                              <span>{detail.price.toLocaleString()}원</span>
                             </div>
                             <div style={{ color: "red" }}>
-                              {detail.item.discountRate}%
+                              {detail.discountRate}%
                             </div>
-                            <div>
-                              (-{detail.item.discountPrice.toLocaleString()}
+                            {/* <div>
+                              (-{detail.discountPrice.toLocaleString()}
                               원)
-                            </div>
+                            </div> */}
                           </div>
                           <div>
-                            <div style={{ textAlign: "end" }}>
-                              {" "}
-                              {detail.item.sellPrice.toLocaleString()}원
-                            </div>
-                          </div>
-                          <div className="sellPrice">
-                            <div className="count">{detail.itemCount}개</div>
-                            <div className="totalPrice">
-                              {detail.totalPrice.toLocaleString()}원
-                            </div>
+                            <div> {detail.sellPrice.toLocaleString()}원</div>
                           </div>
                         </div>
-                      </div>
-                      <div>
-                        {order.status === "구매확정" && !detail.reviewStatus ? (
-                          <div className="btn_box">
-                            <WhiteButton
-                              buttonText={`${detail.item.name} 리뷰 작성하기`}
-                              onClick={() => reviewWriteClick(detail)}
-                            />
 
-                            <ModalContainer
-                              isOpen={isWriteModalOpen}
-                              onRequestClose={() => setIsWriteModalOpen(false)}
-                              customStyles={customStyles}
-                            >
-                              {currentDetail && (
-                                <ReviewWriteBox
-                                  h2Text={`리뷰 작성하기`}
-                                  itemImg={currentDetail.item.mainImg}
-                                  itemName={currentDetail.item.name}
-                                  setIsModalOpen={setIsWriteModalOpen}
-                                  onClick={() =>
-                                    handleSubmit(
-                                      order.orderId,
-                                      currentDetail.item.itemId
-                                    )
-                                  }
-                                  inputRef={inputRef}
-                                  textareaValue={review.content}
-                                  inputValue={review.title}
-                                  onChange={handleStateChange}
-                                  renderStarIcon={renderStarIcon}
-                                />
-                              )}
-                            </ModalContainer>
-                          </div>
-                        ) : (
-                          ""
-                        )}
+                        <div className="count">{detail.itemCount}개</div>
+                        {/* <div className="totalPrice">
+                            {detail.totalPrice.toLocaleString()}원
+                          </div> */}
+
+                        <div className="totalPrice">
+                          {detail.totalPrice.toLocaleString()}원
+                        </div>
                       </div>
+                      {order.status === "구매확정" && !detail.reviewStatus ? (
+                        <div className="btn_box">
+                          <WhiteButton
+                            buttonText={`${detail.item.name} 리뷰 작성하기`}
+                            onClick={() => reviewWriteClick(detail)}
+                          />
+
+                          {/* <button
+                            className="review_btn"
+                            onClick={() => reviewWriteClick(detail)}
+                          >
+                            리뷰 작성하기
+                          </button> */}
+
+                          <ModalContainer
+                            isOpen={isWriteModalOpen}
+                            onRequestClose={() => setIsWriteModalOpen(false)}
+                            customStyles={customStyles}
+                          >
+                            {currentDetail && (
+                              <ReviewWriteBox
+                                h2Text={`리뷰 작성하기`}
+                                itemImg={currentDetail.item.mainImg}
+                                itemName={currentDetail.item.name}
+                                setIsModalOpen={setIsWriteModalOpen}
+                                onClick={() =>
+                                  handleSubmit(
+                                    order.orderId,
+                                    currentDetail.item.itemId
+                                  )
+                                }
+                                inputRef={inputRef}
+                                textareaValue={review.content}
+                                inputValue={review.title}
+                                onChange={handleStateChange}
+                                renderStarIcon={renderStarIcon}
+                              />
+                            )}
+                          </ModalContainer>
+                        </div>
+                      ) : (
+                        ""
+                      )}
                     </div>
                   ))}
                 </td>
@@ -356,7 +363,9 @@ const OrderListTable = ({
                   </div>
                 </td>
                 <td>
-                  <DateFormat dateString={order.orderedDate} />
+                  <div className="date">
+                    <DateFormat dateString={order.orderedDate} />
+                  </div>
                 </td>
                 <td>
                   <div>{order.buyPrice.toLocaleString()} 원</div>
@@ -382,6 +391,7 @@ const OrderListTable = ({
                                 name="refundReason"
                                 value={refundReason}
                                 onChange={handleReasonChange}
+                                className="reason"
                               >
                                 <option value="">환불 사유 선택</option>
                                 <option value="변심">변심</option>
@@ -398,6 +408,7 @@ const OrderListTable = ({
                               name="cancelReason"
                               value={cancelReason}
                               onChange={handleReasonChange}
+                              className="reason"
                             >
                               <option value="">취소 사유 선택</option>
                               <option value="변심">변심</option>

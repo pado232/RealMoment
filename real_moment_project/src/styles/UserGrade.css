@@ -4,12 +4,18 @@
   border: 1px solid #ddd;
   height: 180px;
 
-  background-color: rgb(12, 12, 12);
+  background-color: #0f0f0f;
   color: white;
 
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.usergrade_content p {
+  color: white;
+}
+.usergrade_content div {
+  color: white;
 }
 .usergrade_title {
   width: 35%;

@@ -18,9 +18,9 @@ import "../styles/Detail.css";
 import axiosInstance from "../api/AxiosInstance";
 import { getCookie } from "../api/Cookies";
 import axiosInstanceWithoutAuth from "../api/AxioxInstanceWithoutAuth";
-
 const Detail = () => {
   const { itemId } = useParams();
+
   const navigate = useNavigate();
 
   const detailRef = useRef([]);

@@ -5,12 +5,8 @@ import ImageComponent from "../Components/New/ImageComponent";
 import TextComponent from "../Components/New/TextComponent";
 import "../styles/New.css";
 import axiosInstanceWithoutAuth from "../api/AxioxInstanceWithoutAuth";
+import usePageTitle from "../hooks/usePageTitle";
 
-// const descriptions = [
-//   "클렌징오일의 완벽한 클렌징을 경험해보세요.",
-//   "발색의 끝판왕 립스틱",
-//   "여름철 자극된 피부에 진정을 주세요.",
-// ];
 const descriptions = [
   <>
     <div>C립스틱</div>
@@ -45,6 +41,7 @@ const descriptions = [
   </>,
 ];
 const New = () => {
+  usePageTitle(`NEW`);
   const [newImgs, setNewImgs] = useState([]);
   const imgRefs = useRef([]);
   const textRefs = useRef([]);

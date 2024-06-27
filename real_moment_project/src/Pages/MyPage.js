@@ -17,6 +17,8 @@ import "../styles/MyPage.css";
 import InquiryWrite from "../Components/Inquiry/InquiryWrite";
 import MyInpuiry from "../Components/Inquiry/MyInquiry";
 import QandA from "../Components/QandA/QandA";
+import usePageTitle from "../hooks/usePageTitle";
+
 const myPageMenu = [
   { bar_name: "주문내역", bar_value: "OrderHistory" },
   { bar_name: "배송지 관리", bar_value: "delivery" },
@@ -28,6 +30,7 @@ const myPageMenu = [
 ];
 
 const MyPage = () => {
+  usePageTitle("마이페이지");
   const [totalReview, setTotalReview] = useState(0);
   const [authError, setAuthError] = useState(false);
   const [listState, setListState] = useState(

@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import "../styles/SignUp.css";
 import WhiteButton from "../util/Buttons/WhiteButton";
 import axiosInstanceWithoutAuth from "../api/AxioxInstanceWithoutAuth";
+import usePageTitle from "../hooks/usePageTitle";
 
 export const sortOptionList = [
   { value: "010" },
@@ -22,6 +23,7 @@ export const sortOptionList = [
 ];
 
 const SignUp = () => {
+  usePageTitle(`회원가입`);
   const navigate = useNavigate();
   const inputRef = useRef([]);
   const [infoCollect, setInfoCollect] = useState(false);

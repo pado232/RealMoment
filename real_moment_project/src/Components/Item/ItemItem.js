@@ -165,13 +165,15 @@ const ItemItem = ({
             <div>{averageStar.toFixed(1)}</div>
           </div>
           {discountRate === 0 ? (
-            <div className="price">
-              <span className="sale_price">{price.toLocaleString()}원</span>
+            <div className="sale_price" style={{ paddingTop: 5 }}>
+              {price.toLocaleString()}원
             </div>
           ) : (
-            <div className="price">
-              <span className="sale_price">{sellPrice.toLocaleString()}원</span>
-              <span className="sale">{discountRate}%</span>
+            <div>
+              <div className="price">
+                <div className="sale_price">{sellPrice.toLocaleString()}원</div>
+                <div className="sale">{discountRate}%</div>
+              </div>
               <span className="regular_price">{price.toLocaleString()}원</span>
             </div>
           )}

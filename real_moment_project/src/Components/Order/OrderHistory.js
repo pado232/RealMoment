@@ -50,7 +50,7 @@ const OrderHistory = () => {
       .catch((error) => {
         console.error("fetchOrderList GET Error:", error);
       });
-  }, [nowPage, status, startDate, endDate]);
+  }, [nowPage, status, startDate, endDate, itemName]);
 
   useEffect(() => {
     fetchOrderList();

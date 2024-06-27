@@ -1,18 +1,20 @@
 import Container from "../util/Container";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Pagination from "../util/Pagination";
 import ItemItem from "../Components/Item/ItemItem";
 import "../styles/item.css";
 import SaleImages from "../Components/Sale/SaleImage";
 import axiosInstanceWithoutAuth from "../api/AxioxInstanceWithoutAuth";
+import usePageTitle from "../hooks/usePageTitle";
 
 const Sale = () => {
+  usePageTitle(`SALE`);
   const [itemList, setItemList] = useState([]);
   const [saleImgs, setSaleImgs] = useState([]);
   const [totalPage, setTotalPage] = useState(0);
   const [nowPage, setNowPage] = useState(1);
 
-  const fetchItem = () => {
+  const fetchItem = useCallback(() => {
     const queryParams = new URLSearchParams({
       itemName: "",
       nowPage: nowPage,
@@ -39,7 +41,7 @@ const Sale = () => {
       .catch((error) => {
         console.error("fetchItem GET Error:", error);
       });
-  };
+  }, [nowPage]);
 
   const fetchSaleImgs = () => {
     const param = "세일";
@@ -62,12 +64,12 @@ const Sale = () => {
 
   useEffect(() => {
     fetchItem();
-  }, [nowPage]);
+  }, [fetchItem]);
 
   return (
     <Container>
       <h2>SALE</h2>
-      <SaleImages saleImgs={saleImgs} />
+      {saleImgs.length < 0 && <SaleImages saleImgs={saleImgs} />}
 
       <div className="ItemList">
         <div className="item_dummy">

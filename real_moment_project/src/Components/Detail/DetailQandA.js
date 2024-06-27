@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 import Pagination from "../../util/Pagination";
 import MyButton from "../../util/Buttons/MyButton";
@@ -10,6 +10,7 @@ import axiosInstanceWithoutAuth from "../../api/AxioxInstanceWithoutAuth";
 
 const DetailQandA = () => {
   const { itemId } = useParams();
+  const navigate = useNavigate();
   const [itemQAList, setItemQAList] = useState([]);
   const [nowPage, setNowPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
@@ -22,7 +23,7 @@ const DetailQandA = () => {
     content: "",
   });
 
-  const fetchItemQandA = () => {
+  const fetchItemQandA = useCallback(() => {
     axiosInstanceWithoutAuth
       .get(`/QAList?itemId=${itemId}&nowPage=${nowPage}`)
       .then((res) => {
@@ -39,34 +40,30 @@ const DetailQandA = () => {
       .catch((error) => {
         console.error("fetchItemQandA GET Error:", error);
       });
-  };
+  }, [itemId, nowPage]);
 
   useEffect(() => {
     fetchItemQandA();
-  }, [nowPage]);
+  }, [fetchItemQandA]);
 
   const fetchQandACreate = () => {
-    if (itemId) {
-      axiosInstance
-        .post(`/member/${getCookie("Id")}/QA`, {
-          itemId: itemId,
-          title: state.title,
-          content: state.content,
-        })
-        .then((res) => {
-          setState({
-            title: "",
-            content: "",
-          });
-          fetchItemQandA();
-          console.log("fetchQandACreate Post ", res);
-        })
-        .catch((error) => {
-          console.error("fetchQandACreate Post Error:", error);
+    axiosInstance
+      .post(`/member/${getCookie("Id")}/QA`, {
+        itemId: itemId,
+        title: state.title,
+        content: state.content,
+      })
+      .then((res) => {
+        setState({
+          title: "",
+          content: "",
         });
-    } else {
-      window.alert("문의를 작성하시려면 로그인 해주세요.");
-    }
+        fetchItemQandA();
+        console.log("fetchQandACreate Post ", res);
+      })
+      .catch((error) => {
+        console.error("fetchQandACreate Post Error:", error);
+      });
   };
 
   const createButton = () => {
@@ -109,6 +106,18 @@ const DetailQandA = () => {
     return hiddenLoginId;
   };
 
+  const handleCreateButtonClick = () => {
+    const userId = getCookie("Id");
+    if (userId) {
+      setCreateButtonToggle(true);
+    } else {
+      setCreateButtonToggle(false);
+      if (window.confirm("로그인이 필요합니다. 로그인 하시겠습니까?")) {
+        navigate("/login");
+      }
+    }
+  };
+
   return (
     <div className="DetailQandA">
       <div className="caution_box">
@@ -132,7 +141,7 @@ const DetailQandA = () => {
           <div className="btn">
             <MyButton
               buttonText={"Q&A 작성하기"}
-              onClick={(e) => setCreateButtonToggle(!createButtonToggle)}
+              onClick={handleCreateButtonClick}
             />
           </div>
         </div>

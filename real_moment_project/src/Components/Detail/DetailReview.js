@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { FaStar, FaRegStar } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import Pagination from "../../util/Pagination";
@@ -17,7 +17,7 @@ const DetailReview = ({ starsPoint }) => {
   const [twoStar, setTwoStar] = useState(0);
   const [oneStar, setOneStar] = useState(0);
 
-  const fetchReviewList = () => {
+  const fetchReviewList = useCallback(() => {
     const queryParams = new URLSearchParams({
       itemId: itemId,
       star: star,
@@ -52,11 +52,11 @@ const DetailReview = ({ starsPoint }) => {
       .catch((error) => {
         console.error("ReviewList GET Error:", error);
       });
-  };
+  }, [nowPage, star, itemId]);
 
   useEffect(() => {
     fetchReviewList();
-  }, [nowPage, star]);
+  }, [fetchReviewList]);
 
   const renderStars = () => {
     const fullStars = Math.floor(starsPoint);

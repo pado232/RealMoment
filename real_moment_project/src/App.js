@@ -22,6 +22,7 @@ import Heart from "./Pages/Heart";
 import OrderCheckInfo from "./Pages/OrderCheckInfo";
 import New from "./Pages/New";
 import Sale from "./Pages/Sale";
+import PrivateRoute from "./api/PrivateRoute"; // PrivateRoute 컴포넌트 임포트
 
 function App() {
   const [showButton, setShowButton] = useState(false);
@@ -57,6 +58,7 @@ function App() {
     removeCookie("Refresh_Token1");
     removeCookie("Id");
     setIsLoggedIn(false);
+    window.location.href = "/"; // 로그아웃 후 홈 페이지로 리디렉션
   };
 
   const renderHeader = () => {
@@ -71,9 +73,9 @@ function App() {
 
   const renderMenu = () => {
     if (location.pathname === "/login") {
-      return "";
+      return null;
     } else if (location.pathname === "/signup") {
-      return "";
+      return null;
     } else {
       return <Menu />;
     }
@@ -81,9 +83,9 @@ function App() {
 
   const renderFooter = () => {
     if (location.pathname === "/login") {
-      return "";
+      return null;
     } else if (location.pathname === "/signup") {
-      return "";
+      return null;
     } else {
       return <MyFooter />;
     }
@@ -97,7 +99,7 @@ function App() {
   // 스크롤 이벤트 핸들러
   const handleScroll = () => {
     if (window.pageYOffset > 100) {
-      // 예시로 300 픽셀 이상 스크롤되면 버튼을 보여줍니다.
+      // 예시로 100 픽셀 이상 스크롤되면 버튼을 보여줍니다.
       setShowButton(true);
     } else {
       setShowButton(false);
@@ -111,6 +113,7 @@ function App() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
   return (
     <CategoryProvider>
       <SearchProvider>
@@ -119,17 +122,41 @@ function App() {
           {renderMenu()}
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/ordercheck" element={<OrderCheck />} />
-            <Route path="/ordercheckinfo" element={<OrderCheckInfo />} />
-            <Route path="/heart" element={<Heart />} />
+            <Route
+              path="/cart"
+              element={<PrivateRoute element={Cart} isLoggedIn={isLoggedIn} />}
+            />
+            <Route
+              path="/ordercheck"
+              element={
+                <PrivateRoute element={OrderCheck} isLoggedIn={isLoggedIn} />
+              }
+            />
+            <Route
+              path="/ordercheckinfo"
+              element={
+                <PrivateRoute
+                  element={OrderCheckInfo}
+                  isLoggedIn={isLoggedIn}
+                />
+              }
+            />
+            <Route
+              path="/heart"
+              element={<PrivateRoute element={Heart} isLoggedIn={isLoggedIn} />}
+            />
             <Route path="/item/:categoryId" element={<Item />} />
             <Route path="/detail/:itemId" element={<Detail />} />
             <Route path="/new" element={<New />} />
             <Route path="/sale" element={<Sale />} />
             <Route path="/login" element={<Login onLogin={handleLogin} />} />
             <Route path="/signup" element={<SignUp />} />
-            <Route path="/mypage" element={<MyPage />} />
+            <Route
+              path="/mypage"
+              element={
+                <PrivateRoute element={MyPage} isLoggedIn={isLoggedIn} />
+              }
+            />
           </Routes>
           {showButton && (
             <button className="button-top" onClick={scrollToTop}>

@@ -10,8 +10,10 @@ import { HiOutlineLockClosed } from "react-icons/hi";
 import { FaRegUser } from "react-icons/fa";
 
 import "../styles/Login.css";
+import usePageTitle from "../hooks/usePageTitle";
 
 const Login = ({ onLogin }) => {
+  usePageTitle(`LOGIN`);
   const navigate = useNavigate();
   const inputRef = useRef([]);
   const [state, setState] = useState({
@@ -74,6 +76,11 @@ const Login = ({ onLogin }) => {
         const AuthorizationToken = response.headers.get("Authorization");
         const RefreshToken = response.headers.get("Refresh_Token");
 
+        // 1일 - 1분
+        // const expires = new Date(
+        //   Date.now() + 24 * 60 * 60 * 1000 - 1 * 60 * 1000
+        // );
+
         // 토큰을 쿠키에 저장
         setCookie("Id", memberId);
         setCookie("Authorization1", AuthorizationToken);
@@ -83,7 +90,7 @@ const Login = ({ onLogin }) => {
         onLogin(AuthorizationToken, RefreshToken);
 
         // 로그인 성공 알림
-        navigate("/");
+        navigate(-1);
 
         console.log("로그인 서버 전송: ", response);
       })

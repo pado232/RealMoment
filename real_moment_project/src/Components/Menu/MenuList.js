@@ -1,39 +1,16 @@
+import React from "react";
+import { Link } from "react-router-dom";
 import { useCategory } from "./CategoryProvider";
 import { useSearch } from "../Item/SearchProvider";
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom"; // Link 컴포넌트 추가
-
 import "../../styles/Menu.css";
-import axiosInstanceWithoutAuth from "../../api/AxioxInstanceWithoutAuth";
 
 const MenuList = () => {
   const { setSearchTerm } = useSearch();
-  const { handleCategoryChange } = useCategory();
-  const [category, setCategory] = useState([]);
-
-  const fetchCategory = () => {
-    axiosInstanceWithoutAuth
-      .get(`/category`)
-      .then((res) => {
-        const data = res.data;
-        const categorydata = [...data].sort((a, b) => {
-          return a.categoryId - b.categoryId;
-        });
-        setCategory(categorydata);
-        console.log("Category GET ", res);
-      })
-      .catch((error) => {
-        console.error("Category GET Error:", error);
-      });
-  };
-
-  useEffect(() => {
-    fetchCategory();
-  }, []);
+  const { handleCategoryChange, categories } = useCategory();
 
   const handleLinkClick = (categoryId, categoryName) => {
     setSearchTerm("");
-    handleCategoryChange(categoryId, categoryName); // 상태 업데이트
+    handleCategoryChange(categoryId, categoryName);
   };
 
   return (
@@ -45,7 +22,7 @@ const MenuList = () => {
               전체
             </Link>
           </li>
-          {category.map((item, index) => (
+          {categories.map((item, index) => (
             <li key={index} className="title">
               <Link
                 to={`/item/${item.categoryId}`}
