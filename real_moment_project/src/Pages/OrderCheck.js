@@ -36,6 +36,7 @@ const OrderCheck = () => {
   });
 
   const fetchOrderList = useCallback(() => {
+    console.log("Orders to send:", orders);
     axiosInstance
       .post(`/member/${getCookie("Id")}/order/page`, orders)
       .then((res) => {
@@ -47,7 +48,19 @@ const OrderCheck = () => {
         console.log("OrderSubmit GET ", res);
       })
       .catch((error) => {
-        console.error("OrderSubmit GET Error:", error);
+        if (error.response) {
+          // 서버 응답이 있는 경우
+          console.error("OrderSubmit GET Error:", error.response.data);
+        } else if (error.request) {
+          // 요청이 전송되었지만 응답이 없는 경우
+          console.error(
+            "OrderSubmit GET Error: No response received",
+            error.request
+          );
+        } else {
+          // 요청을 설정하는 중에 발생한 에러
+          console.error("OrderSubmit GET Error:", error.message);
+        }
       });
   }, [orders]);
 
@@ -127,6 +140,7 @@ const OrderCheck = () => {
 
         // addressData가 null 또는 undefined라면 return하여 아무런 state 변경 없이 함수 종료
         if (!addressData) {
+          alert("기본 배송지가 없습니다.");
           return;
         }
 
@@ -230,9 +244,9 @@ const OrderCheck = () => {
         },
         function (rsp) {
           if (rsp.success) {
-            alert(
-              "결제가 완료되었습니다. 결제 내역은 마이페이지 > 주문내역에서 확인하실 수 있습니다."
-            );
+            // alert(
+            //   "결제가 완료되었습니다. 결제 내역은 마이페이지 > 주문내역에서 확인하실 수 있습니다."
+            // );
             axiosInstance
               .post(`/member/${getCookie("Id")}/payment/second`, {
                 imp_uid: rsp.imp_uid,
@@ -246,7 +260,13 @@ const OrderCheck = () => {
                   response.data
                 );
 
-                navigate(-1);
+                //결제 성공하면 ordercheckinfo창으로 이동
+                navigate("/ordercheckinfo", {
+                  state: {
+                    orderList: orderList,
+                    orderState: state,
+                  },
+                });
               })
               .catch((error) => {
                 console.error(
@@ -364,7 +384,7 @@ const OrderCheck = () => {
                 state.usePoint
               }
               orderList={orderPrice}
-              OrderSubmit={OrderSubmit}
+              onSubmit={OrderSubmit}
             />
           </div>
         </Container>

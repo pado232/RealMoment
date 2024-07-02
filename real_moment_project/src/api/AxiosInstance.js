@@ -2,15 +2,15 @@ import axios from "axios";
 import { getCookie, setCookie } from "../api/Cookies";
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:8080",
+  baseURL: "http://localhost:8080/api",
   withCredentials: true,
 });
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = getCookie("Authorization1");
+    const token = getCookie("MemberAccess");
     if (token) {
-      config.headers.Authorization = `${token}`;
+      config.headers.Access = `${token}`;
     }
     return config;
   },
@@ -32,8 +32,7 @@ axiosInstance.interceptors.response.use(
       //&& data.message === "TIME_OUT_REFRESH_TOKEN"
       try {
         // 재발급 요청을 보내기 전에 이전 토큰과 리프레시 토큰을 가져옴
-        // const oldAuthorization = getCookie("Authorization");
-        const oldRefreshToken = getCookie("Refresh_Token1");
+        const oldRefreshToken = getCookie("MemberRefresh");
 
         const res = await axiosInstance.post(
           "/reissue/accessToken",
@@ -41,8 +40,7 @@ axiosInstance.interceptors.response.use(
           {
             headers: {
               "Content-Type": "application/json",
-              // Authorization: `${oldAuthorization}`,
-              Refresh_Token: `${oldRefreshToken}`,
+              Refresh: `${oldRefreshToken}`,
             },
           }
         );
@@ -51,14 +49,14 @@ axiosInstance.interceptors.response.use(
 
         // 새로운 토큰 및 만료 시간 저장
 
-        const AuthorizationToken = res.headers.get("Authorization");
-        const RefreshToken = res.headers.get("Refresh_Token");
+        const AccessToken = res.headers.get("Access");
+        const RefreshToken = res.headers.get("Refresh");
 
-        setCookie("Authorization1", AuthorizationToken);
-        setCookie("Refresh_Token1", RefreshToken);
+        setCookie("MemberAccess", AccessToken);
+        setCookie("MemberRefresh", RefreshToken);
 
         // 원래 요청에 새로운 토큰을 추가하여 재시도
-        error.config.headers.Authorization = `${AuthorizationToken}`;
+        error.config.headers.Access = `${AccessToken}`;
 
         return axiosInstance(error.config);
       } catch (error) {

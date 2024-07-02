@@ -49,11 +49,6 @@ const Heart = () => {
           ) : (
             wishList.map((item, index) => (
               <div key={index}>
-                {/* <div className="delete">
-                  <button onClick={() => DeleteHeart(item.item.itemId)}>
-                    <RxCross2 size={25} />
-                  </button>
-                </div> */}
                 <ItemItem
                   {...item.item}
                   wishId={item.wishId}

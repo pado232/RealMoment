@@ -1,16 +1,7 @@
-/* .Container {
-  width: 100%;
-  max-width: 1400px;
-  min-width: 1200px;
-  margin-top: 200px;
-  margin-left: 15%;
-  margin-right: 15%;
-} */
 .Container {
-  position: relative;
+  /* position: relative; */
+  margin: auto;
+  max-width: 1450px;
   min-width: 1200px;
-  padding-left: 200px;
   padding-top: 162px;
-  padding-right: 200px;
-  padding-bottom: 50px;
 }

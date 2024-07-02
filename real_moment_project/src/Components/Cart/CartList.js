@@ -185,11 +185,25 @@ const CartList = ({ setOrderList }) => {
                   onChange={() => handleCheckboxChange(index, cart.cartId)}
                 />
               </div>
-              <a
-                href={
-                  cart.item.sell === true ? `/detail/${cart.item.itemId}` : ""
-                }
-              >
+              {cart.item.sell ? (
+                <a href={`/detail/${cart.item.itemId}`}>
+                  <div
+                    className={`img ${
+                      cart.item.stock === 0 || cart.item.sell === false
+                        ? "stock-overlay"
+                        : ""
+                    }`}
+                  >
+                    {cart.item.stock === 0 && (
+                      <div className="stock-text">SOLD OUT</div>
+                    )}
+                    <img
+                      alt={`${cart.item.name} 이미지`}
+                      src={cart.item.mainImg}
+                    />
+                  </div>
+                </a>
+              ) : (
                 <div
                   className={`img ${
                     cart.item.stock === 0 || cart.item.sell === false
@@ -205,7 +219,7 @@ const CartList = ({ setOrderList }) => {
                     src={cart.item.mainImg}
                   />
                 </div>
-              </a>
+              )}
             </div>
             <div className="info_content">
               <div className="title">

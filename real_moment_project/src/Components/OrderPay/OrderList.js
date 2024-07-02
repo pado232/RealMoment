@@ -1,3 +1,5 @@
+import "../../styles/OrderList.css";
+
 const OrderList = ({ orderList }) => {
   return (
     <div className="OrderList">
@@ -6,7 +8,7 @@ const OrderList = ({ orderList }) => {
       ) : (
         orderList.map((order, index) => (
           <div className="cart_list" key={index}>
-            <div className="img" style={{ width: "20%" }}>
+            <div className="img">
               <img
                 style={{ width: 90, height: 90, margin: 10, paddingLeft: 20 }}
                 alt={`${order.name} 이미지`}
@@ -28,14 +30,13 @@ const OrderList = ({ orderList }) => {
               ) : (
                 ""
               )}
-
               <div className="info_price">
                 <div>{order.sellPrice.toLocaleString()} 원</div>
               </div>
             </div>
             <div className="count_box">
               <div className="count">
-                <div style={{ marginLeft: 50 }}>{order.count} 개</div>
+                <div>{order.count} 개</div>
                 <div className="totalPrice">
                   <div>{order.totalSellPrice.toLocaleString()} 원</div>
                 </div>

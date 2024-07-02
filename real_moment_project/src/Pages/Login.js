@@ -1,36 +1,41 @@
-import { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useRef, useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { setCookie } from "../api/Cookies";
-
-// import IdBox from "../util/IdBox";
 import MyButton from "../util/Buttons/MyButton";
 import axiosInstance from "../api/AxiosInstance";
-
 import { HiOutlineLockClosed } from "react-icons/hi";
 import { FaRegUser } from "react-icons/fa";
-
 import "../styles/Login.css";
 import usePageTitle from "../hooks/usePageTitle";
 
 const Login = ({ onLogin }) => {
   usePageTitle(`LOGIN`);
   const navigate = useNavigate();
+  const location = useLocation();
   const inputRef = useRef([]);
   const [state, setState] = useState({
     id: "",
     pw: "",
   });
   const [pwValid, setPwValid] = useState(false);
+  const [fromPath, setFromPath] = useState("");
 
   const iconSize = 9 * 2;
   const pwIconSize = 7 * 3;
+
+  useEffect(() => {
+    // 로그인 페이지로 이동하기 전의 경로를 추적하여 저장
+    if (location.state && location.state.from) {
+      setFromPath(location.state.from);
+      console.log("location.state.from", location.state.from);
+    }
+  }, [location]);
 
   const handleChangeState = (e) => {
     const { name, value } = e.target;
     if (name === "pw") {
       setPwValid(validatePassword(value));
     }
-    // 다른 입력 유형을 처리
     setState({
       ...state,
       [name]: value,
@@ -51,14 +56,13 @@ const Login = ({ onLogin }) => {
         return;
       }
     }
-    // 아이디 유효성 검사
+
     const idReg = /^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{5,20}$/;
     if (!idReg.test(state.id)) {
       inputRef.current[0].focus();
       return;
     }
 
-    // 비밀번호 유효성 검사
     const pwReg = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,20}$/;
     if (!pwReg.test(state.pw)) {
       inputRef.current[1].focus();
@@ -67,30 +71,26 @@ const Login = ({ onLogin }) => {
 
     axiosInstance
       .post("/login", {
-        // axiosInstance 사용
         loginId: state.id,
         loginPassword: state.pw,
       })
       .then((response) => {
         const memberId = response.data.memberId;
-        const AuthorizationToken = response.headers.get("Authorization");
-        const RefreshToken = response.headers.get("Refresh_Token");
+        const AccessToken = response.headers.get("Access");
+        const RefreshToken = response.headers.get("Refresh");
 
-        // 1일 - 1분
-        // const expires = new Date(
-        //   Date.now() + 24 * 60 * 60 * 1000 - 1 * 60 * 1000
-        // );
-
-        // 토큰을 쿠키에 저장
         setCookie("Id", memberId);
-        setCookie("Authorization1", AuthorizationToken);
-        setCookie("Refresh_Token1", RefreshToken);
+        setCookie("MemberAccess", AccessToken);
+        setCookie("MemberRefresh", RefreshToken);
 
-        // 로그인 성공 시 부모 컴포넌트로 토큰 전달
-        onLogin(AuthorizationToken, RefreshToken);
+        onLogin(AccessToken, RefreshToken);
 
-        // 로그인 성공 알림
-        navigate(-1);
+        // 특정 경로에서 로그인 페이지로 이동했는지 확인
+        if (fromPath === "/signup") {
+          navigate("/");
+        } else {
+          navigate(-1);
+        }
 
         console.log("로그인 서버 전송: ", response);
       })
@@ -99,9 +99,6 @@ const Login = ({ onLogin }) => {
         alert("유효하지 않은 회원정보입니다. 다시 입력해주세요.");
       })
       .finally(() => {
-        // 로그인이 성공하든 실패하든 항상 호출되도록 합니다.
-
-        // 로그인 상태 초기화
         setState({
           id: "",
           pw: "",

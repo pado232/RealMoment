@@ -42,7 +42,7 @@ const Delivery = () => {
 
   const customStyles = {
     content: {
-      top: "49%",
+      top: "55%",
       left: "52%",
       right: "auto",
       bottom: "auto",

@@ -13,11 +13,13 @@ import ImgSlide from "../util/ImgSlide";
 import DetailImg from "../Components/Detail/DetailImg";
 import DetailReview from "../Components/Detail/DetailReview";
 import DetailQandA from "../Components/Detail/DetailQandA";
+import ModalContainer from "../util/ModalContainer";
 
 import "../styles/Detail.css";
 import axiosInstance from "../api/AxiosInstance";
 import { getCookie } from "../api/Cookies";
 import axiosInstanceWithoutAuth from "../api/AxioxInstanceWithoutAuth";
+import DetailQuestionMark from "../Components/Detail/DetailQuestionMark";
 const Detail = () => {
   const { itemId } = useParams();
 
@@ -30,6 +32,21 @@ const Detail = () => {
 
   const [itemCount, setItemCount] = useState(1);
   const [itemDetails, setItemDetails] = useState(null); // 초기값을 null로 설정
+
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const customStyles = {
+    content: {
+      top: "55%",
+      left: "55%",
+      right: "auto",
+      bottom: "auto",
+      height: "320px",
+      marginRight: "-50%",
+      transform: "translate(-50%, -50%)",
+      padding: 0,
+    },
+  };
 
   const fetchItemDetail = () => {
     axiosInstanceWithoutAuth
@@ -160,12 +177,16 @@ const Detail = () => {
                   <div className="sellPrice">
                     {itemDetails.sellPrice.toLocaleString()}
                   </div>
-                  <div className="discountRate">
-                    {itemDetails.discountRate}%
-                  </div>
-                  <div className="price">
-                    {itemDetails.price.toLocaleString()}
-                  </div>
+                  {itemDetails.discountRate !== 0 && (
+                    <>
+                      <div className="discountRate">
+                        {itemDetails.discountRate}%
+                      </div>
+                      <div className="price">
+                        {itemDetails.price.toLocaleString()}
+                      </div>
+                    </>
+                  )}
                 </div>
 
                 <div className="info">
@@ -174,7 +195,20 @@ const Detail = () => {
                     <div className="content">결제 금액의 등급별 적립</div>
                     <div>
                       {/* 포인트 설명 모달 설정하기 */}
-                      <FaQuestionCircle className="point" size={13} />
+                      <FaQuestionCircle
+                        className="point"
+                        size={13}
+                        onClick={() => {
+                          setModalOpen(true);
+                        }}
+                      />
+                      <ModalContainer
+                        isOpen={modalOpen}
+                        onRequestClose={() => setModalOpen(false)}
+                        customStyles={customStyles}
+                      >
+                        <DetailQuestionMark />
+                      </ModalContainer>
                     </div>
                   </div>
                   <div>
@@ -238,13 +272,13 @@ const Detail = () => {
                       </button>
                       <button onClick={AddCart} className="cart">
                         <div>
-                          <TiShoppingCart size={30} />
+                          <TiShoppingCart style={{ marginTop: 7 }} size={28} />
                         </div>
                         <div>장바구니</div>
                       </button>
                       <button onClick={OrderSubmit} className="pay">
                         <div>
-                          <MdPayment size={30} />
+                          <MdPayment style={{ marginTop: 7 }} size={28} />
                         </div>
                         <div>구매하기</div>
                       </button>
@@ -257,7 +291,7 @@ const Detail = () => {
                     </button>
                     <button onClick={AddCart} className="cart">
                       <div>
-                        <TiShoppingCart size={30} />
+                        <TiShoppingCart style={{ marginTop: 7 }} size={28} />
                       </div>
                       <div>장바구니</div>
                     </button>
@@ -266,7 +300,7 @@ const Detail = () => {
                       className="pay"
                     >
                       <div>
-                        <MdPayment size={30} />
+                        <MdPayment style={{ marginTop: 7 }} size={28} />
                       </div>
                       <div>구매 불가</div>
                     </button>

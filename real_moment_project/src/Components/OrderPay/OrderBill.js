@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const OrderBill = ({ orderList, usePonit, OrderSubmit, buyPrice }) => {
+const OrderBill = ({ orderList, usePonit, onSubmit, buyPrice }) => {
   const [isSticky, setIsSticky] = useState(false);
 
   useEffect(() => {
@@ -73,7 +73,7 @@ const OrderBill = ({ orderList, usePonit, OrderSubmit, buyPrice }) => {
         <div className="btn_warpper">
           <button
             style={{ backgroundColor: "rgb(136, 129, 229)" }}
-            onClick={OrderSubmit}
+            onClick={onSubmit}
           >
             주문하기
           </button>

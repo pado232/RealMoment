@@ -31,14 +31,14 @@ function App() {
 
   useEffect(() => {
     // 쿠키에서 로그인 상태 확인
-    const token = getCookie("Authorization1");
+    const token = getCookie("MemberAccess");
     setIsLoggedIn(!!token); // 토큰이 있으면 로그인 상태로 설정
   }, []);
 
   // 로그인 함수
-  const handleLogin = (AuthorizationToken, RefreshToken) => {
-    setCookie("Authorization1", AuthorizationToken);
-    setCookie("Refresh_Token1", RefreshToken);
+  const handleLogin = (AccessToken, RefreshToken) => {
+    setCookie("MemberAccess", AccessToken);
+    setCookie("MemberRefresh", RefreshToken);
     setIsLoggedIn(true); // 로그인 상태로 설정
   };
 
@@ -54,8 +54,8 @@ function App() {
       });
 
     // 로그아웃 상태로 설정
-    removeCookie("Authorization1"); // 쿠키에서 accessToken 제거
-    removeCookie("Refresh_Token1");
+    removeCookie("MemberAccess"); // 쿠키에서 accessToken 제거
+    removeCookie("MemberRefresh");
     removeCookie("Id");
     setIsLoggedIn(false);
     window.location.href = "/"; // 로그아웃 후 홈 페이지로 리디렉션

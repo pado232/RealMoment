@@ -124,11 +124,14 @@
   border: none;
   cursor: pointer;
 }
-.Detail .payment .heart {
+.Detail .payment > button > div {
+  color: white;
+}
+.Detail .payment button.heart {
   width: 12%;
   background-color: #000000;
 }
-.Detail .payment .cart {
+.Detail .payment button.cart {
   width: 44%;
   background-color: #302e2e;
 }

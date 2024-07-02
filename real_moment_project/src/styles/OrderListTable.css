@@ -8,7 +8,6 @@ table thead tr {
   text-align: center;
 }
 table tbody td {
-  border-bottom: 1px solid rgb(190, 190, 190);
 }
 table thead th {
   padding: 15px 0;
@@ -232,18 +231,25 @@ table td {
 .ListTable .item_title {
   display: flex;
   justify-content: flex-start;
-  text-align: center;
+  align-items: center;
 }
-.ListTable .btn_warpper {
+.ListTable .order_state {
   display: flex;
   justify-content: center;
-  text-align: center;
+  align-items: center;
+}
+.ListTable .state_title {
+  width: 40%;
+}
+.ListTable .btn_warpper {
+  width: 60%;
 }
 .ListTable .btn_warpper > div {
   margin: 10px;
 }
+
 .ListTable .btn_warpper button {
-  margin-top: 10px;
+  /* margin-top: 10px; */
   min-width: 85px;
   border: 2px solid hsl(0, 85%, 82%);
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);

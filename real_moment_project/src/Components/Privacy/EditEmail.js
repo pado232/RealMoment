@@ -1,12 +1,12 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import EmailInput from "../../util/SignUpInput/EmailInput";
 import MyButton from "../../util/Buttons/MyButton";
 import WhiteButton from "../../util/Buttons/WhiteButton";
 
 import "../../styles/Privacy.css";
-import axios from "axios";
 import axiosInstance from "../../api/AxiosInstance";
 import { getCookie } from "../../api/Cookies";
+import axiosInstanceWithoutAuth from "../../api/AxioxInstanceWithoutAuth";
 
 const EditEmail = ({ onCancel, onConfirm }) => {
   const inputRef = useRef([]);
@@ -14,10 +14,35 @@ const EditEmail = ({ onCancel, onConfirm }) => {
   const [emailCodeDiff, setEmailCodeDiff] = useState("");
   const [alertMessage, setAlertMessage] = useState("");
   const [showAlert, setShowAlert] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(0);
   const [state, setState] = useState({
     email: "",
     code: "",
   });
+
+  useEffect(() => {
+    let timer;
+    if (timeLeft > 0) {
+      timer = setInterval(() => {
+        setTimeLeft((prevTime) => prevTime - 1);
+      }, 1000);
+    } else {
+      clearInterval(timer);
+    }
+    return () => clearInterval(timer);
+  }, [timeLeft]);
+
+  const startTimer = (duration) => {
+    setTimeLeft(duration);
+  };
+
+  const formatTime = (seconds) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes}:${
+      remainingSeconds < 10 ? `0${remainingSeconds}` : remainingSeconds
+    }`;
+  };
 
   const handleChangeState = (e) => {
     const { name, value } = e.target;
@@ -38,8 +63,8 @@ const EditEmail = ({ onCancel, onConfirm }) => {
     setAlertMessage("이메일을 전송 중입니다. 잠시만 기다려주세요.");
     setShowAlert(true);
 
-    axios
-      .post(`http://localhost:8080/email/html`, {
+    axiosInstanceWithoutAuth
+      .post(`/email/html`, {
         email: state.email,
       })
       .then((res) => {
@@ -47,6 +72,9 @@ const EditEmail = ({ onCancel, onConfirm }) => {
         setAlertMessage(
           "해당 이메일로 인증 코드를 전송했습니다. 인증 코드를 기입해주세요."
         );
+        // ----------- 남은 시간 넣기 -------------
+        // 타이머 시작 (5분 = 300초)
+        startTimer(300);
 
         console.log("이메일 인증 코드 보내기 성공", res);
       })
@@ -62,13 +90,13 @@ const EditEmail = ({ onCancel, onConfirm }) => {
         return;
       }
     }
-    axios
-      .post(`http://localhost:8080/email/code/check`, {
+    axiosInstanceWithoutAuth
+      .post(`/email/code/check`, {
         email: state.email,
         code: state.code,
       })
       .then((res) => {
-        setCertificationEnabled(false);
+        // setCertificationEnabled(false);
 
         axiosInstance
           .patch(`/member/${getCookie("Id")}/email`, {
@@ -78,7 +106,8 @@ const EditEmail = ({ onCancel, onConfirm }) => {
             setCertificationEnabled(false);
             setEmailCodeDiff("");
             setShowAlert(false);
-            window.alert("인증이 완료! 이메일이 성공적으로 변경되었습니다.");
+            window.alert("인증 완료! 이메일이 성공적으로 변경되었습니다.");
+
             onConfirm();
             console.log("이메일 변경 성공", res);
           })
@@ -107,18 +136,28 @@ const EditEmail = ({ onCancel, onConfirm }) => {
           inputRef={inputRef}
         />
         <WhiteButton
-          style={{ marginTop: 9, marginLeft: 20 }}
+          style={{ marginTop: 9, marginBottom: 10, marginLeft: 20 }}
           buttonText={"인증"}
           onClick={handleEmailSubmit}
         />
       </div>
 
       {showAlert && (
-        <div
-          style={{ fontSize: 13, fontWeight: "bold" }}
-          className="custom-alert"
-        >
+        <div style={{ color: "black", paddingBottom: 5 }} className="pw_error">
           {alertMessage}
+        </div>
+      )}
+      {certificationEnabled && (
+        <div style={{ paddingBottom: 15 }}>
+          {timeLeft > 0 ? (
+            <div style={{ color: "black" }} className="pw_error">
+              남은 시간: {formatTime(timeLeft)}
+            </div>
+          ) : (
+            <div className="pw_error">
+              시간이 만료되었습니다. 다시 시도해주세요.
+            </div>
+          )}
         </div>
       )}
       <div className="box">

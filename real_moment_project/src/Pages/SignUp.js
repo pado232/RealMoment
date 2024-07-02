@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FaCheck } from "react-icons/fa6";
 
 import MyButton from "../util/Buttons/MyButton";
@@ -31,6 +31,11 @@ const SignUp = () => {
   const [idValid, setIdValid] = useState(false);
   const [doubleCheck, setDoubleCheck] = useState(false);
   const [idCheckMessage, setIdCheckMessage] = useState("");
+  const [emailCodeDiff, setEmailCodeDiff] = useState("");
+  const [alertMessage, setAlertMessage] = useState("");
+  const [showAlert, setShowAlert] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(0);
+
   const [state, setState] = useState({
     id: "",
     pw: "",
@@ -109,6 +114,22 @@ const SignUp = () => {
     event.preventDefault();
     setDoubleCheck(!doubleCheck);
     setIdCheckMessage("");
+  };
+
+  useEffect(() => {
+    let timer;
+    if (timeLeft > 0) {
+      timer = setInterval(() => {
+        setTimeLeft((prevTime) => prevTime - 1);
+      }, 1000);
+    } else {
+      clearInterval(timer);
+    }
+    return () => clearInterval(timer);
+  }, [timeLeft]);
+
+  const startTimer = (duration) => {
+    setTimeLeft(duration);
   };
 
   const handleSubmit = (event) => {
@@ -204,11 +225,11 @@ const SignUp = () => {
         setInfoCollect(false);
         setDoubleCheck(false);
 
-        navigate("/login");
-        console.log("관리자 가입 저장 성공", res);
+        navigate("/login", { state: { from: "/signup" } });
+        console.log("회원가입 저장 성공", res);
       })
       .catch((error) => {
-        console.log("관리자 가입 저장 실패", error);
+        console.log("회원가입 저장 실패", error);
       });
   };
 
@@ -221,15 +242,23 @@ const SignUp = () => {
       return;
     }
 
+    setAlertMessage("이메일을 전송 중입니다. 잠시만 기다려주세요.");
+    setShowAlert(true);
+
     axiosInstanceWithoutAuth
       .post(`/email/html`, {
         email: state.email,
       })
       .then((res) => {
         setCertificationEnabled(true);
-        window.alert(
+        setAlertMessage(
           "해당 이메일로 인증 코드를 전송했습니다. 인증 코드를 기입해주세요."
         );
+
+        // ----------- 남은 시간 넣기 -------------
+        // 타이머 시작 (5분 = 300초)
+        startTimer(300);
+
         console.log("이메일 인증 코드 보내기 성공", res);
       })
       .catch((error) => {
@@ -249,13 +278,27 @@ const SignUp = () => {
       })
       .then((res) => {
         setCertificationEnabled(false);
+        setEmailCodeDiff("");
+        setShowAlert(false);
         window.alert("인증이 완료되었습니다.");
-
         console.log("이메일 인증 성공", res);
       })
       .catch((error) => {
+        if (error.response.data === "BAD") {
+          setEmailCodeDiff("잘못된 인증 코드입니다.");
+        } else if (error.response.data === "TIME_OUT_or_BAD_EMAIL") {
+          setEmailCodeDiff("인증코드 기간이 만료되었습니다.");
+        }
         console.log("이메일 인증 실패", error);
       });
+  };
+
+  const formatTime = (seconds) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes}:${
+      remainingSeconds < 10 ? `0${remainingSeconds}` : remainingSeconds
+    }`;
   };
 
   return (
@@ -272,20 +315,16 @@ const SignUp = () => {
             autoComplete="id"
             readOnly={doubleCheck}
           />
-
           {!idValid && state.id.length > 0 && (
             <div className="pw_error">
-              한글, 특수문자 제외 5글자 이상 작성해주세요.
+              숫자를 포함하여 5글자 이상 작성해주세요. (한글, 특수문자 제외)
             </div>
           )}
           {idCheckMessage && (
             <div>
               {idCheckMessage === "중복없음" ? (
                 <div>
-                  <div
-                    className="pw_error"
-                    style={{ color: "black", marginBottom: 15 }}
-                  >
+                  <div className="pw_error" style={{ color: "black" }}>
                     사용 가능한 아이디입니다.
                   </div>
                   <div>
@@ -297,7 +336,7 @@ const SignUp = () => {
                 </div>
               ) : (
                 <div>
-                  <div className="pw_error" style={{ marginBottom: 15 }}>
+                  <div className="pw_error">
                     이미 존재하는 아이디입니다. 다시 작성해주세요.
                   </div>
                 </div>
@@ -315,7 +354,6 @@ const SignUp = () => {
               </div>
             </div>
           )}
-
           <PasswordInput
             labelText={"비밀번호"}
             name={"pw"}
@@ -325,7 +363,6 @@ const SignUp = () => {
             inputRef={inputRef}
             autoComplete={"password"}
           />
-
           <div className="signup_title">비밀번호 확인</div>
           <input
             className="input"
@@ -340,7 +377,6 @@ const SignUp = () => {
           {state.pwcheck.length > 0 && state.pw !== state.pwcheck && (
             <div className="pw_error">비밀번호가 일치하지 않습니다.</div>
           )}
-
           <EmailInput
             labelText={"이메일"}
             value={state.email}
@@ -349,6 +385,25 @@ const SignUp = () => {
             inputRef={inputRef}
             autoComplete={"email"}
           />
+
+          {showAlert && (
+            <div style={{ color: "black" }} className="pw_error">
+              {alertMessage}
+            </div>
+          )}
+          {certificationEnabled && (
+            <div>
+              {timeLeft > 0 ? (
+                <div style={{ color: "black" }} className="pw_error">
+                  남은 시간: {formatTime(timeLeft)}
+                </div>
+              ) : (
+                <div className="pw_error">
+                  시간이 만료되었습니다. 다시 시도해주세요.
+                </div>
+              )}
+            </div>
+          )}
           <WhiteButton
             style={{ marginBottom: 20 }}
             buttonText={"인증"}
@@ -365,6 +420,7 @@ const SignUp = () => {
               disabled={!certificationEnabled}
             />
           </div>
+          {emailCodeDiff && <div className="pw_error">{emailCodeDiff}</div>}
 
           <button className="greenbutton" onClick={handleEmailCodeSubmit}>
             인증 확인
@@ -379,7 +435,6 @@ const SignUp = () => {
             ref={(el) => (inputRef.current[5] = el)}
             autoComplete="username"
           />
-
           <PhoneInput
             state={state}
             handleChangeState={handleChangeState}
@@ -389,7 +444,6 @@ const SignUp = () => {
             autoCompletePhoneOne={"phone-one"}
             autoCompletePhoneTwo={"phone-two"}
           />
-
           <div className="signup_title">성별</div>
           <label htmlFor="male">
             <input
@@ -415,9 +469,7 @@ const SignUp = () => {
             />
             <span>여자</span>
           </label>
-
           <BirthDateInput state={state} handleChangeState={handleChangeState} />
-
           <div className="signup_title">
             <label>
               <input
@@ -432,7 +484,6 @@ const SignUp = () => {
               </span>
             </label>
           </div>
-
           <MyButton
             buttonText={"회원 가입하기"}
             onClick={handleSubmit}

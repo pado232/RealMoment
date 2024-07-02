@@ -1,0 +1,68 @@
+.OrderCheckInfo .message {
+  text-align: center;
+  margin-top: 100px;
+  margin-bottom: 40px;
+}
+.OrderCheckInfo .OrderContent_Container {
+  background-color: #eff5ff;
+  border-radius: 20px;
+  padding: 50px;
+  box-shadow: 0 0 7px rgba(0, 0, 0, 0.15);
+}
+.OrderCheckInfo h2 {
+  font-size: 30px;
+  margin-bottom: 50px;
+}
+.OrderCheckInfo button.move {
+  border: none;
+  background-color: white;
+  font-size: 14px;
+  margin: 20px;
+  cursor: pointer;
+  text-decoration: underline;
+}
+.OrderCheckInfo button.move:hover {
+  font-weight: bold;
+}
+.OrderCheckInfo .delivery_info {
+  display: flex;
+  justify-content: start;
+  align-items: flex-start; /* 전체 자식 요소들을 위로 정렬 */
+  margin: 0 70px;
+  padding-top: 10px;
+  padding-bottom: 40px;
+}
+.OrderCheckInfo .delivery_info .title {
+  font-weight: bold;
+  width: 130px;
+  align-self: flex-start;
+}
+.OrderCheckInfo .delivery_info .content > div {
+  padding-bottom: 5px;
+}
+.OrderCheckInfo .item_info {
+  background-color: white;
+  padding-bottom: 20px;
+  padding-right: 50px;
+  padding-left: 50px;
+}
+.OrderCheckInfo .item_info .bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 20px;
+  border-bottom: 3px solid #161616;
+}
+.OrderCheckInfo .item_info .bar .title {
+  font-weight: bold;
+  font-size: 16px;
+}
+.OrderCheckInfo span {
+  padding-left: 10px;
+  color: red;
+  font-weight: lighter;
+  font-size: 20px;
+}

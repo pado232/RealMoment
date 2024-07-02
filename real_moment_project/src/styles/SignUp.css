@@ -24,6 +24,13 @@
 .input:focus::placeholder {
   color: transparent;
 }
+.SignUp .pw_error {
+  color: rgb(255, 25, 25);
+  font-size: 12px;
+  font-weight: bold;
+  margin-left: 5px;
+  margin-bottom: 15px;
+}
 .pw_error {
   color: rgb(255, 25, 25);
   font-size: 12px;

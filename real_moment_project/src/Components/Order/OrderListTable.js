@@ -184,9 +184,11 @@ const OrderListTable = ({
     <div className="ListTable">
       <table>
         <colgroup style={{ width: 500 }} />
-        <colgroup style={{ width: 500 }} />
+        <colgroup style={{ width: 400 }} />
         <colgroup style={{ width: 250 }} />
-        <colgroup span={"2"} style={{ width: 200 }} />
+        <colgroup style={{ width: 150 }} />
+        <colgroup style={{ width: 350 }} />
+        {/* <colgroup span={"2"} style={{ width: 200 }} /> */}
 
         <thead>
           <tr>
@@ -250,12 +252,19 @@ const OrderListTable = ({
                             </div>
                           </div>
                           <div className="content_box">
-                            <div>
-                              <span>{detail.price.toLocaleString()}원</span>
-                            </div>
-                            <div style={{ color: "red" }}>
-                              {detail.discountRate}%
-                            </div>
+                            {detail.discountRate === 0 ? (
+                              ""
+                            ) : (
+                              <>
+                                <div>
+                                  <span>{detail.price.toLocaleString()}원</span>
+                                </div>
+                                <div style={{ color: "red" }}>
+                                  {detail.discountRate}%
+                                </div>
+                              </>
+                            )}
+
                             {/* <div>
                               (-{detail.discountPrice.toLocaleString()}
                               원)
@@ -275,19 +284,22 @@ const OrderListTable = ({
                           {detail.totalPrice.toLocaleString()}원
                         </div>
                       </div>
+                      {index < order.orderDetails.length - 1 && (
+                        <div
+                          style={{
+                            marginLeft: "5%",
+                            width: "90%",
+                            borderBottom: "1px dashed #ccc",
+                          }}
+                        ></div>
+                      )}
+
                       {order.status === "구매확정" && !detail.reviewStatus ? (
                         <div className="btn_box">
                           <WhiteButton
                             buttonText={`${detail.item.name} 리뷰 작성하기`}
                             onClick={() => reviewWriteClick(detail)}
                           />
-
-                          {/* <button
-                            className="review_btn"
-                            onClick={() => reviewWriteClick(detail)}
-                          >
-                            리뷰 작성하기
-                          </button> */}
 
                           <ModalContainer
                             isOpen={isWriteModalOpen}
@@ -324,17 +336,6 @@ const OrderListTable = ({
 
                 <td>
                   <div className="delivery">
-                    <center>
-                      <div
-                        style={{
-                          marginBottom: 10,
-                          fontWeight: "bold",
-                        }}
-                      >
-                        {order.orderId}
-                      </div>
-                    </center>
-
                     <div>
                       <div>
                         <AiFillHome className="icon" size={10 * 2} />
@@ -363,6 +364,16 @@ const OrderListTable = ({
                   </div>
                 </td>
                 <td>
+                  <center>
+                    <div
+                      style={{
+                        marginBottom: 5,
+                        fontWeight: "bold",
+                      }}
+                    >
+                      {order.orderId}
+                    </div>
+                  </center>
                   <div className="date">
                     <DateFormat dateString={order.orderedDate} />
                   </div>
@@ -371,59 +382,58 @@ const OrderListTable = ({
                   <div>{order.buyPrice.toLocaleString()} 원</div>
                 </td>
                 <td>
-                  <div>{order.status}</div>
-                  <div>
-                    <div className="btn_warpper">
-                      {order.status === "배송완료" ? (
-                        <>
-                          <div>
-                            <button onClick={() => OrderDone(order.orderId)}>
-                              구매확정
-                            </button>
-                          </div>
+                  <div className="order_state">
+                    <div className="state_title">{order.status}</div>
 
-                          <div>
-                            <button onClick={() => OrderRefund(order.orderId)}>
-                              환불신청
-                            </button>
-                            <div>
-                              <select
-                                name="refundReason"
-                                value={refundReason}
-                                onChange={handleReasonChange}
-                                className="reason"
-                              >
-                                <option value="">환불 사유 선택</option>
-                                <option value="변심">변심</option>
-                                <option value="불량">불량</option>
-                                <option value="기타">기타</option>
-                              </select>
-                            </div>
-                          </div>
-                        </>
-                      ) : order.status === "결제완료" ? (
+                    {order.status === "배송완료" ? (
+                      <div className="btn_warpper">
                         <div>
+                          <button onClick={() => OrderDone(order.orderId)}>
+                            구매확정
+                          </button>
+                        </div>
+
+                        <div>
+                          <button onClick={() => OrderRefund(order.orderId)}>
+                            환불신청
+                          </button>
                           <div>
                             <select
-                              name="cancelReason"
-                              value={cancelReason}
+                              name="refundReason"
+                              value={refundReason}
                               onChange={handleReasonChange}
                               className="reason"
                             >
-                              <option value="">취소 사유 선택</option>
+                              <option value="">환불 사유 선택</option>
                               <option value="변심">변심</option>
-                              <option value="배송 지연">배송 지연</option>
+                              <option value="불량">불량</option>
                               <option value="기타">기타</option>
                             </select>
                           </div>
-                          <button onClick={() => OrderCancel(order.orderId)}>
-                            결제취소
-                          </button>
                         </div>
-                      ) : (
-                        ""
-                      )}
-                    </div>
+                      </div>
+                    ) : order.status === "결제완료" ? (
+                      <div className="btn_warpper">
+                        <button onClick={() => OrderCancel(order.orderId)}>
+                          결제취소
+                        </button>
+                        <div>
+                          <select
+                            name="cancelReason"
+                            value={cancelReason}
+                            onChange={handleReasonChange}
+                            className="reason"
+                          >
+                            <option value="">취소 사유 선택</option>
+                            <option value="변심">변심</option>
+                            <option value="배송 지연">배송 지연</option>
+                            <option value="기타">기타</option>
+                          </select>
+                        </div>
+                      </div>
+                    ) : (
+                      ""
+                    )}
                   </div>
                 </td>
               </tr>

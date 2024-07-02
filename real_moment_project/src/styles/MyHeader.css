@@ -14,20 +14,22 @@
   background-color: #ebcece;
 
   font-family: "Gowun Dodum", sans-serif;
+  min-width: 1000px;
 }
 .MyHeader > div {
   display: flex;
 }
 .head_title {
-  width: 20%;
+  width: 10%;
   justify-content: start;
 }
 .head_search {
   margin-top: 20px;
-  width: 60%;
+  width: 70%;
   justify-content: center;
 }
 .head_search_box {
+  margin-left: 15%;
   background-color: white;
   padding-left: 15px;
   padding-right: 15px;
@@ -82,31 +84,3 @@
   text-decoration: none;
   color: black;
 }
-
-/* Home_Middle*/
-/* @keyframes middle-ani {
-    0% {
-      transform: translate(1000px, 0);
-    }
-    40% {
-      transform: translate(0, 0);
-    }
-    60% {
-      transform: translate(50px, 0);
-    }
-    80% {
-      transform: translate(0, 0);
-    }
-    90% {
-      transform: translate(15px, 0);
-    }
-    95% {
-      transform: translate(0, 0);
-    }
-    97% {
-      transform: translate(5px, 0);
-    }
-    100% {
-      transform: translate(0, 0);
-    }
-  } */
