@@ -381,7 +381,7 @@ const OrderListTable = ({
                       </div>
                       <div> {order.tel}</div>
                     </div>
-                    {/* <div>{order.merchantUid}</div> */}
+                    {/* <div>{order.orderId}</div> */}
                   </div>
                 </td>
                 <td>
@@ -392,7 +392,7 @@ const OrderListTable = ({
                         fontWeight: "bold",
                       }}
                     >
-                      {order.orderId}
+                      {order.merchantUid}
                     </div>
                   </center>
                   <div className="date">

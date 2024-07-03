@@ -16,7 +16,7 @@ const ReviewWrite = ({
 }) => {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
-  const [selectedPeriod, setSelectedPeriod] = useState(null);
+  const [selectedPeriod, setSelectedPeriod] = useState("6months");
 
   const [orderList, setOrderList] = useState([]);
   const [totalPage, setTotalPage] = useState(0);
@@ -26,10 +26,17 @@ const ReviewWrite = ({
   const [isWriteModalOpen, setIsWriteModalOpen] = useState(false);
 
   const fetchOrderList = useCallback(() => {
+    const formatDate = (date) => {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const day = String(date.getDate()).padStart(2, "0");
+      return `${year}-${month}-${day}`;
+    };
+
     const queryParams = new URLSearchParams({
       itemName: itemName,
-      startDate: startDate.toISOString().split("T")[0],
-      lastDate: endDate.toISOString().split("T")[0],
+      startDate: formatDate(startDate),
+      lastDate: formatDate(endDate),
       status: "구매확정",
       nowPage: nowPage,
     });
@@ -57,6 +64,19 @@ const ReviewWrite = ({
   }, [nowPage, startDate, endDate]);
 
   useEffect(() => {
+    // 초기 6개월 전 날짜 설정
+    const newStartDate = new Date();
+    newStartDate.setMonth(newStartDate.getMonth() - 6);
+    setStartDate(newStartDate);
+    setEndDate(new Date());
+    setSelectedPeriod("6months");
+  }, []);
+
+  useEffect(() => {
+    fetchOrderList();
+  }, [startDate, endDate, selectedPeriod]);
+
+  useEffect(() => {
     fetchOrderList();
   }, [nowPage, startDate, endDate]);
 
@@ -66,25 +86,24 @@ const ReviewWrite = ({
 
   const handleRadioChange = (period) => {
     setSelectedPeriod(period);
-    const today = new Date();
-    const newStartDate = new Date(today);
+    const newStartDate = new Date();
 
-    // 선택된 기간에 따라 종료일 조정
+    // 선택된 기간에 따라 시작일 조정
     switch (period) {
       case "15days":
-        newStartDate.setDate(today.getDate() - 15);
+        newStartDate.setDate(newStartDate.getDate() - 15);
         break;
       case "1month":
-        newStartDate.setMonth(today.getMonth() - 1);
+        newStartDate.setMonth(newStartDate.getMonth() - 1);
         break;
       case "2months":
-        newStartDate.setMonth(today.getMonth() - 2);
+        newStartDate.setMonth(newStartDate.getMonth() - 2);
         break;
       case "3months":
-        newStartDate.setMonth(today.getMonth() - 3);
+        newStartDate.setMonth(newStartDate.getMonth() - 3);
         break;
       case "6months":
-        newStartDate.setMonth(today.getMonth() - 6);
+        newStartDate.setMonth(newStartDate.getMonth() - 6);
         break;
       default:
         break;
@@ -93,10 +112,6 @@ const ReviewWrite = ({
     setEndDate(new Date());
     setStartDate(newStartDate);
   };
-
-  useEffect(() => {
-    handleRadioChange("6months");
-  }, []);
 
   const handleSearchSubmit = () => {
     // 서버에 startDate와 endDate를 전달하면 됩니다.

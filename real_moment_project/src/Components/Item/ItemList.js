@@ -24,7 +24,9 @@ const ItemList = () => {
   } = useCategory();
   const { searchTerm } = useSearch();
   const { categoryId } = useParams();
-  usePageTitle(`${selectedCategoryName} 전체 제품`);
+  usePageTitle(
+    `${selectedCategoryName === "전체" ? "" : selectedCategoryName} 제품 전체`
+  );
 
   const [itemList, setItemList] = useState([]);
   const [totalPage, setTotalPage] = useState(0);

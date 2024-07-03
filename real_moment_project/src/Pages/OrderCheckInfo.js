@@ -2,8 +2,10 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Container from "../util/Container";
 import OrderList from "../Components/OrderPay/OrderList";
 import "../styles/OrderCheckInfo.css";
+import usePageTitle from "../hooks/usePageTitle";
 
 const OrderCheckInfo = () => {
+  usePageTitle(`결제 확인`);
   const navigate = useNavigate();
   const location = useLocation();
   const { orderList, orderState } = location.state || {};
@@ -13,8 +15,8 @@ const OrderCheckInfo = () => {
       <Container>
         {orderState?.phone1 === undefined ? (
           <div style={{ margin: "190px 0" }}>
-            <h2>ERROR</h2>
             <center>
+              <h2>ERROR</h2>
               <div>주문 데이터가 존재하지 않습니다.</div>
               <div>
                 정상 절차를 거쳐 페이지를 이용하지 않을 경우에 에러가 발생할 수
