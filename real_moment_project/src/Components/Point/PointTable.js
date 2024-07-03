@@ -14,7 +14,6 @@ const PointTable = ({ pointHistory }) => {
             <tr>
               <th>적립금</th>
               <th>적립 사항</th>
-
               <th>날짜</th>
             </tr>
           </thead>
@@ -36,7 +35,6 @@ const PointTable = ({ pointHistory }) => {
                       <div>{history.pointStatus}</div>
                     </strong>
                   </td>
-
                   <td>
                     <div className="date">
                       <DateFormat dateString={history.time} />

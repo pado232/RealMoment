@@ -68,7 +68,7 @@ const MyHeader = ({ isLoggedIn, onLogout }) => {
               </a>
             </div>
           ) : (
-            <a href="/">No Logo</a>
+            <a href="/">No Logo!!</a>
           )}
         </h1>
       </div>
