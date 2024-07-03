@@ -83,28 +83,40 @@ const OrderCheck = () => {
       return;
     }
 
-    if (name === "usePoint" && newValue > orderPrice.point) {
-      setState((prevState) => ({
-        ...prevState,
-        usePoint: orderPrice.point.toString(),
-      }));
-      return;
-    }
+    if (name === "usePoint") {
+      const maxUsePoint = orderPrice.totalPrice - orderPrice.totalDiscountPrice;
 
-    if (newValue.trim() === "") {
-      setState((prevState) => ({
-        ...prevState,
-        [name]: name === "usePoint" ? "0" : "",
-      }));
-      return;
-    }
+      if (newValue > orderPrice.point) {
+        setState((prevState) => ({
+          ...prevState,
+          usePoint: orderPrice.point.toString(),
+        }));
+        return;
+      }
 
-    if (newValue[0] === "0" && name !== "phone1") {
-      setState((prevState) => ({
-        ...prevState,
-        [name]: name === "usePoint" ? newValue.slice(1) : "",
-      }));
-      return;
+      if (newValue > maxUsePoint) {
+        setState((prevState) => ({
+          ...prevState,
+          usePoint: maxUsePoint.toString(),
+        }));
+        return;
+      }
+
+      if (newValue.trim() === "") {
+        setState((prevState) => ({
+          ...prevState,
+          usePoint: "0",
+        }));
+        return;
+      }
+
+      if (newValue[0] === "0") {
+        setState((prevState) => ({
+          ...prevState,
+          usePoint: newValue.slice(1),
+        }));
+        return;
+      }
     }
 
     setState((prevState) => ({
@@ -122,13 +134,15 @@ const OrderCheck = () => {
   };
 
   const handleUseAllPoints = () => {
+    const maxUsePoint = orderPrice.totalPrice - orderPrice.totalDiscountPrice;
+
     setState((prevState) => ({
       ...prevState,
-      usePoint: orderPrice.point,
+      usePoint: Math.min(orderPrice.point, maxUsePoint),
       buyPrice:
         orderPrice.totalPrice -
         orderPrice.totalDiscountPrice -
-        orderPrice.point,
+        Math.min(orderPrice.point, maxUsePoint),
     }));
   };
 
