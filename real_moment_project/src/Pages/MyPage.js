@@ -16,15 +16,17 @@ import MyInpuiry from "../Components/Inquiry/MyInquiry";
 import QandA from "../Components/QandA/QandA";
 import usePageTitle from "../hooks/usePageTitle";
 import { useLocation } from "react-router-dom";
+import Membership from "../Components/Membership/Membership";
 
 const myPageMenu = [
   { bar_name: "주문내역", bar_value: "OrderHistory" },
   { bar_name: "배송지 관리", bar_value: "delivery" },
   { bar_name: "리뷰", bar_value: "review" },
+  { bar_name: "멤버십", bar_value: "Membership" },
   { bar_name: "적립금", bar_value: "point" },
   { bar_name: "1:1 문의", bar_value: "inquiry" },
   { bar_name: "Q&A", bar_value: "QandA" },
-  { bar_name: "개인정보수정", bar_value: "editInfo" },
+  { bar_name: "개인정보", bar_value: "editInfo" },
 ];
 
 const MyPage = () => {
@@ -38,6 +40,9 @@ const MyPage = () => {
   const [listState, setListState] = useState(
     initialListState || sessionStorage.getItem("selectedMenu") || "OrderHistory"
   );
+
+  const [profileUpdated, setProfileUpdated] = useState(false);
+  const [reviewCountUpdated, setReviewCountUpdated] = useState(false);
 
   const fetchMyPage = () => {
     if (getCookie("Id") === undefined) {
@@ -69,7 +74,7 @@ const MyPage = () => {
 
   useEffect(() => {
     MyReviewList();
-  }, []);
+  }, [reviewCountUpdated]);
 
   useEffect(() => {
     fetchMyPage();
@@ -89,6 +94,10 @@ const MyPage = () => {
 
   const goToPoint = () => {
     setListState("point");
+  };
+
+  const goToMembership = () => {
+    setListState("Membership");
   };
 
   const goToReview = () => {
@@ -138,11 +147,20 @@ const MyPage = () => {
             goToPrivacy={goToPrivacy}
             goToPoint={goToPoint}
             goToReview={goToReview}
+            goToMembership={goToMembership}
             totalReview={totalReview}
+            profileUpdated={profileUpdated}
+            reviewCountUpdated={reviewCountUpdated}
           />
 
           {listState === "OrderHistory" ? (
-            <OrderHistory />
+            <OrderHistory
+              profileUpdated={profileUpdated}
+              setProfileUpdated={setProfileUpdated}
+              MyReviewList={MyReviewList}
+              reviewCountUpdated={reviewCountUpdated}
+              setReviewCountUpdated={setReviewCountUpdated}
+            />
           ) : listState === "delivery" ? (
             <Delivery />
           ) : listState === "review" ? (
@@ -153,7 +171,11 @@ const MyPage = () => {
               WriteComponent={ReviewWrite}
               MyComponent={ReviewMine}
               MyReviewList={MyReviewList}
+              reviewCountUpdated={reviewCountUpdated}
+              setReviewCountUpdated={setReviewCountUpdated}
             />
+          ) : listState === "Membership" ? (
+            <Membership />
           ) : listState === "point" ? (
             <Point />
           ) : listState === "inquiry" ? (

@@ -9,7 +9,11 @@ import { getCookie } from "../../api/Cookies";
 
 import "../../styles/OrderListTable.css";
 
-const ReviewWrite = ({ MyReviewList }) => {
+const ReviewWrite = ({
+  MyReviewList,
+  reviewCountUpdated,
+  setReviewCountUpdated,
+}) => {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [selectedPeriod, setSelectedPeriod] = useState(null);
@@ -155,6 +159,8 @@ const ReviewWrite = ({ MyReviewList }) => {
           triggerRefresh={() => {
             MyReviewList();
           }} // 트리거를 전달
+          reviewCountUpdated={reviewCountUpdated}
+          setReviewCountUpdated={setReviewCountUpdated}
         />
       </div>
       <div className="pagination">

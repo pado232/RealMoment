@@ -63,7 +63,7 @@ const MyHeader = ({ isLoggedIn, onLogout }) => {
         <h1>
           {homeLogos.length > 0 ? (
             <div>
-              <a href={homeLogos[0].linkUrl || ""}>
+              <a href={homeLogos[0].linkUrl}>
                 <img src={homeLogos[0].imgUrl} alt={`logo`} />
               </a>
             </div>
@@ -122,7 +122,7 @@ const MyHeader = ({ isLoggedIn, onLogout }) => {
           <li>
             {isLoggedIn ? (
               <div className="login">
-                <a href="#" onClick={handleLogout}>
+                <a href="/" onClick={handleLogout}>
                   <TbLogout2 size={28} />
                   Logout
                 </a>

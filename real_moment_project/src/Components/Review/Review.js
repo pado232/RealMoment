@@ -9,6 +9,8 @@ const Review = ({
   WriteComponent,
   MyComponent,
   MyReviewList,
+  reviewCountUpdated,
+  setReviewCountUpdated,
 }) => {
   const [selectedMenu, setSelectedMenu] = useState("write"); // 기본값은 'write'로 설정
 
@@ -38,7 +40,11 @@ const Review = ({
       </div>
       {/* 선택된 메뉴에 따라 해당하는 컴포넌트를 렌더링 */}
       {selectedMenu === "write" && (
-        <WriteComponent MyReviewList={MyReviewList} />
+        <WriteComponent
+          MyReviewList={MyReviewList}
+          reviewCountUpdated={reviewCountUpdated}
+          setReviewCountUpdated={setReviewCountUpdated}
+        />
       )}
       {selectedMenu === "myReviews" && <MyComponent />}
     </div>

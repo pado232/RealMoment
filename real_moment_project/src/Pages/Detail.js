@@ -41,7 +41,7 @@ const Detail = () => {
       left: "55%",
       right: "auto",
       bottom: "auto",
-      height: "320px",
+      height: "400px",
       marginRight: "-50%",
       transform: "translate(-50%, -50%)",
       padding: 0,

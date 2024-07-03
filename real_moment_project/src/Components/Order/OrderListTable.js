@@ -21,6 +21,10 @@ const OrderListTable = ({
   orderList,
   triggerRefresh, // 새로고침 트리거 함수
   fetchOrderList,
+  setProfileUpdated,
+  profileUpdated,
+  reviewCountUpdated,
+  setReviewCountUpdated,
 }) => {
   const customStyles = {
     content: {
@@ -84,12 +88,16 @@ const OrderListTable = ({
         star: review.star,
       })
       .then((res) => {
-        console.log("ReviewCreate POST ", res);
         fetchOrderList(); // 제출 후 새로고침 트리거
         triggerRefresh(); // 리뷰 제출 후 새로고침 트리거
+
+        setReviewCountUpdated(!reviewCountUpdated);
+
+        console.log("ReviewCreate POST ", res);
       })
       .catch((error) => {
         console.error("ReviewCreate POST Error:", error);
+        console.error("ReviewCreate POST Error detail:", error.response.data);
       });
   };
 
@@ -172,6 +180,7 @@ const OrderListTable = ({
         })
         .then((res) => {
           fetchOrderList(); // 제출 후 새로고침 트리거
+          setProfileUpdated(!profileUpdated);
           console.log("OrderDone PATCH ", res);
         })
         .catch((error) => {
@@ -188,7 +197,6 @@ const OrderListTable = ({
         <colgroup style={{ width: 250 }} />
         <colgroup style={{ width: 150 }} />
         <colgroup style={{ width: 350 }} />
-        {/* <colgroup span={"2"} style={{ width: 200 }} /> */}
 
         <thead>
           <tr>
@@ -219,14 +227,26 @@ const OrderListTable = ({
                             : "iteminfo none"
                         }
                       >
-                        {/** 나중에 a태그로 img 클릭하면 상세 페이지로 갑니다 */}
-                        <a
-                          href={
-                            detail.item.sell === true
-                              ? `/detail/${detail.item.itemId}`
-                              : ""
-                          }
-                        >
+                        {detail.item.sell ? (
+                          <a href={`/detail/${detail.item.itemId}`}>
+                            <div
+                              className={`img ${
+                                detail.item.stock === 0 ||
+                                detail.item.sell === false
+                                  ? "stock-overlay"
+                                  : ""
+                              }`}
+                            >
+                              {detail.item.stock === 0 && (
+                                <div className="stock-text">SOLD OUT</div>
+                              )}
+                              <img
+                                alt="상품정보이미지"
+                                src={detail.item.mainImg}
+                              />
+                            </div>
+                          </a>
+                        ) : (
                           <div
                             className={`img ${
                               detail.item.stock === 0 ||
@@ -243,7 +263,8 @@ const OrderListTable = ({
                               src={detail.item.mainImg}
                             />
                           </div>
-                        </a>
+                        )}
+
                         <div className="content">
                           {/* <div>{detail.orderDetailId}</div> */}
                           <div className="item_title">

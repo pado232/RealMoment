@@ -1,11 +1,32 @@
+import { useEffect, useState } from "react";
+import axiosInstance from "../../api/AxiosInstance";
+
 const DetailQuestionMark = () => {
+  const [gradeList, setGradeList] = useState([]);
+
+  const fetchGradeList = () => {
+    axiosInstance
+      .get(`/gradeList`)
+      .then((res) => {
+        const gradeListData = res.data;
+        setGradeList(gradeListData);
+        console.log("fetchGradeList GET ", res);
+      })
+      .catch((error) => {
+        console.error("fetchGradeList GET Error:", error);
+      });
+  };
+
+  useEffect(() => {
+    fetchGradeList();
+  }, []);
+
   return (
     <div className="DetailQuestionMark">
       <h3>등급별 적립금</h3>
       <table>
-        <colgroup style={{ width: 200 }} />
-        <colgroup style={{ width: 200 }} />
-        <colgroup style={{ width: 200 }} />
+        <colgroup span={3} style={{ width: 200 }} />
+
         <thead>
           <tr>
             <th>등급</th>
@@ -14,11 +35,13 @@ const DetailQuestionMark = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>white</td>
-            <td>100,000</td>
-            <td>1%</td>
-          </tr>
+          {gradeList.map((grade, index) => (
+            <tr key={index}>
+              <td>{grade.gradeName}</td>
+              <td>{grade.gradePrice?.toLocaleString()} 원</td>
+              <td>{grade.rewardRate} %</td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>

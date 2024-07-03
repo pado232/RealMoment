@@ -9,9 +9,15 @@ import { HiOutlineTrophy } from "react-icons/hi2";
 
 import "../styles/UserGrade.css";
 
-const UserGrade = ({ goToPrivacy, goToPoint, goToReview, totalReview }) => {
+const UserGrade = ({
+  goToPrivacy,
+  goToMembership,
+  goToPoint,
+  goToReview,
+  totalReview,
+  profileUpdated,
+}) => {
   const memberIconSize = 10 * 3;
-
   const [profile, setProfile] = useState({
     name: "",
     createdDate: "",
@@ -35,7 +41,7 @@ const UserGrade = ({ goToPrivacy, goToPoint, goToReview, totalReview }) => {
 
   useEffect(() => {
     fetchProfile();
-  }, []);
+  }, [profileUpdated]);
 
   return (
     <div className="UserGrade">
@@ -58,7 +64,7 @@ const UserGrade = ({ goToPrivacy, goToPoint, goToReview, totalReview }) => {
         </div>
 
         <div className="usergrade_sub">
-          <div className="goPoint" onClick={goToPoint}>
+          <div className="goPoint" onClick={goToMembership}>
             <div className="icon">
               <HiOutlineTrophy size={memberIconSize} />
             </div>

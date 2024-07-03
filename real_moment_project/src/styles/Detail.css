@@ -352,3 +352,7 @@
   color: orangered;
   font-weight: bold;
 }
+
+.DetailQuestionMark {
+  margin: 20px 50px;
+}
