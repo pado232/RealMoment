@@ -145,6 +145,10 @@ const OrderListTable = ({
         })
         .catch((error) => {
           console.error("OrderCancel POST Error:", error);
+          alert(
+            "상품의 주문 상태가 이미 변경 되었습니다. 주문 내역를 새로고침합니다."
+          );
+          fetchOrderList();
         });
     }
   };
@@ -168,6 +172,10 @@ const OrderListTable = ({
         })
         .catch((error) => {
           console.error("OrderRefund PATCH Error:", error);
+          alert(
+            "상품의 주문 상태가 이미 변경 되었습니다. 주문 내역을 새로고침합니다."
+          );
+          fetchOrderList();
         });
     }
   };
@@ -185,6 +193,10 @@ const OrderListTable = ({
         })
         .catch((error) => {
           console.error("OrderDone PATCH Error:", error);
+          alert(
+            "상품의 주문 상태가 이미 변경 되었습니다. 주문 내역을 새로고침합니다."
+          );
+          fetchOrderList();
         });
     }
   };
