@@ -186,6 +186,10 @@
   justify-content: space-between;
   align-items: center;
 }
+.DetailReview .star_num {
+  font-weight: bold;
+}
+
 .Detail .none_review_list {
   border: 1px solid #ddd;
   padding: 50px;

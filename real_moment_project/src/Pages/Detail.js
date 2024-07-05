@@ -6,6 +6,7 @@ import { TiShoppingCart } from "react-icons/ti";
 import { MdPayment } from "react-icons/md";
 import { FaMinus } from "react-icons/fa6";
 import { FaPlus } from "react-icons/fa6";
+import { FaStar } from "react-icons/fa";
 import { FaQuestionCircle } from "react-icons/fa";
 
 import Container from "../util/Container";
@@ -165,14 +166,16 @@ const Detail = () => {
               <ImgSlide mainImgDataList={itemDetails.mainImgDataList} />
               <div className="detail">
                 {itemDetails.stock !== 0 && itemDetails.stock < 10 ? (
-                  <div className="stock">
+                  <div style={{ paddingBottom: 0 }} className="stock">
                     🔥 <span>품절 임박</span> 🔥
                   </div>
                 ) : (
                   ""
                 )}
+                <p style={{ margin: 10 }} className="icon_star">
+                  <FaStar size={15} /> {itemDetails.averageStar.toFixed(1)}
+                </p>
                 <h2>{itemDetails.name}</h2>
-
                 <div className="price_content">
                   <div className="sellPrice">
                     {itemDetails.sellPrice.toLocaleString()}

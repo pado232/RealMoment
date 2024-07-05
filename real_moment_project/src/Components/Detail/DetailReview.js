@@ -132,32 +132,32 @@ const DetailReview = ({ starsPoint }) => {
     <div className="DetailReview">
       <div className="review_star">
         <div className="review_star_total">
-          <div className="text">{starsPoint}점</div>
+          <div className="text">{starsPoint.toFixed(1)} 점</div>
           <div>{renderStars()}</div>
         </div>
         <div>
           <div className="review_star_count">
-            <div>5</div>
+            <div className="star_num">5</div>
             <div> {renderStarCounts(5)}</div>
             <div>{fiveStar}</div>
           </div>
           <div className="review_star_count">
-            <div>4</div>
+            <div className="star_num">4</div>
             <div> {renderStarCounts(4)}</div>
             <div>{fourStar}</div>
           </div>
           <div className="review_star_count">
-            <div>3</div>
+            <div className="star_num">3</div>
             <div> {renderStarCounts(3)}</div>
             <div>{threeStar}</div>
           </div>
           <div className="review_star_count">
-            <div>2</div>
+            <div className="star_num">2</div>
             <div> {renderStarCounts(2)}</div>
             <div>{twoStar}</div>
           </div>
           <div className="review_star_count">
-            <div>1</div>
+            <div className="star_num">1</div>
             <div> {renderStarCounts(1)}</div>
             <div>{oneStar}</div>
           </div>

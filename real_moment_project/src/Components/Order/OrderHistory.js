@@ -7,7 +7,13 @@ import axiosInstance from "../../api/AxiosInstance";
 import { getCookie } from "../../api/Cookies";
 import "../../styles/OrderListTable.css";
 
-const OrderHistory = ({ setProfileUpdated, profileUpdated, MyReviewList }) => {
+const OrderHistory = ({
+  setProfileUpdated,
+  profileUpdated,
+  MyReviewList,
+  reviewCountUpdated,
+  setReviewCountUpdated,
+}) => {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [selectedPeriod, setSelectedPeriod] = useState("6months");
@@ -185,6 +191,8 @@ const OrderHistory = ({ setProfileUpdated, profileUpdated, MyReviewList }) => {
           }} // 트리거를 전달
           profileUpdated={profileUpdated}
           setProfileUpdated={setProfileUpdated}
+          reviewCountUpdated={reviewCountUpdated}
+          setReviewCountUpdated={setReviewCountUpdated}
         />
       </div>
       <div className="pagination">

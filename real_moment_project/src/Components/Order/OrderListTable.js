@@ -46,8 +46,8 @@ const OrderListTable = ({
     star: 5,
   });
 
-  const [cancelReason, setCancelReason] = useState("");
-  const [refundReason, setRefundReason] = useState("");
+  const [cancelReasons, setCancelReasons] = useState({});
+  const [refundReasons, setRefundReasons] = useState({});
 
   const handleStateChange = (e) => {
     const { name, value } = e.target;
@@ -58,12 +58,18 @@ const OrderListTable = ({
     });
   };
 
-  const handleReasonChange = (e) => {
-    const { name, value } = e.target;
-    if (name === "cancelReason") {
-      setCancelReason(value);
-    } else if (name === "refundReason") {
-      setRefundReason(value);
+  const handleReasonChange = (orderId, type) => (e) => {
+    const { value } = e.target;
+    if (type === "cancel") {
+      setCancelReasons((prev) => ({
+        ...prev,
+        [orderId]: value,
+      }));
+    } else if (type === "refund") {
+      setRefundReasons((prev) => ({
+        ...prev,
+        [orderId]: value,
+      }));
     }
   };
 
@@ -127,7 +133,7 @@ const OrderListTable = ({
   };
 
   const OrderCancel = (orderId) => {
-    if (cancelReason === "") {
+    if (!cancelReasons[orderId]) {
       alert("취소 사유를 선택해 주세요.");
       document.getElementsByName("cancelReason")[0].focus();
       return;
@@ -137,7 +143,7 @@ const OrderListTable = ({
       axiosInstance
         .post(`/member/${getCookie("Id")}/order/cancel`, {
           orderId: orderId,
-          reasonText: cancelReason,
+          reasonText: cancelReasons[orderId],
         })
         .then((res) => {
           fetchOrderList(); // 제출 후 새로고침 트리거
@@ -146,7 +152,7 @@ const OrderListTable = ({
         .catch((error) => {
           console.error("OrderCancel POST Error:", error);
           alert(
-            "상품의 주문 상태가 이미 변경 되었습니다. 주문 내역를 새로고침합니다."
+            "상품의 주문 상태가 이미 변경 되었습니다. 주문 내역을 새로고침합니다."
           );
           fetchOrderList();
         });
@@ -154,7 +160,7 @@ const OrderListTable = ({
   };
 
   const OrderRefund = (orderId) => {
-    if (refundReason === "") {
+    if (!refundReasons[orderId]) {
       alert("환불 사유를 선택해 주세요.");
       document.getElementsByName("refundReason")[0].focus();
       return;
@@ -164,7 +170,7 @@ const OrderListTable = ({
       axiosInstance
         .patch(`/member/${getCookie("Id")}/order/refund`, {
           orderId: orderId,
-          reasonText: refundReason,
+          reasonText: refundReasons[orderId],
         })
         .then((res) => {
           fetchOrderList(); // 제출 후 새로고침 트리거
@@ -433,8 +439,11 @@ const OrderListTable = ({
                           <div>
                             <select
                               name="refundReason"
-                              value={refundReason}
-                              onChange={handleReasonChange}
+                              value={refundReasons[order.orderId] || ""}
+                              onChange={handleReasonChange(
+                                order.orderId,
+                                "refund"
+                              )}
                               className="reason"
                             >
                               <option value="">환불 사유 선택</option>
@@ -453,8 +462,11 @@ const OrderListTable = ({
                         <div>
                           <select
                             name="cancelReason"
-                            value={cancelReason}
-                            onChange={handleReasonChange}
+                            value={cancelReasons[order.orderId] || ""}
+                            onChange={handleReasonChange(
+                              order.orderId,
+                              "cancel"
+                            )}
                             className="reason"
                           >
                             <option value="">취소 사유 선택</option>
