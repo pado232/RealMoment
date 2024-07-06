@@ -23,21 +23,53 @@ import OrderCheckInfo from "./Pages/OrderCheckInfo";
 import New from "./Pages/New";
 import Sale from "./Pages/Sale";
 import PrivateRoute from "./api/PrivateRoute"; // PrivateRoute 컴포넌트 임포트
+import axiosInstanceWithoutAuth from "./api/AxioxInstanceWithoutAuth";
 
 function App() {
   const [showButton, setShowButton] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const location = useLocation();
 
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  const fetchHealth = () => {
+    axiosInstanceWithoutAuth
+      .get("/health")
+      .then((res) => {
+        if (res.status === 200) {
+          console.log("health GET ", res);
+        } else {
+          console.error("Unexpected status code:", res.status);
+        }
+      })
+      .catch((error) => {
+        console.error("health GET Error:", error);
+      });
+  };
+
+  useEffect(() => {
+    fetchHealth();
+    const interval = setInterval(() => {
+      fetchHealth();
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   // production에서만 사용할 수 없도록
   if (process.env.NODE_ENV === "production") {
-    console = window.console || {};
     console.log = function no_console() {}; // console log 막기
     console.warn = function no_console() {}; // console warning 막기
-    console.error = function () {}; // console error 막기
+    console.error = function no_console() {}; // console error 막기
   }
+
   //moontomato.tistory.com/30 [Moong:티스토리]
-  출처: https: useEffect(() => {
+  useEffect(() => {
     // 쿠키에서 로그인 상태 확인
     const token = getCookie("MemberAccess");
     setIsLoggedIn(!!token); // 토큰이 있으면 로그인 상태로 설정
