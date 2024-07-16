@@ -1,78 +1,84 @@
 # RealMoment
 
+사용자가 다양한 제품을 쉽게 쇼핑할 수 있도록 돕는 코스메틱 쇼핑몰 웹사이트입니다. 사용자 친화적인 인터페이스와 백엔드를 통해 제품 검색, 카트에 추가, 결제 등을 수행할 수 있도록 제작되었습니다.
+
 [RealMement 바로가기](https://real-moment.kro.kr/)
-|Home|
-|------|
-|![Home](https://github.com/user-attachments/assets/9c79ad4d-cd4d-4cc2-8bf6-0562ca638495)|
-| Login | SginUp |
-| --------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
-| ![Home](https://github.com/user-attachments/assets/9c79ad4d-cd4d-4cc2-8bf6-0562ca638495)| *쇼핑몰 사이트를 처음 열 때 나오는 메인 페이지로 홍보 이미지와 홍보할 상품들이 나오도록 제작 |
-| ![loginPage](https://github.com/user-attachments/assets/f160fb25-bd58-456d-8a6d-66545fdd45b8) | *로그인 페이지로 비밀번호 유효성 검사를 진행하고 아이디와 비밀번호를 제출할 수 있게 제작하고, 서버에서 해당 아이디와 비밀번호가 존재하는지 확인하도록 구현 *아이디와 비밀번호가 일치했다면 서버에서 토큰 값과 아이디 값을 가져와 쿠키에 저장 *아이디 값은 로그인이 필요한 페이지에 대한 값을 호출할 때 사용하고, 토큰은 로그인 상태를 유지하기 위해 사용함 |
-| ![sginupPage](https://github.com/user-attachments/assets/268890c6-9cc3-4c79-9d8b-a926f9ffdd84) | *회원 가입을 위한 페이지로 입력 값에 맞는 input의 상태(숫자, 문자)를 업데이트할 수 있도록 구현하고, 각각의 대한 유효성 검사를 진행 *아이디가 중복되지 않는지 확인하고, 확인되었다면 input을 비활성화 함 *이메일을 인증하기 위한 타이머, 경고, 진행 상태에 대한 알림 설정 *모든 값을 입력하고 인증이 완료되었다면 값을 제출 |
 
-## Available Scripts
+## 📢 주요 기능
 
-In the project directory, you can run:
+|  
+화면 구성 | 주요 기능 |
+|:---------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **메인 페이지** ![Home](https://github.com/user-attachments/assets/9c79ad4d-cd4d-4cc2-8bf6-0562ca638495) | 슬라이드 형식의 이미지를 통한 제품 홍보와 추천 상품들을 보여주며 판매자가 상품을 홍보할 수 있도록 제작되었습니다. |
+| **로그인 페이지** ![Login Page](https://github.com/user-attachments/assets/f160fb25-bd58-456d-8a6d-66545fdd45b8) | 사용자 인증을 위한 로그인 페이지로 비밀번호 유효성 검사를 진행하고 아이디와 비밀번호를 제출할 수 있게 제작되었습니다. 서버에서 해당 아이디와 비밀번호가 존재하는지 확인합니다. 아이디와 비밀번호가 일치했다면 서버에서 토큰 값과 아이디 값을 가져와 쿠키에 저장합니다. 아이디 값은 로그인이 필요한 페이지에 대한 값을 호출할 때 사용하고, 토큰은 로그인 상태를 유지하기 위해 사용됩니다. |
+| **회원가입 페이지** ![Signup Page](https://github.com/user-attachments/assets/268890c6-9cc3-4c79-9d8b-a926f9ffdd84) | 사용자 인증을 위한 로그인 및 회원가입 기능을 제공합니다. 입력 값에 맞는 input의 상태(숫자, 문자)를 업데이트할 수 있도록 구현하고 각각의 대한 유효성 검사를 진행합니다. 아이디가 중복되지 않는지 확인하고, 확인되었다면 input을 비활성화 합니다. 이메일을 인증하기 위한 타이머, 경고, 진행 상태에 대한 알림을 설정합니다. 모든 값을 입력하고 인증이 완료되었다면 값을 제출합니다. |
+| **상품 목록 페이지** ![itemlistPage](https://github.com/user-attachments/assets/45dca454-02ab-4cba-8857-060067bd2bd6) | 사용자가 원하는 제품을 쉽게 찾을 수 있도록 검색, 카테고리 선택, 필터, 페이지네이션 기능을 제공합니다. |
+| **상품 상세 페이지** ![itemdetailPage](https://github.com/user-attachments/assets/e5c49346-d3c2-48d0-aa71-4131d671ca09) | 특정 상품에 대한 상세 정보, 구매, 장바구니에 담기, 하트함에 담기, 상세 상품에 대한 리뷰, Q&A를 작성할 수 있습니다. |
+| **장바구니 페이지** ![cartPage](https://github.com/user-attachments/assets/4bf5c701-03e7-4340-8aea-b451615bd4ec)| 마음에 드는 상품을 따로 저장할 수 있으며, 장바구니에 저장한 제품들 중 체크박스로 선택한 제품들을 삭제, 주문하기 페이지로 이동하기 전 해당 상품의 합계를 확인할 수 있습니다. |
+| **장바구니 페이지** ![haertPage](https://github.com/user-attachments/assets/fcac4422-0c48-4950-aa5b-14da2d3315c7) | 마음에 드는 상품을 따로 저장할 수 있으며, 장바구니에 저장한 제품들 중 체크박스로 선택한 제품들을 삭제, 주문하기 페이지로 이동하기 전 해당 상품의 합계를 확인할 수 있습니다. | | 마음에 드는 상품을 따로 저장할 수 있으며, 장바구니에 저장한 제품들 중 체크박스로 선택한 제품들을 삭제, 주문하기 페이지로 이동하기 전 해당 상품의 합계를 확인할 수 있습니다. |
+| **주문내역 페이지** ![mypagePage](https://github.com/user-attachments/assets/fd46ad9d-25ee-40c2-93b5-5d38a181dd24) | 주문 내역을 확인할 수 있고 주문상태에 따라 구매확정, 환불요청 등 사용자가 주문 후 상품에 대한 요청을 판매자에게 전달할 수 있습니다. |
+|
 
-### `npm start`
+## 주요 기능
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 메인 페이지
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+이미지 슬라이드 형식의 최신 제품과 그리드 형식의 추천 상품을 보여주는 메인 페이지입니다.
 
-### `npm test`
+### 로그인 및 회원가입
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+사용자 인증을 위한 로그인 및 회원가입 기능을 제공합니다.
 
-### `npm run build`
+### 제품 검색 및 필터
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+사용자가 원하는 제품을 쉽게 찾을 수 있도록 검색 및 필터 기능을 제공합니다.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 장바구니 및 찜하기
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+마음에 드는 상품을 따로 저장할 수 있으며, 장바구니에서는 결제 기능을 제공합니다.
 
-### `npm run eject`
+### 결제
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+장바구니에 제품을 추가하거나, 상품 상세 페이지를 통해 안전하게 결제할 수 있는 기능을 제공합니다.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 사용자 리뷰 및 평점
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+사용자들이 제품에 대한 리뷰를 작성하고 평점을 남길 수 있습니다.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### 사용자 1:1문의 및 Q&A
 
-## Learn More
+사용자들이 쇼핑몰이나 상품에 대한 문의할 수 있고 판매자의 답변을 확인할 수 있습니다.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### 배송지 관리
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+결제 시 사용자가 설정한 기본배송지를 이용하여 간편하게 사용자의 정보를 기입할 수 있습니다.
 
-### Code Splitting
+### 주문 내역
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+주문 내역을 확인할 수 있고 주문상태에 따라 결제취소, 구매확정 등 사용자가 주문 후 상품에 대한 요청을 판매자에게 전달할 수 있습니다.
 
-### Analyzing the Bundle Size
+### 적립금
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+사용자는 해당 멤버십에 의한 적립금을 받을 수 있습니다. 해당 적립금은 주문 시 결제금액에 적립금 금액을 차감하여 사용할 수 있습니다.
 
-### Making a Progressive Web App
+### 개인정보수정
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+사용자의 개인정보를 인증을 거쳐 안전하게 수정합니다.
 
-### Advanced Configuration
+## 문제 해결 방안
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+이 프로젝트는 쇼핑 경험을 개선하기 위해 다음과 같은 문제를 해결합니다:
 
-### Deployment
+- 복잡한 네비게이션을 간단하고 직관적으로 만듭니다.
+- 신속하고 정확한 검색 기능을 제공합니다.
+- 안전한 결제 프로세스를 보장합니다.
+- 사용자 리뷰를 통해 제품 선택에 도움을 줍니다.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## 사용된 기술
 
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- **프로그래밍 언어**: Javascript
+- **프레임워크**: React
+- **통합 개발 환경(IDE)**: Visual Studio Code
+- **버전 관리 및 협업**: GitHub
+- **상태관리**: Context API, React Router
+- **스타일링**: CSS
