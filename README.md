@@ -1,9 +1,13 @@
 # RealMoment
 
 [RealMement](https://real-moment.kro.kr/)
-
+|Home|
+|------|
 |![Home](https://github.com/user-attachments/assets/9c79ad4d-cd4d-4cc2-8bf6-0562ca638495)|
-|![loginPage](https://github.com/user-attachments/assets/f160fb25-bd58-456d-8a6d-66545fdd45b8)|![sginupPage](https://github.com/user-attachments/assets/268890c6-9cc3-4c79-9d8b-a926f9ffdd84)|
+
+| Login                                                                                         | SginUp                                                                                         |
+| --------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| ![loginPage](https://github.com/user-attachments/assets/f160fb25-bd58-456d-8a6d-66545fdd45b8) | ![sginupPage](https://github.com/user-attachments/assets/268890c6-9cc3-4c79-9d8b-a926f9ffdd84) |
 
 ## Available Scripts
 
