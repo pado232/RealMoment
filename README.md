@@ -1,13 +1,14 @@
 # RealMoment
 
-[RealMement](https://real-moment.kro.kr/)
+[RealMement 바로가기](https://real-moment.kro.kr/)
 |Home|
 |------|
 |![Home](https://github.com/user-attachments/assets/9c79ad4d-cd4d-4cc2-8bf6-0562ca638495)|
-
-| Login                                                                                         | SginUp                                                                                         |
+| Login | SginUp |
 | --------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
-| ![loginPage](https://github.com/user-attachments/assets/f160fb25-bd58-456d-8a6d-66545fdd45b8) | ![sginupPage](https://github.com/user-attachments/assets/268890c6-9cc3-4c79-9d8b-a926f9ffdd84) |
+| ![Home](https://github.com/user-attachments/assets/9c79ad4d-cd4d-4cc2-8bf6-0562ca638495)| *쇼핑몰 사이트를 처음 열 때 나오는 메인 페이지로 홍보 이미지와 홍보할 상품들이 나오도록 제작 |
+| ![loginPage](https://github.com/user-attachments/assets/f160fb25-bd58-456d-8a6d-66545fdd45b8) | *로그인 페이지로 비밀번호 유효성 검사를 진행하고 아이디와 비밀번호를 제출할 수 있게 제작하고, 서버에서 해당 아이디와 비밀번호가 존재하는지 확인하도록 구현 *아이디와 비밀번호가 일치했다면 서버에서 토큰 값과 아이디 값을 가져와 쿠키에 저장 *아이디 값은 로그인이 필요한 페이지에 대한 값을 호출할 때 사용하고, 토큰은 로그인 상태를 유지하기 위해 사용함 |
+| ![sginupPage](https://github.com/user-attachments/assets/268890c6-9cc3-4c79-9d8b-a926f9ffdd84) | *회원 가입을 위한 페이지로 입력 값에 맞는 input의 상태(숫자, 문자)를 업데이트할 수 있도록 구현하고, 각각의 대한 유효성 검사를 진행 *아이디가 중복되지 않는지 확인하고, 확인되었다면 input을 비활성화 함 *이메일을 인증하기 위한 타이머, 경고, 진행 상태에 대한 알림 설정 *모든 값을 입력하고 인증이 완료되었다면 값을 제출 |
 
 ## Available Scripts
 
