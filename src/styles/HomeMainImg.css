@@ -1,8 +1,8 @@
 .HomeMainImg {
   position: relative;
   margin: auto;
-  width: 1700px;
-  height: 600px; /* 필요에 따라 높이 조정 */
+  width: 1400px;
+  height: auto;
   overflow: hidden;
 }
 .HomeMainImg .no-image-warning {
@@ -19,20 +19,23 @@
 }
 .HomeMainImg .imgSlider {
   position: relative;
-  height: 600px;
 }
 .HomeMainImg .slides-container {
   display: flex;
   transition: transform 1s ease;
 }
 .HomeMainImg .slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
   min-width: 100%;
-  height: 600px;
-  position: relative; /* position relative 추가 */
+  /* position: relative; */
+  /* position relative 추가 */
 }
 .HomeMainImg .homeimage {
   width: 100%;
-  height: 100%;
+  height: 80vh;
   object-fit: cover;
 }
 .HomeMainImg .imgSlider-arrow {

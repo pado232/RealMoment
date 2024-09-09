@@ -10,21 +10,6 @@
   grid-template-columns: repeat(4, 380px);
   justify-items: center;
 }
-/* 화면 크기가 1200px 이하일 때 */
-@media (max-width: 1300px) {
-  .ItemList .item_dummy {
-    margin-left: 50px;
-    grid-template-columns: repeat(3, 380px);
-  }
-}
-
-/* 화면 크기가 900px 이하일 때 */
-@media (max-width: 950px) {
-  .ItemList .item_dummy {
-    margin-left: 50px;
-    grid-template-columns: repeat(2, 380px);
-  }
-}
 
 /* ItemItem */
 .ItemItem {
@@ -173,27 +158,7 @@
 }
 /* ControlMenu */
 .ControlMenu {
-  padding-left: 90%;
-}
-@media (max-width: 1100px) {
-  .ControlMenu {
-    padding-left: 78%;
-  }
-}
-@media (max-width: 1050px) {
-  .ControlMenu {
-    padding-left: 70%;
-  }
-}
-@media (max-width: 1000px) {
-  .ControlMenu {
-    padding-left: 60%;
-  }
-}
-@media (max-width: 900px) {
-  .ControlMenu {
-    padding-left: 50%;
-  }
+  padding-left: 1340px;
 }
 
 .ControlMenu select {

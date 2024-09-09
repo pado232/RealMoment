@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import "../styles/HomeMainImg.css";
 
@@ -7,31 +7,31 @@ const HomeMainImg = ({ homeImgs }) => {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const length = homeImgs.length;
 
-  const nextSlide = () => {
+  const nextSlide = useCallback(() => {
     if (isTransitioning) return; // 트랜지션 중에는 실행하지 않음
     setIsTransitioning(true);
     setCurrent((prevCurrent) => prevCurrent + 1);
-  };
+  }, [isTransitioning]); // 의존성 배열에 isTransitioning 추가
 
-  const prevSlide = () => {
+  const prevSlide = useCallback(() => {
     if (isTransitioning) return; // 트랜지션 중에는 실행하지 않음
     setIsTransitioning(true);
     setCurrent((prevCurrent) => prevCurrent - 1);
-  };
+  }, [isTransitioning]);
 
   useEffect(() => {
     let interval = null;
     if (length > 1) {
       interval = setInterval(() => {
-        nextSlide();
-      }, 5000); // 3초마다 이미지 변경
+        nextSlide(); // nextSlide를 useCallback으로 메모이제이션
+      }, 2000); // 5초마다 이미지 변경
     }
     return () => {
       if (interval) {
         clearInterval(interval);
       }
     };
-  }, [length]);
+  }, [length, nextSlide]); // nextSlide를 의존성 배열에 추가
 
   const handleTransitionEnd = () => {
     setIsTransitioning(false);

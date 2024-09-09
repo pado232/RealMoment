@@ -23,7 +23,6 @@ import OrderCheckInfo from "./Pages/OrderCheckInfo";
 import New from "./Pages/New";
 import Sale from "./Pages/Sale";
 import PrivateRoute from "./api/PrivateRoute"; // PrivateRoute 컴포넌트 임포트
-import axiosInstanceWithoutAuth from "./api/AxioxInstanceWithoutAuth";
 
 function App() {
   const [showButton, setShowButton] = useState(false);
@@ -35,30 +34,6 @@ function App() {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
-
-  const fetchHealth = () => {
-    axiosInstanceWithoutAuth
-      .get("/health")
-      .then((res) => {
-        if (res.status === 200) {
-          console.log("health GET ", res);
-        } else {
-          console.error("Unexpected status code:", res.status);
-        }
-      })
-      .catch((error) => {
-        console.error("health GET Error:", error);
-      });
-  };
-
-  useEffect(() => {
-    fetchHealth();
-    const interval = setInterval(() => {
-      fetchHealth();
-    }, 5000);
-
-    return () => clearInterval(interval);
   }, []);
 
   // production에서만 사용할 수 없도록
