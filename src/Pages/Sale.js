@@ -69,8 +69,7 @@ const Sale = () => {
   return (
     <Container>
       <h2>SALE</h2>
-      {saleImgs.length < 0 && <SaleImages saleImgs={saleImgs} />}
-
+      {saleImgs.length > 0 && <SaleImages saleImgs={saleImgs} />}
       <div className="ItemList">
         <div className="item_dummy">
           {itemList.length === 0 ? (
