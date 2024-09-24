@@ -9,7 +9,7 @@ import usePageTitle from "../hooks/usePageTitle";
 
 const descriptions = [
   <>
-    <div>C립스틱</div>
+    <div>립스틱</div>
     <div style={{ fontSize: 22, fontWeight: "bold" }}>차원이 다른 발색력</div>
     <div style={{ fontSize: 18 }}>
       발색의 끝판왕 립스틱을 경험해보세요. <br />
@@ -20,7 +20,7 @@ const descriptions = [
     </div>
   </>,
   <>
-    <div>B마스크 팩</div>
+    <div>마스크 팩</div>
     <div style={{ fontSize: 22, fontWeight: "bold" }}>자극에 지친 피부</div>
     <div style={{ fontSize: 18 }}>
       여름철 자극된 피부에 진정을 주세요. <br />
@@ -29,7 +29,7 @@ const descriptions = [
     </div>
   </>,
   <>
-    <div>C클랜징 오일</div>
+    <div>클랜징 오일</div>
     <div style={{ fontSize: 22, fontWeight: "bold" }}>모공 안 노페물까지</div>
     <div style={{ fontSize: 18 }}>
       클렌징오일의 완벽한 클렌징을 경험해보세요. <br />

@@ -23,6 +23,7 @@ import OrderCheckInfo from "./Pages/OrderCheckInfo";
 import New from "./Pages/New";
 import Sale from "./Pages/Sale";
 import PrivateRoute from "./api/PrivateRoute"; // PrivateRoute 컴포넌트 임포트
+import Announcement from "./Pages/Announcement";
 
 function App() {
   const [showButton, setShowButton] = useState(false);
@@ -164,6 +165,7 @@ function App() {
             <Route path="/detail/:itemId" element={<Detail />} />
             <Route path="/new" element={<New />} />
             <Route path="/sale" element={<Sale />} />
+            <Route path="/announcement" element={<Announcement />} />
             <Route path="/login" element={<Login onLogin={handleLogin} />} />
             <Route path="/signup" element={<SignUp />} />
             <Route

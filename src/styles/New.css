@@ -47,10 +47,11 @@
   opacity: 0;
   transform: translateY(20px);
 }
-
-.TextComponent .text_content {
-  background-color: rgba(0, 0, 0, 0.3);
+.TextComponent {
   color: white;
+}
+.TextComponent .text_content {
+  background-color: #00000080;
   padding: 10px;
   text-align: center;
   width: 100%;
