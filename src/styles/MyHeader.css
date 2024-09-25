@@ -14,9 +14,11 @@
   background-color: #1a1b1f;
 
   font-family: "Gowun Dodum", sans-serif;
-  min-width: 1000px;
 }
-.MyHeader > div {
+
+.MyHeader .head_title,
+.MyHeader .head_search,
+.MyHeader .head_menu {
   display: flex;
 }
 .head_title {
@@ -32,18 +34,40 @@
   width: 70%;
   justify-content: center;
 }
+.suggestion {
+  color: #e75c5c;
+  width: 100%;
+  background-color: white;
+  justify-content: center;
+  cursor: pointer;
+}
+.suggestion_item {
+  padding: 5px;
+  margin-bottom: 5px;
+}
+.suggestion_item.highlighted {
+  background-color: #e2e2e2;
+  border-radius: 5px;
+}
 .head_search_box {
+  position: fixed;
   margin-left: 15%;
   background-color: white;
   padding-left: 15px;
   padding-right: 15px;
   padding-top: 2px;
   /* padding-bottom: 5px; */
-  width: 60%;
+  width: 50%;
+  min-width: 500px;
   border-radius: 20px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
 
   border: 1px solid white;
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+}
+.head_search_input_container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -73,11 +97,12 @@
 .head_menu ul {
   display: flex;
   margin: 30px 0;
+  padding-top: 50px;
 }
 .head_menu li {
-  width: 50px;
+  width: 58px;
   list-style-type: none;
-  padding: 5px 10px;
+  /* padding: 5px 9px; */
   text-align: center;
 }
 .head_menu a {
@@ -87,3 +112,16 @@
   font-size: 12px;
   text-decoration: none;
 }
+/* @media (max-width: 1024px) {
+  .MyHeader .head_search {
+    display: none;
+  }
+  .MyHeader .head_title {
+    width: 50%;
+    justify-content: start;
+  }
+  .head_menu {
+    width: 50%;
+    justify-content: end;
+  }
+} */

@@ -12,6 +12,7 @@
 .Menu .container {
   background-color: #1a1b1f;
   border-bottom: 1px solid #1a1b1f;
+  border: 1px solid #1a1b1f;
 }
 .Menu ul {
   margin: 0;
