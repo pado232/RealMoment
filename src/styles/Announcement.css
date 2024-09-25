@@ -1,0 +1,70 @@
+.Announcement h2 {
+  margin-bottom: 30px;
+}
+
+.Announcement .goToDetail:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+.Announcement .table td {
+  padding: 18px 0;
+}
+.Announcement .date {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.Announcement .date .edit {
+  border: none;
+  border-radius: 5px;
+  background-color: #fcdfdf;
+  font-size: 12px;
+  padding: 3px 5px;
+  margin: 0 7px;
+  color: rgb(207, 45, 58);
+}
+
+.AnnouncementDetail .DetailContainer {
+  background-color: #f7e9e9;
+  padding: 30px;
+  border-radius: 10px;
+  margin: 30px;
+  box-shadow: 0 0 7px rgba(0, 0, 0, 0.15);
+}
+.AnnouncementDetail .content {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 30px 50px;
+}
+.AnnouncementDetail .icon_container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 30px;
+}
+.AnnouncementDetail .DetailContainer .title_box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.AnnouncementDetail .DetailContainer .title {
+  font-weight: bold;
+  font-size: 18px;
+  margin: 0 10px;
+}
+.AnnouncementDetail table {
+  margin: 50px 0 10px 0;
+}
+
+.AnnouncementDetail th {
+  width: 90px;
+}
+.AnnouncementDetail th,
+.AnnouncementDetail td {
+  padding: 10px; /* 각 셀에 여백을 설정 */
+  border: none;
+  text-align: left; /* 텍스트 정렬 */
+}
+.AnnouncementDetail .exit_icon {
+  cursor: pointer;
+}

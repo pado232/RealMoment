@@ -26,11 +26,11 @@ const Menu = () => {
 
     if (path.startsWith("/item")) {
       setSelectedMenu("Category");
-    } else if (path === "/new") {
+    } else if (path.startsWith("/new")) {
       setSelectedMenu("New");
-    } else if (path === "/sale") {
+    } else if (path.startsWith("/sale")) {
       setSelectedMenu("Sale");
-    } else if (path === "/announcement") {
+    } else if (path.startsWith("/announcement")) {
       setSelectedMenu("Announcement");
     } else {
       setSelectedMenu(""); // 기본값
