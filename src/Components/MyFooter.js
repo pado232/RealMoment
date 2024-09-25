@@ -1,4 +1,7 @@
 import "../styles/MyFooter.css";
+import { FaYoutube } from "react-icons/fa";
+import { FaInstagram } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 
 const MyFooter = () => {
   return (
@@ -24,11 +27,25 @@ const MyFooter = () => {
           <p>배송 안내</p>
         </div>
         <div className="foot_4">
-          <h4>Language</h4>
-          <select>
-            <option>한국어</option>
-            <option>영어</option>
-          </select>
+          <p>© REALMOMENT ALL RIGHTS RESERVED</p>
+
+          <div className="icon_container">
+            <div>
+              <a href={"https://www.youtube.com/"}>
+                <FaYoutube size={30} />
+              </a>
+            </div>
+            <div>
+              <a href={"https://www.instagram.com/"}>
+                <FaInstagram size={30} />
+              </a>
+            </div>
+            <div>
+              <a href={"https://x.com/"}>
+                <FaXTwitter size={30} />
+              </a>
+            </div>
+          </div>
         </div>
       </footer>
     </div>

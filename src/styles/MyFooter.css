@@ -16,17 +16,23 @@ footer {
   padding: 20px 0;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: start;
   border-top: 1px solid black;
 }
-footer div {
+footer > div {
   width: 20%;
-  padding: 10px;
 }
 footer .foot_3 p {
   font-size: 14px;
 }
-footer .foot_4 select {
-  width: 70%;
-  cursor: pointer;
+footer .icon_container {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+footer .icon_container > div {
+  padding: 10px 15px;
+}
+footer .icon_container > div > a {
+  color: #1b1b1b;
 }
