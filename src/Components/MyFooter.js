@@ -8,7 +8,7 @@ const MyFooter = () => {
     <div className="MyFooter">
       <footer>
         <div className="foot_1">
-          <h4>Coustomer Center</h4>
+          <h4>Customer Center</h4>
           <p>042-000-0000</p>
           <p>10:00 - 17:00 (weekday)</p>
           <p style={{ fontSize: "14px" }}>주말 및 공휴일 휴무</p>

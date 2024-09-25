@@ -66,6 +66,10 @@ const Sale = () => {
     fetchItem();
   }, [fetchItem]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0); // 페이지 상단으로 스크롤
+  }, [nowPage]);
+
   return (
     <Container>
       <h2>SALE</h2>

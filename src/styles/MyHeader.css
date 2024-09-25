@@ -23,6 +23,10 @@
   width: 10%;
   justify-content: start;
 }
+.MyHeader .logo_img {
+  max-width: 260px;
+  margin-top: 50px;
+}
 .head_search {
   margin-top: 20px;
   width: 70%;

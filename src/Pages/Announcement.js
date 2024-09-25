@@ -37,6 +37,10 @@ const Announcement = () => {
     fetchAnnouncementList();
   }, [nowPage]); // 페이지 변경에 따라 공지사항 목록을 다시 불러옴
 
+  useEffect(() => {
+    window.scrollTo(0, 0); // 페이지 상단으로 스크롤
+  }, [nowPage]);
+
   return (
     <div className="Announcement">
       <Container>

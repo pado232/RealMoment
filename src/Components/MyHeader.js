@@ -60,17 +60,19 @@ const MyHeader = ({ isLoggedIn, onLogout }) => {
   return (
     <header className="MyHeader">
       <div className="head_title">
-        <h1>
-          {homeLogos.length > 0 ? (
-            <div>
-              <a href={homeLogos[0].linkUrl}>
-                <img src={homeLogos[0].imgUrl} alt={`logo`} />
-              </a>
-            </div>
-          ) : (
-            <a href="/">No Logo!!</a>
-          )}
-        </h1>
+        {homeLogos.length > 0 ? (
+          <div>
+            <a href={homeLogos[0].linkUrl}>
+              <img
+                className="logo_img"
+                src={homeLogos[0].imgUrl}
+                alt={`logo`}
+              />
+            </a>
+          </div>
+        ) : (
+          <a href="/">No Logo!!</a>
+        )}
       </div>
       <div className="head_search">
         <div className="head_search_box">

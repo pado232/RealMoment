@@ -64,6 +64,11 @@ const ItemList = () => {
     fetchItem();
   }, [fetchItem, searchTerm, handleCategoryChange]);
 
+  // 페이지가 변경될 때마다 상단으로 스크롤
+  useEffect(() => {
+    window.scrollTo(0, 0); // 페이지 상단으로 스크롤
+  }, [nowPage]);
+
   useEffect(() => {
     setNowPage(1);
   }, [selectedCategory]);
