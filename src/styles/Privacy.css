@@ -5,11 +5,8 @@
 
 .EditInfo .line {
   border-bottom: 3px solid black;
-  margin-bottom: 20px;
 }
-.editinfo_content {
-  width: 70%;
-}
+
 .editinfo_content table th {
   padding: 20px 50px;
   text-align: center;
@@ -27,15 +24,12 @@
   margin-top: 20px;
   text-align: start;
 }
-.EditPassword .editPassword_content {
-}
 .EditPassword .signup_title {
   text-align: start;
   font-weight: lighter;
 
   margin: 5px 10px;
 }
-
 .EditPassword button {
   margin-left: 40px;
   width: 80px;
